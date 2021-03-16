@@ -1,0 +1,29 @@
+<ion-header>
+	<ion-toolbar color="white-theme">
+		<ion-title>ติดต่อ</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list>
+    <ion-item button onclick="" color="theme">
+      <ion-label>facebook : {{facebook}}</ion-label>
+    </ion-item>
+    <ion-item button onclick="" color="theme">
+      <ion-label>Mail: {{mail}}</ion-label>
+    </ion-item>
+    <ion-item button onclick="" color="theme">
+      <ion-label>Line: {{line}}</ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-card>
+    <img src="{{image}}" />
+    <ion-card-header>
+      <ion-card-subtitle>Address</ion-card-subtitle>
+      <ion-card-title>Kai2car</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      {{address}}
+    </ion-card-content>
+  </ion-card>
+</ion-content>

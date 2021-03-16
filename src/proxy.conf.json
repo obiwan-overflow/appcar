@@ -1,0 +1,10 @@
+{
+	"/testproxy/*":{
+		"target": "https://www.kai2car.com/api/index.php?route=test",
+		"changeOrigin": true,
+		"secure": false,
+		"pathRewrite": {
+			"^/testProxy":""
+		}
+	}
+}

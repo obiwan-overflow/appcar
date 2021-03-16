@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar color="theme">
+    <ion-title>รายละเอียดข่าวสาร</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+	<ion-card>
+		<img src="{{image}}">
+		<ion-card-header>
+			<ion-card-subtitle><ion-icon name="time-outline"></ion-icon> {{ date }}</ion-card-subtitle>
+	    	<ion-card-title>{{ title }}</ion-card-title>
+		</ion-card-header>
+		<ion-card-content>
+	    	<ion-text>
+	    		<p>{{detail}}</p>
+	    	</ion-text>
+	  	</ion-card-content>
+	</ion-card>
+	<!-- <div class="card">
+		<img src="{{ image }}">
+		<div class="card-body p-3">
+			<h3>{{ title }}</h3>
+			<small>{{ date }}</small>
+			<div>{{ detail }}</div>
+		</div>
+	</div> -->
+</ion-content>

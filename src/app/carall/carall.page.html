@@ -1,0 +1,104 @@
+<ion-header>
+  <ion-toolbar color="theme">
+    <ion-title>ค้นหารถทั้งหมด</ion-title>
+    <!-- <a routerLink="/car-add" slot="end" class="mr-1"><ion-icon name="add-circle-outline" size="large" color="light"></ion-icon></a> -->
+    <ion-icon name="add-circle-outline" size="large" slot="end" class="mr-1" routerLink="/car-add"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+	<ion-grid>
+		<ion-row>
+			<ion-col size="12">
+				<ion-button expand="block" color="theme" routerLink="/searchcar"><ion-icon name="search-outline"></ion-icon> ค้นหารถตามประเภท</ion-button>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+
+	<!-- <ion-card *ngFor="let listcars of listcar">
+		<ion-row>
+			<ion-col size="12">
+				<ion-text color="theme">
+					<h6 class="name-car" routerLink="/car-detail/{{listcars.id}}">{{listcars.name}}</h6>
+				</ion-text>
+			</ion-col>
+		</ion-row>
+		<ion-row>
+			<ion-col size="6">
+				<div routerLink="/car-detail/{{listcars.id}}">
+					<img src="{{listcars.image}}">	
+				</div>
+			</ion-col>
+			<ion-col size="6">
+				<ion-badge color="primary">{{listcars.type}}</ion-badge> <br>
+				<h6 class="text">ราคา : {{listcars.price}}</h6>
+				<h6 class="text">{{listcars.submodel}}</h6>
+				<br>
+				<ion-button color="warning" size="small" href="tel:+{{listcars.tel}}"><ion-icon name="call-outline"></ion-icon></ion-button>
+				<ion-button color="line" size="small" href="https://line.me/en/{{listcars.line}}"><img src="assets/images/line.png" width="25"></ion-button>
+				<ion-button color="tertiary" size="small" routerLink="/favorites/{{listcars.id}}"><ion-icon name="heart-outline"></ion-icon></ion-button>
+			</ion-col>
+		</ion-row>
+	</ion-card> -->
+	<!-- <ion-card *ngFor="let listcar of listcars">
+		<ion-card-content>
+			<ion-row>
+				<ion-col size="12">
+					<ion-text>
+						<ion-badge color="primary">{{listcar.type}}</ion-badge>
+					</ion-text>
+				</ion-col>
+				<ion-col size="12">
+					<ion-text>
+						<h6>{{listcar.name}}</h6>
+					</ion-text>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col size="7">
+					<img src="{{ listcar.image }}" alt="">
+				</ion-col>
+				<ion-col size="5">
+
+				</ion-col>
+			</ion-row>
+		</ion-card-content>
+	</ion-card> -->
+	<div class="card mb-1" *ngFor="let listcar of listcars">
+		<ion-row>
+			<ion-col size="12">
+				<ion-text color="theme">
+					<h6 class="name-car" routerLink="/car-detail/{{listcar.id}}">{{listcar.name}}</h6>
+				</ion-text>
+			</ion-col>
+		</ion-row>
+		<ion-row>
+			<ion-col size="6">
+				<div routerLink="/car-detail/{{listcar.id}}">
+					<img src="{{listcar.image}}">	
+				</div>
+			</ion-col>
+			<ion-col size="6">
+				<ion-badge color="primary">{{listcar.type}}</ion-badge> <br>
+				<h6 class="text">ราคา : {{listcar.price}}</h6>
+				<h6 class="text">{{listcar.submodel}}</h6>
+				<br>
+				<ion-button color="warning" size="small" href="tel:0914306261"><ion-icon name="call-outline"></ion-icon></ion-button>
+				<ion-button color="line" size="small" href="https://line.me/R/nv/addFriends/{{listcar.line}}"><img src="assets/images/line.png" width="25"></ion-button>
+				<ion-button color="tertiary" size="small" routerLink="/favorites/{{listcar.id}}"><ion-icon name="heart-outline"></ion-icon></ion-button>
+			</ion-col>
+		</ion-row>
+	</div>
+	<ion-grid>
+		<ion-row>
+			<ion-col size="4">
+				<ion-button color="medium" expand="block" routerLink="/carall/{{pagePrev}}/{{pageBrand}}/{{pageType}}"><ion-icon name="chevron-back-outline"></ion-icon> ย้อนกลับ</ion-button>
+			</ion-col>
+			<ion-col size="4">
+				<ion-button color="dark" expand="block">{{page}}</ion-button>
+			</ion-col>
+			<ion-col size="4">
+				<ion-button color="theme" expand="block" routerLink="/carall/{{pageNext}}/{{pageBrand}}/{{pageType}}">ถัดไป <ion-icon name="chevron-forward-outline"></ion-icon></ion-button>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+</ion-content>

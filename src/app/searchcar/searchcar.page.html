@@ -1,0 +1,161 @@
+<ion-header>
+  <ion-toolbar color="theme">
+    <ion-title>ค้นหารถ</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+	<ion-grid>
+		<ion-row>
+			<ion-col size="12">
+				<ion-text color="theme">
+					<h3><strong>เลือกดูตามประเภท</strong></h3>
+				</ion-text>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+	<div class="card">
+		<ion-row>
+			<ion-col size="4">
+				<div class="ion-text-center card" routerLink="/carall/1/0/71">
+					<i class="icon icon-door2"></i><br>
+					<small>รถเก๋ง 2 ประตู</small>
+				</div>
+			</ion-col>
+			<ion-col size="4">
+				<div class="ion-text-center card" routerLink="/carall/1/0/65">
+					<i class="icon icon-door4"></i><br>
+					<small>รถเก๋ง 4 ประตู</small>
+				</div>
+			</ion-col>
+			<ion-col size="4">
+				<div class="ion-text-center card" routerLink="/carall/1/0/67">
+					<i class="icon icon-door5"></i><br>
+					<small>รถเก๋ง 5 ประตู</small>
+				</div>
+			</ion-col>
+			<ion-col size="4">
+				<div class="ion-text-center card" routerLink="/carall/1/0/72">
+					<i class="icon icon-cabriolet"></i><br>
+					<small>รถเปิดประทุน</small>
+				</div>
+			</ion-col>
+			<ion-col size="4">
+				<div class="ion-text-center card" routerLink="/carall/1/0/66">
+					<i class="icon icon-pickup"></i><br>
+					<small>รถกระบะ</small>
+				</div>
+			</ion-col>
+			<ion-col size="4">
+				<div class="ion-text-center card" routerLink="/carall/1/0/69">
+					<i class="icon icon-wagon"></i><br>
+					<small>WAGON</small>
+				</div>
+			</ion-col>
+			<ion-col size="4">
+				<div class="ion-text-center card" routerLink="/carall/1/0/68">
+					<i class="icon icon-suv"></i><br>
+					<small>SUV</small>
+				</div>
+			</ion-col>
+			<ion-col size="4">
+				<div class="ion-text-center card" routerLink="/carall/1/0/73">
+					<i class="icon icon-van"></i><br>
+					<small>รถตู้/MPV</small>
+				</div>
+			</ion-col>
+		</ion-row>
+	</div>
+
+	<ion-grid>
+		<ion-row>
+			<ion-col size="12">
+				<ion-text color="theme">
+					<h3><strong>เลือกดูตามยี่ห้อ</strong></h3>
+				</ion-text>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+	<div class="card">
+		<ion-row>
+			<ion-col size="4" *ngFor="let list of listbrands">
+				<div class="logo-car">
+					<img src="{{list.image}}" routerLink="/carall/1/{{list.id}}/0"><br>
+					<small>{{list.name}}</small>
+				</div>
+			</ion-col>
+			<!-- <ion-col size="4">
+				<div class="logo-car">
+					<img src="assets/images/logocar/l35.png"><br>
+					<small>NISSAN</small>
+				</div>
+			</ion-col>
+			<ion-col size="4">
+				<div class="logo-car">
+					<img src="assets/images/logocar/l16.png"><br>
+					<small>HONDA</small>
+				</div>
+			</ion-col>
+			<ion-col size="4">
+				<div class="logo-car">
+					<img src="assets/images/logocar/l34.png"><br>
+					<small>MITSUBISHI</small>
+				</div>
+			</ion-col>
+			<ion-col size="4">
+				<div class="logo-car">
+					<img src="assets/images/logocar/l5.png"><br>
+					<small>BMW</small>
+				</div>
+			</ion-col>
+			<ion-col size="4">
+				<div class="logo-car">
+					<img src="assets/images/logocar/l51.png"><br>
+					<small>TOYOTA</small>
+				</div>
+			</ion-col>
+			<ion-col size="4">
+				<div class="logo-car">
+					<img src="assets/images/logocar/l15.png"><br>
+					<small>FORD</small>
+				</div>
+			</ion-col>
+			<ion-col size="4">
+				<div class="logo-car">
+					<img src="assets/images/logocar/l31.png"><br>
+					<small>MERCEDES-BENZ</small>
+				</div>
+			</ion-col>
+			<ion-col size="4">
+				<div class="logo-car">
+					<img src="assets/images/logocar/l7.png"><br>
+					<small>CHEVROLET</small>
+				</div>
+			</ion-col>
+			<ion-col size="4">
+				<div class="logo-car">
+					<img src="assets/images/logocar/l20.png"><br>
+					<small>ISUZU</small>
+				</div>
+			</ion-col>
+			<ion-col size="4">
+				<div class="logo-car">
+					<img src="assets/images/logocar/l46.png"><br>
+					<small>SUZUKI</small>
+				</div>
+			</ion-col>
+			<ion-col size="4">
+				<div class="logo-car">
+					<img src="assets/images/logocar/l1.png"><br>
+					<small>ALFA ROMEO</small>
+				</div>
+			</ion-col>
+			<ion-col size="4">
+				<div class="logo-car">
+					<img src="assets/images/logocar/l2.png"><br>
+					<small>ASTON MARTIN</small>
+				</div>
+			</ion-col> -->
+		</ion-row>
+	</div>
+</ion-content>

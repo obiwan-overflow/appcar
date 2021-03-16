@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar color="theme">
+    <ion-title>โปรไพล์</ion-title>
+    <!-- <a routerLink="/profile-setting" slot="end" class="mr-1"><ion-icon name="settings-outline" color="light" size="large"></ion-icon></a> -->
+    <ion-icon name="settings-outline" size="large" slot="end" class="mr-1" routerLink="/profile-setting"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list>
+    <ion-item button>
+      <ion-icon slot="start" name="radio-button-on-sharp" color="warning"></ion-icon>
+      <ion-label>
+        <h3>คุณ {{ name }} มี coin</h3>
+      </ion-label>
+    </ion-item>
+    <ion-item button routerLink="/announce">
+      <ion-icon slot="start" name="car-outline" color="theme"></ion-icon>
+      <ion-label>
+        <h3>รถของฉัน</h3>
+      </ion-label>
+    </ion-item>
+    <ion-item button routerLink="/special-service">
+      <ion-icon slot="start" name="archive-outline" color="theme"></ion-icon>
+      <ion-label>
+        <h3>บริการพิเศษ</h3>
+      </ion-label>
+    </ion-item>
+    <ion-item button routerLink="/favorites">
+      <ion-icon slot="start" name="heart-outline" color="theme"></ion-icon>
+      <ion-label>
+        <h3>รายการโปรด</h3>
+      </ion-label>
+    </ion-item>
+    <ion-item button routerLink="/save">
+      <ion-icon slot="start" name="bookmark-outline" color="theme"></ion-icon>
+      <ion-label>
+        <h3>การค้นหาที่บันทึกไว้</h3>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item button routerLink="/help">
+      <ion-icon slot="start" name="help-circle-outline" color="theme"></ion-icon>
+      <ion-label>
+        <h3>ช่วยเหลือ</h3>
+      </ion-label>
+    </ion-item>
+    <ion-item button routerLink="/logout">
+      <ion-icon slot="start" name="log-out-outline" color="theme"></ion-icon>
+      <ion-label>
+        <h3>ออกจากระบบ</h3>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

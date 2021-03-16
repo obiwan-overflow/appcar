@@ -1,0 +1,43 @@
+/*ul {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+ul li {
+	display: inline-block;
+	padding: 0 10px;
+	border-right: 2px solid #eee;
+	font-size: .8rem;
+}*/
+
+hr {
+	width: 100%;
+	height: 5px;
+	border-bottom: 1px solid #eee;
+}
+
+.search {
+	border-bottom: 1px solid #eee;
+}
+
+/* text */
+.text-detail {
+	font-size: .8rem;
+	margin: 0;
+}
+.text-title {
+	font-size: .9rem;
+	margin: 0;
+	font-weight: bold;
+}
+
+
+/* card */
+.card-body {
+	padding: 10px;
+}
+
+
+#car_id {
+	display: none;
+}

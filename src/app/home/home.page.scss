@@ -1,0 +1,80 @@
+#container {
+  text-align: center;
+
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#container strong {
+  font-size: 20px;
+  line-height: 26px;
+}
+
+#container p {
+  font-size: 16px;
+  line-height: 22px;
+
+  color: #8c8c8c;
+
+  margin: 0;
+}
+
+#container a {
+  text-decoration: none;
+}
+
+ion-input {
+  border: 1px solid #333;
+  border-radius: 7px;
+  background-color: #fff;
+}
+
+
+.ios ion-toolbar {
+  /*margin-top: 10px;*/
+  padding-top: 10px;
+}
+
+/* logo */
+.logo {
+  text-align: center !important;
+  border: 2px solid #f4f4f4;
+  padding: 5px;
+  border-radius: 15px;
+}
+.logo img {
+  height: 70px;
+}
+
+
+/* header */
+.title-header h2{
+  font-weight: bold;
+}
+
+/* card */
+.card {
+  background: #fff;
+  margin-bottom: 20px;
+}
+
+/* margin */
+.mt-0 {
+  margin-top: 0!important;
+}
+.mb-1 {
+  margin-bottom: 1rem;
+}
+
+/* text */
+.text-title {
+  color: #333;
+  font-weight: bold;
+}
+.name-brand {
+  font-size: .8rem;
+  color: #333;
+}

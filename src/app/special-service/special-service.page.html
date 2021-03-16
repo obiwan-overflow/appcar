@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar color="theme">
+    <ion-title>บริการพิเศษ</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+	<div class="card">
+		<ion-grid>
+			<ion-row>
+				<ion-col size="12" class="ion-text-end">
+					<ion-button color="warning" routerLink="/buy-service">ซื้อเหรียญ</ion-button>
+				</ion-col>
+				<ion-col size="12">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>วัน</th>
+								<th>จำนวน</th>
+								<th>ราคา</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let lists of listService">
+								<td>{{lists.date_create}}</td>
+								<td>{{lists.coin}}</td>
+								<td>{{lists.price}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+	</div>
+</ion-content>

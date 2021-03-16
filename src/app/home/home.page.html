@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar color="theme">
+  	<ion-searchbar></ion-searchbar>
+	<!-- <a routerLink="/car-add" slot="end" class="mr-1"><ion-icon name="add-circle-outline" size="large" color="light"></ion-icon></a> -->
+	<ion-icon name="add-circle-outline" size="large" slot="end" class="mr-1" routerLink="/car-add"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+	<ion-grid>
+		<ion-row>
+			<ion-col size="12">
+				<h3 class="text-title">รถราคาพิเศษ + โปรโมชั่น</h3>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+	<div class="card">
+		<ion-slides>
+	        <ion-slide *ngFor="let banners of banner">
+	          <div class="slide">
+	            <img src="{{ banners.image }}"/>
+	          </div>
+	        </ion-slide>
+      	</ion-slides>
+	</div>
+	<div class="card">
+		<ion-grid>
+			<ion-row>
+				<ion-col size="9">
+					<h3 class="text-title">ค้นหารถตามยี่ห้อ</h3>
+				</ion-col>
+				<ion-col size="3">
+					<ion-text class="ion-text-end">
+						<a routerLink="/home" class="link"><h6>ดูทั้งหมด</h6></a>
+					</ion-text>
+				</ion-col>
+			</ion-row>
+			
+			<ion-row>
+				<ion-col size="4" *ngFor="let brands of brand">
+					<div class="logo" routerLink="/carall/1/{{brands.id}}/0">
+						<img src="{{brands.image}}">
+						<h6 class="name-brand mt-0">{{brands.name}}</h6>
+					</div>
+				</ion-col>
+				
+			</ion-row>
+		</ion-grid>
+	</div>
+</ion-content>

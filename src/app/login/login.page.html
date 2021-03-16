@@ -1,0 +1,37 @@
+<!-- <ion-header>
+  <ion-toolbar color="theme">
+    <ion-title>เข้าสู่ระบบ</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+<ion-content [fullscreen]="true">
+	<!-- <form #form="ngForm" (ngSubmit)="login()" >
+		<ion-card class="mt-5">
+		  <ion-card-content>
+		   	<ion-input name="username" class="input" placeholder="Username"></ion-input>
+		    <ion-input name="password" class="input" placeholder="Password"></ion-input>
+		   	<div>{{ status_login }}</div>
+		    <ion-button color="theme" type="submit"  [disabled]="form.invalid">Login</ion-button>
+		  </ion-card-content>
+		</ion-card>
+	</form> -->
+	<form #logInform="ngForm" (ngSubmit)="login(logInform)" >
+		<ion-card class="mt-5">
+		  <ion-card-content>
+		   	<ion-input [(ngModel)]="loginuser.username" name="username" class="input" placeholder="Username"></ion-input>
+		    <ion-input [(ngModel)]="loginuser.password" name="password" class="input" placeholder="Password"></ion-input>
+		   	<div>{{ status_login }}</div>
+		    <ion-button color="theme" type="submit" expand="block" class="btn-login">Login</ion-button>
+		  </ion-card-content>
+		</ion-card>
+	</form>
+	<ion-grid>
+		<ion-row>
+			<ion-col size="12">
+				<ion-button color="theme" expand="block" routerLink="/register"><ion-icon name="person-outline"></ion-icon> สมัครสมาชิกทั่วไป</ion-button>
+			</ion-col>
+			<ion-col size="12">
+				<ion-button color="primary" expand="block" routerLink="/register-company"><ion-icon name="car-sport-outline"></ion-icon> สมัครสมาชิกสำหรับเต็นท์รถ</ion-button>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+</ion-content>

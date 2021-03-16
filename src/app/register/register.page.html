@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar color="theme">
+    <ion-title>register</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+	<ion-card>
+		<ion-card-header>
+			<h3>สมัครสมาชิกทั่วไป</h3>
+		</ion-card-header>
+		<ion-card-content>
+			<ion-button expand="full" class="btn-fb">Register with facebook</ion-button>
+			<ion-text class="ion-text-center">
+				<h3 class="text-or">หรือ</h3>
+			</ion-text>
+			<form #form="ngForm" (ngSubmit)="register(form)">
+				<ion-input [(ngModel)]="data.email" name="email" class="input" placeholder="Email"></ion-input>
+				<ion-input [(ngModel)]="data.password" name="password" class="input" placeholder="Password"></ion-input>
+				<ion-button color="theme" type="submit" expand="full">สมัครสมาชิก</ion-button>
+			</form>
+		</ion-card-content>
+	</ion-card>
+</ion-content>

@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar color="theme">
+    <ion-title>ข่าวสาร</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+	<ion-card *ngFor="let news of news">
+		<img src="{{news.image}}" />
+	  	<ion-card-header>
+		    <ion-card-subtitle><ion-icon name="time-outline"></ion-icon> {{ news.date }}</ion-card-subtitle>
+	    	<ion-card-title routerLink="/news-detail/{{news.id}}">{{news.name}}</ion-card-title>
+	  	</ion-card-header>
+
+	  	<ion-card-content>
+	    	<ion-text>
+	    		<p>{{news.detail}}</p>
+	    	</ion-text>
+	  	</ion-card-content>
+	</ion-card>
+
+	<!-- <div class="card mb-1" *ngFor="let new of news" routerLink="/news-detail/{{new.id}}">
+		<img src="{{new.image}}">
+		<div class="card-body">
+			<small><ion-icon name="time-outline"></ion-icon> {{ new.date }}</small>
+			<div>{{ new.detail }}</div>
+		</div>
+	</div> -->
+</ion-content>

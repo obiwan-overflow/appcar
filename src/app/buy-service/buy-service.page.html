@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar color="theme">
+    <ion-title>ซื้อเหรียญ</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+	<form #Buyform="ngForm" (ngSubmit)="buycoin(Buyform)" >
+	<div class="card">
+		<ion-list>
+		  <ion-radio-group value="1" [(ngModel)]="coin.idcoin" name="idcoin">
+		    <ion-item *ngFor="let listscoin of listcoin">
+		      <ion-label>{{listscoin.coin}} coin {{listscoin.price}} บาท</ion-label>
+		      <ion-radio slot="start" value="{{listscoin.id}}"></ion-radio>
+		    </ion-item>
+		  </ion-radio-group>
+		</ion-list>
+		<ion-grid>
+			<ion-row>
+				<ion-col size="12">
+					<ion-text color="success">
+						{{status_detail}}
+					</ion-text>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col size="12">
+					<ion-button expand="block" color="theme" type="submit">ซื้อ</ion-button>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+	</div>
+	</form>
+</ion-content>

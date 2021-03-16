@@ -1,0 +1,126 @@
+.logo-car {
+	text-align: center;
+}
+.logo-car img {
+	width: 60%;
+}
+
+@font-face {
+  font-family: 'icomoon';
+  src:  url('/assets/fonts/icomoon.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  font-size: 40px;
+  color: #592381;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-line .path1:before {
+  content: "\e916";
+  color: rgb(0, 185, 0);
+}
+.icon-line .path2:before {
+  content: "\e917";
+  margin-left: -1.0400390625em;
+  color: rgb(255, 255, 255);
+}
+.icon-line .path3:before {
+  content: "\e918";
+  margin-left: -1.0400390625em;
+  color: rgb(0, 185, 0);
+}
+.icon-line .path4:before {
+  content: "\e919";
+  margin-left: -1.0400390625em;
+  color: rgb(0, 185, 0);
+}
+.icon-line .path5:before {
+  content: "\e91a";
+  margin-left: -1.0400390625em;
+  color: rgb(0, 185, 0);
+}
+.icon-line .path6:before {
+  content: "\e91b";
+  margin-left: -1.0400390625em;
+  color: rgb(0, 185, 0);
+}
+.icon-coin:before {
+  content: "\e915";
+}
+.icon-trusted:before {
+  content: "\e913";
+}
+.icon-verified:before {
+  content: "\e914";
+}
+.icon-wheel:before {
+  content: "\e90a";
+}
+.icon-update:before {
+  content: "\e90b";
+}
+.icon-type-car:before {
+  content: "\e90c";
+}
+.icon-size-engine:before {
+  content: "\e90d";
+}
+.icon-mile:before {
+  content: "\e90e";
+}
+.icon-gear:before {
+  content: "\e90f";
+}
+.icon-face-car:before {
+  content: "\e910";
+}
+.icon-color:before {
+  content: "\e911";
+}
+.icon-car:before {
+  content: "\e912";
+}
+.icon-cabriolet:before {
+  content: "\e907";
+}
+.icon-type:before {
+  content: "\e908";
+}
+.icon-brand:before {
+  content: "\e909";
+}
+.icon-wagon:before {
+  content: "\e900";
+}
+.icon-van:before {
+  content: "\e901";
+}
+.icon-suv:before {
+  content: "\e902";
+}
+.icon-pickup:before {
+  content: "\e903";
+}
+.icon-door5:before {
+  content: "\e904";
+}
+.icon-door4:before {
+  content: "\e905";
+}
+.icon-door2:before {
+  content: "\e906";
+}

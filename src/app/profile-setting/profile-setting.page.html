@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar color="theme">
+    <ion-title>Profile Setting</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+	<div class="card">
+		<ion-grid>
+			<ion-row>
+				<ion-col size="12">
+					<ion-text color="theme">
+						<h3>ข้อมูลส่วนตัว</h3>
+					</ion-text>
+					<ion-text color="success">
+						<h3>{{status_detail}}</h3>
+					</ion-text>
+				</ion-col>
+			</ion-row>
+			<form #Editform="ngForm" (ngSubmit)="profileEdit(Editform)">
+			<ion-row>
+				<ion-col size="12">
+					<label>รูปภาพโปรไฟล์</label>
+					<!-- <ion-button expand="full">
+						<ion-icon lazy="true" slot="start" name="image"></ion-icon>
+						<ion-label slot="end">Upload Image</ion-label>
+						<input type="file" id="file-input" accept="image/png, image/jpeg">
+					</ion-button> -->
+					<ion-input type="file" [(ngModel)]="profile.profile_photo" name="profile_photo" accept="image/png, image/jpeg"></ion-input>
+				</ion-col>
+				<ion-col size="12">
+					<label>ประเภทสมาชิก</label>
+					<ion-input class="border-input" [(ngModel)]="profile.type" name="type" disabled></ion-input>
+				</ion-col>
+				<ion-col size="12">
+					<label>ชื่อ</label>
+					<ion-input class="border-input" [(ngModel)]="profile.name" name="name"></ion-input>
+				</ion-col>
+				<ion-col size="12">
+					<label>นามสกุล</label>
+					<ion-input class="border-input" [(ngModel)]="profile.surname" name="surname"></ion-input>
+				</ion-col>
+				<ion-col size="12">
+					<label><small>หมายเลขบัตรประจำตัวประชาชน / หมายเลขหนังสือเดินทาง</small></label>
+					<ion-input class="border-input" [(ngModel)]="profile.id_card" name="id_card"></ion-input>
+				</ion-col>
+				<ion-col size="12">
+					<label>เบอร์ติดต่อหลัก</label>
+					<ion-input class="border-input" [(ngModel)]="profile.phone" name="phone"></ion-input>
+				</ion-col>
+				<ion-col size="12">
+					<label>เบอร์ติดต่อสำรอง</label>
+					<ion-input class="border-input" [(ngModel)]="profile.phone1" name="phone1"></ion-input>
+				</ion-col>
+				<ion-col size="12">
+					<label>LINE ID</label>
+					<ion-input class="border-input" [(ngModel)]="profile.line" name="line"></ion-input>
+				</ion-col>
+				<ion-col size="12">
+					<ion-button color="theme" type="sunmit" expand="block">บันทึก</ion-button>
+				</ion-col>
+			</ion-row>
+			</form>
+		</ion-grid>
+	</div>
+</ion-content>

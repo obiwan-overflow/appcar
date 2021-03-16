@@ -1,0 +1,115 @@
+<ion-header>
+  <ion-toolbar color="theme">
+    <ion-title>แก้ไขข้อมูลรถ</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+	<div class="card">
+		<ion-grid>
+			<ion-row>
+				<ion-col size="8">
+					<ion-text color="theme">
+						<h3><strong>ข้อมูลรถยนต์</strong></h3>
+					</ion-text>
+					<ion-text color="success">
+						<h3>{{status_detail}}</h3>
+					</ion-text>
+				</ion-col>
+				<ion-col size="4">
+					<ion-button color="secondary" expand="block" routerLink="/promote/{{car_id}}">โปรโมท</ion-button>
+				</ion-col>
+			</ion-row>
+			<form #form="ngForm" (ngSubmit)="editForm(form)" >
+			<ion-row>
+				<ion-col size="12">
+					<label>ประเภทรถยนต์</label>
+					<ion-select class="border-input" name="type_id" [(ngModel)]="todo.type_id">
+						<ion-select-option value="{{car_type_id}}">{{car_type_name}}</ion-select-option>
+						<ion-select-option value="{{listtypes.id}}" *ngFor="let listtypes of listtype">{{listtypes.text}}</ion-select-option>
+					</ion-select>
+				</ion-col>
+				<ion-col size="12">
+					<label>ยี่ห้อรถยนต์</label>
+					<ion-select class="border-input" name="brand_id" [(ngModel)]="todo.brand_id">
+						<ion-select-option value="{{car_brand}}">{{car_brand_name}}</ion-select-option>
+						<ion-select-option value="{{listbrands.id}}" *ngFor="let listbrands of listbrand">{{listbrands.text}}</ion-select-option>
+					</ion-select>
+				</ion-col>
+				<ion-col size="12">
+					<label>รุ่นรถยนต์</label>
+					<ion-select class="border-input" name="generation_id" [(ngModel)]="todo.generation_id">
+						<ion-select-option value="{{car_model}}">{{car_model_name}}</ion-select-option>
+						<ion-select-option value="{{listgens.id}}" *ngFor="let listgens of listgen">{{listgens.text}}</ion-select-option>
+					</ion-select>
+				</ion-col>
+				<ion-col size="12">
+					<label>โฉมรถยนต์</label>
+					<ion-select class="border-input" name="face_id" [(ngModel)]="todo.face_id">
+						<ion-select-option value="{{car_subtype_id}}">{{car_subtype_name}}</ion-select-option>
+						<ion-select-option value="{{listmodels.id}}" *ngFor="let listmodels of listmodel">{{listmodels.text}}</ion-select-option>
+					</ion-select>
+				</ion-col>
+				<ion-col size="12">
+					<label>รายละเอียดรุ่น</label>
+					<ion-select class="border-input" name="model_id" [(ngModel)]="todo.model_id">
+						<ion-select-option value="{{sub_model}}">{{car_submodel_name}}</ion-select-option>
+						<ion-select-option value="{{listfaces.id}}" *ngFor="let listfaces of listface">{{listfaces.text}}</ion-select-option>
+					</ion-select>
+				</ion-col>
+				<ion-col size="12">
+					<label>ปี</label>
+					<ion-select class="border-input" name="year_id" [(ngModel)]="todo.year_id">
+						<ion-select-option value="{{car_year}}">{{car_year}}</ion-select-option>
+						<ion-select-option value="{{listyears}}" *ngFor="let listyears of listyear">{{listyears}}</ion-select-option>
+					</ion-select>
+				</ion-col>
+				<ion-col size="12">
+					<label>ขนาดเครื่องยนต์</label>
+					<ion-select class="border-input" name="cc_id" [(ngModel)]="todo.cc_id">
+						<ion-select-option value="{{car_cc}}">{{car_cc}}</ion-select-option>
+						<ion-select-option value="{{listccs.text}}" *ngFor="let listccs of listcc">{{listccs.text}}</ion-select-option>
+					</ion-select>
+				</ion-col>
+				<ion-col size="12">
+					<label>ระบบเกียร์</label>
+					<ion-select class="border-input" name="gear_id" [(ngModel)]="todo.gear_id">
+						<ion-select-option value="{{car_gear_id}}">{{car_gear_name}}</ion-select-option>
+						<ion-select-option value="{{listgears.id}}" *ngFor="let listgears of listgear">{{listgears.text}}</ion-select-option>
+					</ion-select>
+				</ion-col>
+				<ion-col size="12">
+					<label>เลขไมล์ </label>
+					<ion-input class="border-input" name="mile" [(ngModel)]="todo.mile"></ion-input>
+				</ion-col>
+				<ion-col size="12">
+					<label>สี </label>
+					<ion-input class="border-input" name="color" [(ngModel)]="todo.color"></ion-input>
+				</ion-col>
+				<ion-col size="12">
+					<label>ราคา </label>
+					<ion-input class="border-input" name="price" [(ngModel)]="todo.price"></ion-input>
+				</ion-col>
+				<ion-col size="12">
+					<label>ทะเบียนรถ </label>
+					<ion-input class="border-input" name="license" [(ngModel)]="todo.license"></ion-input>
+				</ion-col>
+				<ion-col size="12">
+					<label>รายละเอียดเพิ่มเติม</label>
+					<ion-textarea rows="6" cols="20" class="border-input" name="detail" [(ngModel)]="todo.detail"></ion-textarea>
+				</ion-col>
+				<ion-col size="12" *ngFor="let images of car_images">
+					<img src="{{images}}" alt="">
+				</ion-col>
+				<ion-col size="12">
+					<label>รูปภาพรถ </label>
+					<ion-input type="file" accept="image/*" name="image" [(ngModel)]="todo.image"></ion-input>
+				</ion-col>
+				<ion-col size="12">
+					<ion-button color="theme" type="submit" expand="block">บันทึกข้อมูล</ion-button>
+				</ion-col>
+			</ion-row>
+			</form>
+		</ion-grid>
+	</div>
+</ion-content>

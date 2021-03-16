@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar color="theme">
+    <ion-title>registerCompany</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+	<ion-card>
+		<ion-card-header>
+			<h3> สมัครสมาชิกสำหรับเต็นท์รถ</h3>
+		</ion-card-header>
+		<ion-card-content>
+			<ion-button color="primary" expand="full" class="btn-fb">facebook</ion-button>
+			<ion-text class="ion-text-center">
+				<h3 class="text-or">หรือ</h3>
+			</ion-text>
+			<form #form="ngForm" (ngSubmit)="registerCompanyData(form)">
+				<ion-input [(ngModel)]="data.username" name="username" placeholder="ชื่อผู้ใช้ *" class="input"></ion-input>
+				<ion-input [(ngModel)]="data.email" name="email" placeholder="อีเมล *" class="input"></ion-input>
+				<ion-input [(ngModel)]="data.password" name="password" placeholder="รหัสผ่าน *" class="input"></ion-input>
+				<ion-input [(ngModel)]="data.name" name="name" placeholder="ชื่อ *" class="input"></ion-input>
+				<ion-input [(ngModel)]="data.surname" name="surname" placeholder="นามสกุล *" class="input"></ion-input>
+				<ion-input [(ngModel)]="data.id_card" name="id_card" placeholder="หมายเลขบัตรประจำตัวประชาชน / หมายเลขหนังสือเดินทาง" class="input"></ion-input>
+				<ion-input [(ngModel)]="data.company" name="company" placeholder="ชื่อบริษัท *" class="input"></ion-input>
+				<ion-textarea [(ngModel)]="data.address" name="address" placeholder="ที่อยู่บริษัท *" class="input"></ion-textarea>
+				<ion-input [(ngModel)]="data.province" name="province" placeholder="จังหวัด *" class="input"></ion-input>
+				<ion-input [(ngModel)]="data.zone" name="zone" placeholder="บริเวณที่ตั้ง *" class="input"></ion-input>
+				<ion-input [(ngModel)]="data.phone" name="phone" placeholder="เบอร์มือถือ *" class="input"></ion-input>
+				<ion-input [(ngModel)]="data.phone1" name="phone1" placeholder="เบอร์มือถือสำรอง (ถ้ามี)" class="input"></ion-input>
+				<ion-input [(ngModel)]="data.line" name="line" placeholder="LINE ID" class="input"></ion-input>
+				<ion-button type="submit" color="theme" expand="full">สมัครสมาชิก</ion-button>
+			</form>
+		</ion-card-content>
+	</ion-card>
+</ion-content>
