@@ -26,7 +26,11 @@
 						<ion-label slot="end">Upload Image</ion-label>
 						<input type="file" id="file-input" accept="image/png, image/jpeg">
 					</ion-button> -->
-					<ion-input type="file" [(ngModel)]="profile.profile_photo" name="profile_photo" accept="image/png, image/jpeg"></ion-input>
+					<!-- <ion-input type="file" [(ngModel)]="profile.profile_photo" name="profile_photo" accept="image/png, image/jpeg"></ion-input> -->
+					{{profile_photo}}
+					<ion-button color="secondary" expand="block" (click)="takePhoto()">
+			          <ion-icon name="image-outline"></ion-icon>
+			        </ion-button>
 				</ion-col>
 				<ion-col size="12">
 					<label>ประเภทสมาชิก</label>

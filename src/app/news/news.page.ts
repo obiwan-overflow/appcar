@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 import { RestApiService } from '../rest-api.service';
 
 @Component({
@@ -20,11 +19,11 @@ export class NewsPage implements OnInit {
       // loading.dismiss();
     });
   }
-  	new = [
-		{img: 'assets/images/banner/banner.jpg'},
-		{img: 'assets/images/banner/banner.jpg'},
-		{img: 'assets/images/banner/banner.jpg'}
-	];
+ //  	new = [
+	// 	{img: 'assets/images/banner/banner.jpg'},
+	// 	{img: 'assets/images/banner/banner.jpg'},
+	// 	{img: 'assets/images/banner/banner.jpg'}
+	// ];
 
   ngOnInit() {
   }

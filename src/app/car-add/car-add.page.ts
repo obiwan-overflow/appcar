@@ -2,23 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { RestApiService } from '../rest-api.service';
 import { Storage } from '@ionic/storage';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
-// interface datacar{
-//   type_id:any,
-//   brand_id:any,
-//   generation_id:any,
-//   face_id:any,
-//   model_id:any,
-//   year_id:any,
-//   cc_id:any,
-//   gear_id:any,
-//   mile:any,
-//   color:any,
-//   price:any,
-//   license:any,
-//   detail:any,
-//   image:any,
-//   yb:any
-// }
+import { ActivatedRoute, Router } from '@angular/router';
+
 @Component({
   selector: 'app-car-add',
   templateUrl: './car-add.page.html',
@@ -45,24 +30,8 @@ export class CarAddPage implements OnInit {
 
   cardata:CardataAdd;
   // public cardata:datacar;
-  constructor(public api:RestApiService,private storage:Storage) {
-    // this.cardata = {
-    //   type_id:'',
-    //   brand_id:'',
-    //   generation_id:'',
-    //   face_id:'',
-    //   model_id:'',
-    //   year_id:'',
-    //   cc_id:'',
-    //   gear_id:'',
-    //   mile:'',
-    //   color:'',
-    //   price:'',
-    //   license:'',
-    //   detail:'',
-    //   image:'',
-    //   yb:''
-    // } 
+  constructor(public api:RestApiService,private storage:Storage,public route:Router) {
+
     this.api.getdata('cars/getListType').subscribe(res=>{this.listtype = res;});
     this.api.getdata('cars/getListBand').subscribe(res=>{this.listbrand = res;});
     this.api.getdata('cars/getListYear').subscribe(res=>{this.listyear = res;});
@@ -104,6 +73,7 @@ export class CarAddPage implements OnInit {
           this.api.getdata('cars/addCar&token='+this.token+'&title='+this.title+'&type_id='+this.cardata.type_id+'&brand_id='+this.cardata.brand_id+'&generation_id='+this.cardata.generation_id+'&face_id='+this.cardata.face_id+'&model_id='+this.cardata.model_id+'&year_id='+this.cardata.year_id+'&cc_id='+this.cardata.cc_id+'&gear_id='+this.cardata.gear_id+'&mile='+this.cardata.mile+'&color='+this.cardata.color+'&price='+this.cardata.price+'&license='+this.cardata.license+'&detail='+this.cardata.detail+'&image='+this.cardata.image).subscribe(
             res=>{
               console.log(res);
+              this.route.navigate(['announce']);
             },err=>{
               console.log(err);
             }

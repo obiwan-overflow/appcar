@@ -30,7 +30,7 @@ export class LoginPage implements OnInit {
         this.loginDetail = res;
         if(this.loginDetail.result == "success"){
           this.status_login = this.loginDetail.result;
-          this.storage.set('token', this.loginDetail.token).then((data)=>{
+          this.storage.set('token', this.loginDetail.token).then((response)=>{
             this.route.navigate(['/home']);
           });
         }

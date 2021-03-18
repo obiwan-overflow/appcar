@@ -23,5 +23,10 @@ export class ProfilePage implements OnInit {
 
   ngOnInit() {
   }
+  logout(){
+    this.storage.remove('token').then((data)=>{
+      this.route.navigate(['login']);
+    })
+  }
 
 }

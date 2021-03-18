@@ -8,8 +8,8 @@ import { Storage } from '@ionic/storage';
   styleUrls: ['./announce.page.scss'],
 })
 export class AnnouncePage implements OnInit {
-  listcar:any;
-  token:any;
+  public listcar:any;
+  public token:any;
   constructor(public api: RestApiService,private storage: Storage) {
     this.storage.get('token').then((data)=>{
       this.token = data;

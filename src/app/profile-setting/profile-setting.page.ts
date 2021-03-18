@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { RestApiService } from '../rest-api.service';
 import { Storage } from '@ionic/storage';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+
 
 
 @Component({
@@ -23,7 +25,13 @@ export class ProfileSettingPage implements OnInit {
   profile: ProfileEdit;
   // profile:dataUserDetail;
 
-  constructor(public api:RestApiService,private storage: Storage,public route:Router) {
+  esponseData: {};
+  imgData = {"imageB64":""}
+  public profile_photo: any;
+  public getImage: any;
+  public base64Image: string;
+
+  constructor(public api:RestApiService,private storage: Storage,public route:Router,private camera : Camera) {
     this.storage.get('token').then((data) => {
       this.token = data;
       this.api.getdata('profile/getProfile&token='+this.token).subscribe(
@@ -56,12 +64,13 @@ export class ProfileSettingPage implements OnInit {
 
   ngOnInit():void {
     this.profile = new ProfileEdit();
+    this.profile_photo = [];
   }
 
   profileEdit(){
     this.storage.get('token').then((data)=>{
       this.token = data;
-      this.api.getdata('profile/editProfile&token='+this.token+'&profile_photo='+this.profile.profile_photo+'&name='+this.profile.name+'&surname='+this.profile.surname+'&id_card='+this.profile.id_card+'&phone='+this.profile.phone+'&phone1='+this.profile.phone1+'&line='+this.profile.line).subscribe(
+      this.api.getdata('profile/editProfile&token='+this.token+'&profile_photo='+this.profile_photo+'&name='+this.profile.name+'&surname='+this.profile.surname+'&id_card='+this.profile.id_card+'&phone='+this.profile.phone+'&phone1='+this.profile.phone1+'&line='+this.profile.line).subscribe(
         res=>{
           this.status_update = res;
           if(this.status_update.result == "success"){
@@ -72,6 +81,27 @@ export class ProfileSettingPage implements OnInit {
         }
       )
     })
+  }
+  takePhoto() {
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      targetWidth: 450,
+      targetHeight: 450,
+      saveToPhotoAlbum: false,
+      correctOrientation: true
+    };
+    this.camera.getPicture(options).then(
+      imageData => {
+        this.base64Image = "data:image/jpeg;base64," + imageData;
+        this.profile_photo.push(this.base64Image);
+        this.profile_photo.reverse();
+        // this.getPhoto = photoData;
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
  }
  class ProfileEdit {
