@@ -20,17 +20,20 @@
 			<form #Editform="ngForm" (ngSubmit)="profileEdit(Editform)">
 			<ion-row>
 				<ion-col size="12">
-					<label>รูปภาพโปรไฟล์</label>
+					<!-- <label>รูปภาพโปรไฟล์</label> -->
 					<!-- <ion-button expand="full">
 						<ion-icon lazy="true" slot="start" name="image"></ion-icon>
 						<ion-label slot="end">Upload Image</ion-label>
 						<input type="file" id="file-input" accept="image/png, image/jpeg">
 					</ion-button> -->
 					<!-- <ion-input type="file" [(ngModel)]="profile.profile_photo" name="profile_photo" accept="image/png, image/jpeg"></ion-input> -->
-					{{profile_photo}}
-					<ion-button color="secondary" expand="block" (click)="takePhoto()">
+					<!-- <ion-button color="secondary" expand="block" (click)="takePhoto()">
 			          <ion-icon name="image-outline"></ion-icon>
-			        </ion-button>
+			        </ion-button> -->
+			        <img class="user-profile-img" src="{{userImg}}" alt="" (click) = "openGallery()">
+			        <!-- <ion-button color="secondary" expand="block" (click)="openGallery()">
+			          <ion-icon name="image-outline"></ion-icon>
+			        </ion-button> -->
 				</ion-col>
 				<ion-col size="12">
 					<label>ประเภทสมาชิก</label>

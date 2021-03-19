@@ -1,6 +1,6 @@
 {
-	"/testproxy/*":{
-		"target": "https://www.kai2car.com/api/index.php?route=test",
+	"/*":{
+		"target": "https://www.kai2car.com/api/",
 		"changeOrigin": true,
 		"secure": false,
 		"pathRewrite": {

@@ -25,15 +25,26 @@ export class ProfileSettingPage implements OnInit {
   profile: ProfileEdit;
   // profile:dataUserDetail;
 
-  esponseData: {};
-  imgData = {"imageB64":""}
-  public profile_photo: any;
-  public getImage: any;
-  public base64Image: string;
+  // esponseData: {};
+  // imgData = {"imageB64":""}
+  // public profile_photo: any;
+  // public getImage: any;
+  // public base64Image: string;
+
+  userImg: any = '';
+  base64Img = '';
+  gelleryOptions: CameraOptions = {
+    quality: 60,
+    sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+    destinationType: this.camera.DestinationType.DATA_URL,
+    allowEdit: true
+  }
 
   constructor(public api:RestApiService,private storage: Storage,public route:Router,private camera : Camera) {
+    this.userImg = 'assets/icon/favicon.png';
     this.storage.get('token').then((data) => {
       this.token = data;
+      console.log(this.token);
       this.api.getdata('profile/getProfile&token='+this.token).subscribe(
         res=>{
           this.datauser = res;
@@ -64,44 +75,86 @@ export class ProfileSettingPage implements OnInit {
 
   ngOnInit():void {
     this.profile = new ProfileEdit();
-    this.profile_photo = [];
+    // this.profile_photo = [];
   }
 
   profileEdit(){
     this.storage.get('token').then((data)=>{
       this.token = data;
-      this.api.getdata('profile/editProfile&token='+this.token+'&profile_photo='+this.profile_photo+'&name='+this.profile.name+'&surname='+this.profile.surname+'&id_card='+this.profile.id_card+'&phone='+this.profile.phone+'&phone1='+this.profile.phone1+'&line='+this.profile.line).subscribe(
-        res=>{
-          this.status_update = res;
-          if(this.status_update.result == "success"){
-            this.route.navigate(['profile']);
-          }
+      // var headers = new Headers();
+      //   headers.append("Accept", 'application/json');
+      //   headers.append('Content-Type', 'application/json' );
+      // const requestOptions = new HttpHeaders({ headers: headers });
+      // const requestOptions = { headers: new HttpHeaders({'Content-Type': 'application/json'})};
+      let postData = {
+        "profile_photo": this.userImg,
+        "name": this.profile.name,
+        "surname": this.profile.surname,
+        "id_card": this.profile.id_card,
+        "phone": this.profile.phone,
+        "phone1": this.profile.phone1,
+        "line": this.profile.line
+      }
+      // this.api.postdata(this.token,postData).subscribe(res=>{console.log(res)},err=>{console.log(err)});
+      // this.api.postdata(this.token,postData).subscribe(
+      //   res=>{
+      //     console.log(res);
+      //   },err=>{
+      //     console.log(err);
+      //   }
+      // )
+      this.api.postdata('profile/editProfile&token='+this.token,postData).subscribe(res=>{
+          console.log(res);
         },err=>{
           console.log(err);
         }
       )
+      // this.http.post("https://www.kai2car.com/api/index.php?route=profile/editProfile&token="+this.token, postData, requestOptions).subscribe(res => {
+      //   console.log(res);
+      // }, error => {
+      //   console.log(error);
+      // });
+      // this.api.getdata('profile/editProfile&token='+this.token+'&profile_photo='+this.userImg+'&name='+this.profile.name+'&surname='+this.profile.surname+'&id_card='+this.profile.id_card+'&phone='+this.profile.phone+'&phone1='+this.profile.phone1+'&line='+this.profile.line).subscribe(
+      //   res=>{
+      //     this.status_update = res;
+      //     if(this.status_update.result == "success"){
+      //       this.route.navigate(['profile']);
+      //     }
+      //   },err=>{
+      //     console.log(err);
+      //   }
+      // )
     })
   }
-  takePhoto() {
-    const options: CameraOptions = {
-      quality: 100,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      targetWidth: 450,
-      targetHeight: 450,
-      saveToPhotoAlbum: false,
-      correctOrientation: true
-    };
-    this.camera.getPicture(options).then(
-      imageData => {
-        this.base64Image = "data:image/jpeg;base64," + imageData;
-        this.profile_photo.push(this.base64Image);
-        this.profile_photo.reverse();
-        // this.getPhoto = photoData;
-      },
-      err => {
-        console.log(err);
-      }
-    );
+  // takePhoto() {
+  //   const options: CameraOptions = {
+  //     quality: 100,
+  //     destinationType: this.camera.DestinationType.DATA_URL,
+  //     targetWidth: 450,
+  //     targetHeight: 450,
+  //     saveToPhotoAlbum: false,
+  //     correctOrientation: true
+  //   };
+  //   this.camera.getPicture(options).then(
+  //     imageData => {
+  //       this.base64Image = "data:image/jpeg;base64," + imageData;
+  //       this.profile_photo.push(this.base64Image);
+  //       this.profile_photo.reverse();
+  //       this.getPhoto = photoData;
+  //     },
+  //     err => {
+  //       console.log(err);
+  //     }
+  //   );
+  // }
+  openGallery() {
+    this.camera.getPicture(this.gelleryOptions).then((imgData) => {
+     console.log('image data =>  ', imgData);
+     this.base64Img = 'data:image/jpeg;base64,' + imgData;
+     this.userImg = this.base64Img;
+     }, (err) => {
+     console.log(err);
+     })
   }
  }
  class ProfileEdit {
