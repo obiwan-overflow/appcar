@@ -1,10 +1,10 @@
 {
-	"/*":{
-		"target": "https://www.kai2car.com/api/",
+	"/api/*":{
+		"target": "https://www.kai2car.com/api",
 		"changeOrigin": true,
 		"secure": false,
 		"pathRewrite": {
-			"^/testProxy":""
+			"^/api":""
 		}
 	}
 }

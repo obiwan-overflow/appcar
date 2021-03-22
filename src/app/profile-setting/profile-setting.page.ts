@@ -44,10 +44,10 @@ export class ProfileSettingPage implements OnInit {
     this.userImg = 'assets/icon/favicon.png';
     this.storage.get('token').then((data) => {
       this.token = data;
-      console.log(this.token);
       this.api.getdata('profile/getProfile&token='+this.token).subscribe(
         res=>{
           this.datauser = res;
+          console.log(this.datauser);
           this.profile.profile_photo = this.datauser.Profile_photo;
           this.profile.type = this.datauser.Type;
           this.profile.name = this.datauser.Name;
@@ -86,7 +86,8 @@ export class ProfileSettingPage implements OnInit {
       //   headers.append('Content-Type', 'application/json' );
       // const requestOptions = new HttpHeaders({ headers: headers });
       // const requestOptions = { headers: new HttpHeaders({'Content-Type': 'application/json'})};
-      let postData = {
+      var postData = {
+        "token": this.token,
         "profile_photo": this.userImg,
         "name": this.profile.name,
         "surname": this.profile.surname,
@@ -103,8 +104,13 @@ export class ProfileSettingPage implements OnInit {
       //     console.log(err);
       //   }
       // )
-      this.api.postdata('profile/editProfile&token='+this.token,postData).subscribe(res=>{
+      // console.log(postData);
+      // this.api.postdata('profile/editProfile&token='+this.token,postData).subscribe(res=>{
+      this.api.postdata('profile/editProfile',postData).subscribe(res=>{
           console.log(res);
+          // if(res.result == "success"){
+          //   this.route.navigate(['/profile']);
+          // }
         },err=>{
           console.log(err);
         }

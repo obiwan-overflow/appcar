@@ -5,11 +5,16 @@ import { catchError, tap, map } from 'rxjs/operators';
 
 
 const httpOptions = {
-	headers: new HttpHeaders({'Content-Type': 'application/json'})
+	// headers: new HttpHeaders({'Content-Type': 'application/json'})
 	// headers: new HttpHeaders({'Access-Control-Allow-Origin': '*'})
+	headers: new HttpHeaders({
+		// 'Accept': 'application/json',
+		'Content-Type': 'application/x-www-form-urlencoded'
+	})
 };
-const apiUrl = "https://www.kai2car.com/api/index.php?route=";
+// const apiUrl = "https://www.kai2car.com/api/index.php?route=";
 // const apiUrl = "http://localhost/af1_web/public_html/api/ajax/api_app.php?type=";
+const apiUrl = "/api/index.php?route=";
 
 @Injectable({
   providedIn: 'root'
@@ -66,15 +71,10 @@ export class RestApiService {
 	    // this.http.options('*', cors(corsOptions));
 		return this.http.post(url,file,{headers:{'Access-Control-Allow-Origin':"*"}});
 	}
-	postdata(url_string: string,postData: any): Observable<any> { 
-		// const body = new FormData();
-  //   	body.append('test', `${postData}`);
+	postdata(url_string: any,postData: any): Observable<any> { 
 		const url = `${apiUrl}${url_string}`;
-		return this.http.post(url,postData,httpOptions);
+		// console.log('start');
+		// console.log(postData);
+		return this.http.post<any>(url,postData,httpOptions);
 	}
-	// postdata(token:any,postData:any): Observable<any> { 
-	// 	const url = `${apiUrl}profile/editProfile&token=`+token;
-	// 	return this.http.post(url,postData,{headers:{'Access-Control-Allow-Origin':"*"}});
-	// 	return this.http.post(url,postData,httpOptions);
-	// }
 }
