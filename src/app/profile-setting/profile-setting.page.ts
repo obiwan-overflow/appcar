@@ -86,16 +86,28 @@ export class ProfileSettingPage implements OnInit {
       //   headers.append('Content-Type', 'application/json' );
       // const requestOptions = new HttpHeaders({ headers: headers });
       // const requestOptions = { headers: new HttpHeaders({'Content-Type': 'application/json'})};
-      var postData = {
-        "token": this.token,
-        "profile_photo": this.userImg,
-        "name": this.profile.name,
-        "surname": this.profile.surname,
-        "id_card": this.profile.id_card,
-        "phone": this.profile.phone,
-        "phone1": this.profile.phone1,
-        "line": this.profile.line
-      }
+
+
+      // var formData = {
+      //   "token": this.token,
+      //   "profile_photo": this.userImg,
+      //   "name": this.profile.name,
+      //   "surname": this.profile.surname,
+      //   "id_card": this.profile.id_card,
+      //   "phone": this.profile.phone,
+      //   "phone1": this.profile.phone1,
+      //   "line": this.profile.line
+      // }
+
+      const formData = new FormData();
+      formData.append('token',this.token);
+      formData.append('profile_photo',this.userImg);
+      formData.append('name',this.profile.name);
+      formData.append('surname',this.profile.surname);
+      formData.append('id_card',this.profile.id_card);
+      formData.append('phone',this.profile.phone);
+      formData.append('phone1',this.profile.phone1);
+      formData.append('line',this.profile.line);
       // this.api.postdata(this.token,postData).subscribe(res=>{console.log(res)},err=>{console.log(err)});
       // this.api.postdata(this.token,postData).subscribe(
       //   res=>{
@@ -104,9 +116,9 @@ export class ProfileSettingPage implements OnInit {
       //     console.log(err);
       //   }
       // )
-      // console.log(postData);
+      // console.log(formData);
       // this.api.postdata('profile/editProfile&token='+this.token,postData).subscribe(res=>{
-      this.api.postdata('profile/editProfile',postData).subscribe(res=>{
+      this.api.postdata('profile/editProfile',formData).subscribe(res=>{
           console.log(res);
           // if(res.result == "success"){
           //   this.route.navigate(['/profile']);

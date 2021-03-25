@@ -9,7 +9,8 @@ const httpOptions = {
 	// headers: new HttpHeaders({'Access-Control-Allow-Origin': '*'})
 	headers: new HttpHeaders({
 		// 'Accept': 'application/json',
-		'Content-Type': 'application/x-www-form-urlencoded'
+	 	'Accept': 'application/json',
+		'Content-Type': 'application/json'
 	})
 };
 // const apiUrl = "https://www.kai2car.com/api/index.php?route=";
@@ -71,10 +72,12 @@ export class RestApiService {
 	    // this.http.options('*', cors(corsOptions));
 		return this.http.post(url,file,{headers:{'Access-Control-Allow-Origin':"*"}});
 	}
-	postdata(url_string: any,postData: any): Observable<any> { 
+	postdata(url_string: any,formData: any): Observable<any> { 
 		const url = `${apiUrl}${url_string}`;
 		// console.log('start');
 		// console.log(postData);
-		return this.http.post<any>(url,postData,httpOptions);
+		return this.http.post<string>(url,formData).pipe(
+      		catchError(this.handleError)
+    	);
 	}
 }
