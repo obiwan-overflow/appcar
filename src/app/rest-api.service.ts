@@ -13,9 +13,9 @@ const httpOptions = {
 		'Content-Type': 'application/json'
 	})
 };
-// const apiUrl = "https://www.kai2car.com/api/index.php?route=";
+const apiUrl = "https://www.kai2car.com/api/index.php?route=";
 // const apiUrl = "http://localhost/af1_web/public_html/api/ajax/api_app.php?type=";
-const apiUrl = "/api/index.php?route=";
+// const apiUrl = "/api/index.php?route=";
 
 @Injectable({
   providedIn: 'root'

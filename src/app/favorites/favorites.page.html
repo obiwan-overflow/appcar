@@ -11,20 +11,20 @@
 					<img src="{{lists.image}}">
 					<div class="card-body">
 						<ion-text color="theme">
-							<p class="my-0"><strong>{{lists.title}}</strong></p>
+							<p class="my-0">{{lists.title}}</p>
 						</ion-text>
 						<br>
 						<p class="my-0">{{lists.price}} บาท</p>
 					</div>
 					<ion-row>
-						<ion-col size="6">
+						<!-- <ion-col size="6">
 							<ion-button routerLink="/car-detail/{{lists.id}}" expand="block" color="tertiary" size="small">ข้อมูลรถ</ion-button>
-						</ion-col>
-						<ion-col size="6">
+						</ion-col> -->
+						<ion-col size="12">
 							<!-- <ion-button routerLink="/favorites-del/{{lists.id}}" expand="block" color="danger" size="small">
 								<ion-icon name="trash-outline"></ion-icon>
 							</ion-button> -->
-							<ion-button expand="block" color="danger" size="small" (click)="delCar($event)" id="{{lists.id}}">
+							<ion-button expand="block" color="danger" fill="solid" (click)="delCar($event)" id="{{lists.id}}">
 								<ion-icon name="trash-outline"></ion-icon>
 							</ion-button>
 						</ion-col>

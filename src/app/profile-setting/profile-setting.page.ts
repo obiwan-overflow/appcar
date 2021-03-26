@@ -122,9 +122,9 @@ export class ProfileSettingPage implements OnInit {
       // this.api.postdata('profile/editProfile&token='+this.token,postData).subscribe(res=>{
       this.api.postdata('profile/editProfile',formData).subscribe(res=>{
           console.log(res);
-          // if(res.result == "success"){
-          //   this.route.navigate(['/profile']);
-          // }
+          if(res.result == "success"){
+            this.route.navigate(['/profile']);
+          }
         },err=>{
           console.log(err);
         }
