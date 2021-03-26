@@ -41,7 +41,6 @@ export class ProfileSettingPage implements OnInit {
   }
 
   constructor(public api:RestApiService,private storage: Storage,public route:Router,private camera : Camera) {
-    this.userImg = 'assets/icon/favicon.png';
     this.storage.get('token').then((data) => {
       this.token = data;
       this.api.getdata('profile/getProfile&token='+this.token).subscribe(
@@ -56,6 +55,9 @@ export class ProfileSettingPage implements OnInit {
           this.profile.phone = this.datauser.Phone;
           this.profile.phone1 = this.datauser.Phone1;
           this.profile.line = this.datauser.Line;
+
+          // this.userImg = 'assets/icon/favicon.png';
+          this.userImg = this.datauser.Profile_photo;
           // this.profile = {
           //   profile_photo:this.datauser.Profile_photo,
           //   type:this.datauser.Type,
