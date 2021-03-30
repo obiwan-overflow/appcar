@@ -8,7 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./car-detail.page.scss'],
 })
 export class CarDetailPage implements OnInit {
-
+  defaultHref = '';
   cardetail:any;
   car_id:any;
   price:any;
@@ -58,6 +58,9 @@ export class CarDetailPage implements OnInit {
   }
 
   ngOnInit() {
+  }
+  ionViewDidEnter() {
+    this.defaultHref = 'carall/1/0/0';
   }
 
 }

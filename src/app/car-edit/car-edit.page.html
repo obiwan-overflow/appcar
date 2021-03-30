@@ -1,5 +1,8 @@
 <ion-header>
   <ion-toolbar color="theme">
+  	<ion-buttons slot="start">
+      <ion-back-button defaultHref="/announce"></ion-back-button>
+    </ion-buttons>
     <ion-title>แก้ไขข้อมูลรถ</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -98,13 +101,16 @@
 					<label>รายละเอียดเพิ่มเติม</label>
 					<ion-textarea rows="6" cols="20" class="border-input" name="detail" [(ngModel)]="todo.detail"></ion-textarea>
 				</ion-col>
-				<ion-col size="12" *ngFor="let images of car_images">
+				<!-- <ion-col size="12" *ngFor="let images of car_images">
 					<img src="{{images}}" alt="">
-				</ion-col>
+				</ion-col> -->
 				<ion-col size="12">
+					<img class="user-profile-img" [src]="userImg" alt="" (click)="openGallery()">
+				</ion-col>
+				<!-- <ion-col size="12">
 					<label>รูปภาพรถ </label>
 					<ion-input type="file" accept="image/*" name="image" [(ngModel)]="todo.image"></ion-input>
-				</ion-col>
+				</ion-col> -->
 				<ion-col size="12">
 					<ion-button color="theme" type="submit" expand="block">บันทึกข้อมูล</ion-button>
 				</ion-col>

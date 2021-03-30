@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RestApiService } from '../rest-api.service';
 import { Storage } from '@ionic/storage';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { AlertController, LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +15,7 @@ export class LoginPage implements OnInit {
   loginDetail:any;
   status_login:any;
   loginuser: Loginuser;
-  constructor(public api: RestApiService,private storage: Storage,public route: Router) { 
+  constructor(public api: RestApiService,private storage: Storage,public route: Router,public alertController:AlertController,public loadingController: LoadingController) { 
     
   }
 
@@ -23,16 +23,22 @@ export class LoginPage implements OnInit {
     this.loginuser = new Loginuser();
   }
 
-  login(){
+  async login(){
     // console.log(this.loginuser); 
-    this.api.getdata('login&username='+this.loginuser.username+'&password='+this.loginuser.password).subscribe(
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Please wait...',
+      duration: 2000
+    });
+    await this.api.getdata('login&username='+this.loginuser.username+'&password='+this.loginuser.password).subscribe(
       res=>{
         this.loginDetail = res;
         if(this.loginDetail.result == "success"){
           this.status_login = this.loginDetail.result;
           this.storage.set('token', this.loginDetail.token).then((data)=>{
-            this.route.navigate(['/home']);
+            this.route.navigateByUrl('/home');
           });
+          loading.present();
         }
       },err=>{
         console.log(err);

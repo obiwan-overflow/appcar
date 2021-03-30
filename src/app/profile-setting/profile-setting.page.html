@@ -30,7 +30,7 @@
 					<!-- <ion-button color="secondary" expand="block" (click)="takePhoto()">
 			          <ion-icon name="image-outline"></ion-icon>
 			        </ion-button> -->
-			        <img class="user-profile-img" src="{{userImg}}" alt="" (click) = "openGallery()">
+			        <img class="user-profile-img" [src]="userImg" alt="" (click)="openGallery()">
 			        <!-- <ion-button color="secondary" expand="block" (click)="openGallery()">
 			          <ion-icon name="image-outline"></ion-icon>
 			        </ion-button> -->

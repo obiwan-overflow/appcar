@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RestApiService } from '../rest-api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
 @Component({
   selector: 'app-car-edit',
@@ -50,27 +51,25 @@ export class CarEditPage implements OnInit {
   val_brand:any;
   val_gen:any;
 
-  // type_id:any;
-  // brand_id:any;
-  // generation_id:any;
-  // face_id:any;
-  // model_id:any;
-  // year_id:any;
-  // cc_id:any;
-  // gear_id:any;
-  // mile:any;
-  // color:any;
-  // price:any;
-  // license:any;
-  // detail:any;
-  // image:any;
-  // todo:any;
   todo:CarEdit;
-  constructor(public api:RestApiService,public route:ActivatedRoute,private storage:Storage) {
+
+  userImg: any = '';
+  base64Img = '';
+  gelleryOptions: CameraOptions = {
+    quality: 60,
+    sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+    destinationType: this.camera.DestinationType.DATA_URL,
+    allowEdit: true
+  }
+  constructor(public api:RestApiService,public route:ActivatedRoute,private storage:Storage,private camera : Camera) {
+    
+  }
+
+  async ionViewWillEnter(){
     this.car_id = this.route.snapshot.paramMap.get('id');
     this.api.getdata('cars/getCarDetail&id='+this.car_id).subscribe(
       res=>{
-        // console.log(res);
+        console.log(res);
         this.car_mile = res.mileage;
         this.car_price = res.price;
         this.car_label = res.label;
@@ -115,23 +114,8 @@ export class CarEditPage implements OnInit {
         this.todo.price = this.car_price;
         this.todo.license = this.car_label;
         this.todo.detail = this.car_detail;
-        this.todo.image = this.car_images;
-        // this.todo = {
-        //   type_id:this.car_type_id,
-        //   brand_id:this.car_brand,
-        //   generation_id:this.car_model,
-        //   face_id:this.car_body,
-        //   model_id:this.sub_model,
-        //   year_id:this.car_year,
-        //   cc_id:this.car_cc,
-        //   gear_id:this.car_gear,
-        //   mile:this.car_mile,
-        //   color:this.car_color,
-        //   price:this.car_price,
-        //   license:this.car_label,
-        //   detail:this.car_detail,
-        //   image:this.car_images
-        // }
+        this.userImg = this.car_images;
+
       }
     );
   }
@@ -140,7 +124,7 @@ export class CarEditPage implements OnInit {
     this.todo = new CarEdit();
   }
   
-  editForm(){
+  async editForm(){
     this.storage.get('token').then((data)=>{
       this.token = data;
       // console.log(this.todo);
@@ -149,16 +133,52 @@ export class CarEditPage implements OnInit {
         this.api.getdata('cars/getGeneration&id='+this.todo.generation_id).subscribe(res=>{
           this.val_gen = res;
           this.title = this.todo.year_id+" "+this.val_brand.text+" "+this.val_gen.text;
-          this.api.getdata('cars/editCar&token='+this.token+'&id='+this.car_id+'&title='+this.title+'&type_id='+this.todo.type_id+'&brand_id='+this.todo.brand_id+'&generation_id='+this.todo.generation_id+'&face_id='+this.todo.model_id+'&model_id='+this.todo.face_id+'&year_id='+this.todo.year_id+'&cc_id='+this.todo.cc_id+'&gear_id='+this.todo.gear_id+'&color='+this.todo.color+'&mile='+this.todo.mile+'&license='+this.todo.license+'&detail='+this.todo.detail+'&price='+this.todo.price+'&image='+this.todo.image).subscribe(
-            res=>{
+
+          const formData = new FormData();
+          formData.append('token',this.token);
+          formData.append('id',this.car_id);
+          formData.append('title',this.title);
+          formData.append('type_id',this.todo.type_id);
+          formData.append('brand_id',this.todo.brand_id);
+          formData.append('generation_id',this.todo.generation_id);
+          formData.append('face_id',this.todo.face_id);
+          formData.append('model_id',this.todo.model_id);
+          formData.append('year_id',this.todo.year_id);
+          formData.append('cc_id',this.todo.cc_id);
+          formData.append('gear_id',this.todo.gear_id);
+          formData.append('color',this.todo.color);
+          formData.append('mile',this.todo.mile);
+          formData.append('license',this.todo.license);
+          formData.append('detail',this.todo.detail);
+          formData.append('price',this.todo.price);
+          formData.append('images',this.userImg);
+          formData.append('image',this.userImg);
+
+          this.api.postdata('cars/editCar',formData).subscribe(res=>{
               console.log(res);
             },err=>{
               console.log(err);
             }
-          );
+          )
+          // this.api.getdata('cars/editCar&token='+this.token+'&id='+this.car_id+'&title='+this.title+'&type_id='+this.todo.type_id+'&brand_id='+this.todo.brand_id+'&generation_id='+this.todo.generation_id+'&face_id='+this.todo.model_id+'&model_id='+this.todo.face_id+'&year_id='+this.todo.year_id+'&cc_id='+this.todo.cc_id+'&gear_id='+this.todo.gear_id+'&color='+this.todo.color+'&mile='+this.todo.mile+'&license='+this.todo.license+'&detail='+this.todo.detail+'&price='+this.todo.price+'&image='+this.todo.image).subscribe(
+          //   res=>{
+          //     console.log(res);
+          //   },err=>{
+          //     console.log(err);
+          //   }
+          // );
         });
       });
     });
+  }
+  async openGallery() {
+    this.camera.getPicture(this.gelleryOptions).then((imgData) => {
+     console.log('image data =>  ', imgData);
+     this.base64Img = 'data:image/jpeg;base64,' + imgData;
+     this.userImg = this.base64Img;
+     }, (err) => {
+     console.log(err);
+     })
   }
 }
 class CarEdit{

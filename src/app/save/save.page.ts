@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RestApiService } from '../rest-api.service';
 import { Storage } from '@ionic/storage';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-save',
@@ -11,18 +11,29 @@ import { AlertController } from '@ionic/angular';
 export class SavePage implements OnInit {
   listcar:any;
   token:any;
-  constructor(public api: RestApiService,private storage:Storage,public alertController: AlertController) {
+  constructor(public api: RestApiService,private storage:Storage,public alertController: AlertController,public loadingController: LoadingController) {
+    
+  }
+
+  ngOnInit() {
+  }
+  async ionViewWillEnter(){
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Please wait...',
+      duration: 500
+    });
+    await loading.present();
     this.storage.get('token').then((data)=>{
       this.token = data;
       this.api.getdata('cars/getListWishlist&token='+this.token).subscribe(
         res=>{
-          return this.listcar = res;
+            this.listcar = res;
+        },err=>{
+          console.log(err);
         }
       );
     });
-  }
-
-  ngOnInit() {
   }
   async delCar(event){
     const alert = await this.alertController.create({

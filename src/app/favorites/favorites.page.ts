@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RestApiService } from '../rest-api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-favorites',
@@ -16,14 +16,28 @@ export class FavoritesPage implements OnInit {
   title:any;
   carDetail:any;
   addwishlist:any;
-  constructor(public api: RestApiService, public router: ActivatedRoute,private storage: Storage,public alertController:AlertController) {
+  datafail:any = [];
+  constructor(public api: RestApiService, public router: ActivatedRoute,private storage: Storage,public alertController:AlertController,public loadingController: LoadingController) {
+    
+  }
+  async ionViewWillEnter(){
     this.car_id = this.router.snapshot.paramMap.get('id');
     if (this.car_id == null) {
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Please wait...',
+      duration: 500
+    });
+    await loading.present();
       this.storage.get('token').then((data)=>{
         this.token = data;
         this.api.getdata('cars/getListWishlist&token='+this.token).subscribe(
           res=>{
-            this.listcar = res;
+            if(res.result == "fail"){
+              this.listcar = this.datafail;
+            }else{
+              this.listcar = res;
+            }
           },err=>{
             console.log(err);
           }
@@ -59,7 +73,6 @@ export class FavoritesPage implements OnInit {
       })
     }
   }
-  
   async delCar(event) {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',

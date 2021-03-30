@@ -46,8 +46,8 @@ export class ProfileSettingPage implements OnInit {
       this.api.getdata('profile/getProfile&token='+this.token).subscribe(
         res=>{
           this.datauser = res;
-          console.log(this.datauser);
-          this.profile.profile_photo = this.datauser.Profile_photo;
+          // console.log(this.datauser);
+          // this.profile.profile_photo = this.datauser.Profile_photo;
           this.profile.type = this.datauser.Type;
           this.profile.name = this.datauser.Name;
           this.profile.surname = this.datauser.Surname;
@@ -57,17 +57,8 @@ export class ProfileSettingPage implements OnInit {
           this.profile.line = this.datauser.Line;
 
           // this.userImg = 'assets/icon/favicon.png';
-          this.userImg = this.datauser.Profile_photo;
-          // this.profile = {
-          //   profile_photo:this.datauser.Profile_photo,
-          //   type:this.datauser.Type,
-          //   name:this.datauser.Name,
-          //   surname:this.datauser.Surname,
-          //   id_card:this.datauser.Id_card,
-          //   phone:this.datauser.Phone,
-          //   phone1:this.datauser.Phone1,
-          //   line:this.datauser.Line
-          // }
+          this.userImg = this.datauser.path_image_resize;
+
         },err=>{
           console.log(err);
         }
@@ -80,16 +71,9 @@ export class ProfileSettingPage implements OnInit {
     // this.profile_photo = [];
   }
 
-  profileEdit(){
+  async profileEdit(){
     this.storage.get('token').then((data)=>{
       this.token = data;
-      // var headers = new Headers();
-      //   headers.append("Accept", 'application/json');
-      //   headers.append('Content-Type', 'application/json' );
-      // const requestOptions = new HttpHeaders({ headers: headers });
-      // const requestOptions = { headers: new HttpHeaders({'Content-Type': 'application/json'})};
-
-
       // var formData = {
       //   "token": this.token,
       //   "profile_photo": this.userImg,
@@ -110,16 +94,7 @@ export class ProfileSettingPage implements OnInit {
       formData.append('phone',this.profile.phone);
       formData.append('phone1',this.profile.phone1);
       formData.append('line',this.profile.line);
-      // this.api.postdata(this.token,postData).subscribe(res=>{console.log(res)},err=>{console.log(err)});
-      // this.api.postdata(this.token,postData).subscribe(
-      //   res=>{
-      //     console.log(res);
-      //   },err=>{
-      //     console.log(err);
-      //   }
-      // )
-      // console.log(formData);
-      // this.api.postdata('profile/editProfile&token='+this.token,postData).subscribe(res=>{
+
       this.api.postdata('profile/editProfile',formData).subscribe(res=>{
           console.log(res);
           if(res.result == "success"){
@@ -129,22 +104,16 @@ export class ProfileSettingPage implements OnInit {
           console.log(err);
         }
       )
-      // this.http.post("https://www.kai2car.com/api/index.php?route=profile/editProfile&token="+this.token, postData, requestOptions).subscribe(res => {
-      //   console.log(res);
-      // }, error => {
-      //   console.log(error);
-      // });
-      // this.api.getdata('profile/editProfile&token='+this.token+'&profile_photo='+this.userImg+'&name='+this.profile.name+'&surname='+this.profile.surname+'&id_card='+this.profile.id_card+'&phone='+this.profile.phone+'&phone1='+this.profile.phone1+'&line='+this.profile.line).subscribe(
-      //   res=>{
-      //     this.status_update = res;
-      //     if(this.status_update.result == "success"){
-      //       this.route.navigate(['profile']);
-      //     }
-      //   },err=>{
-      //     console.log(err);
-      //   }
-      // )
     })
+  }
+  async openGallery() {
+    this.camera.getPicture(this.gelleryOptions).then((imgData) => {
+     console.log('image data =>  ', imgData);
+     this.base64Img = 'data:image/jpeg;base64,' + imgData;
+     this.userImg = this.base64Img;
+     }, (err) => {
+     console.log(err);
+     })
   }
   // takePhoto() {
   //   const options: CameraOptions = {
@@ -167,15 +136,6 @@ export class ProfileSettingPage implements OnInit {
   //     }
   //   );
   // }
-  openGallery() {
-    this.camera.getPicture(this.gelleryOptions).then((imgData) => {
-     console.log('image data =>  ', imgData);
-     this.base64Img = 'data:image/jpeg;base64,' + imgData;
-     this.userImg = this.base64Img;
-     }, (err) => {
-     console.log(err);
-     })
-  }
  }
  class ProfileEdit {
    profile_photo:any;

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RestApiService } from '../rest-api.service';
 import { Storage } from '@ionic/storage';
+import { AlertController, LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-announce',
@@ -9,32 +10,40 @@ import { Storage } from '@ionic/storage';
 })
 export class AnnouncePage implements OnInit {
   public listcar:any;
-  public token:any;
-  constructor(public api: RestApiService,private storage: Storage) {
+  constructor(public api: RestApiService,private storage: Storage,public loadingController: LoadingController) {
+    // this.loaddataCar();
+  }
+
+  ngOnInit() {
+    
+  }
+  async ionViewWillEnter(){
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Please wait...',
+      duration: 500
+    });
+    await loading.present();
     this.storage.get('token').then((data)=>{
-      this.token = data;
-      this.api.getdata('announce/getListCars&token='+this.token).subscribe(
+      this.api.getdata('announce/getListCars&token='+data).subscribe(
         res=>{
-          return this.listcar = res.cars;
+          this.listcar = res.cars;
         },err=>{
           console.log(err);
         }
       )
     })
-    // this.storage.get('token').then((data)=>{
-    //   this.token = data;
-    //   this.api.getdata('announce/getListCars&token='+this.token).subscribe(
-    //     res=>{
-    //       this.listcar = res;
-    //       this.listcar = this.listcar.cars;
-    //     },err=>{
-    //       console.log(err);
-    //     }
-    //   );
-    // });
+  }
 
-    
-  }
-  ngOnInit() {
-  }
+
+  // async loaddataCar(){
+  //   await this.storage.get('token').then((data)=>{
+  //     this.api.getdata('announce/getListCars&token='+data).subscribe(
+  //       res=>{
+  //         this.listcar = res.cars;
+  //       }
+  //     )
+  //   })
+  // }
+
 }
