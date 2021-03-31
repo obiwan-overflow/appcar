@@ -3,6 +3,7 @@ import { RestApiService } from '../rest-api.service';
 import { Storage } from '@ionic/storage';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { AlertController, LoadingController } from '@ionic/angular';
 
 
 
@@ -34,20 +35,35 @@ export class ProfileSettingPage implements OnInit {
   userImg: any = '';
   base64Img = '';
   gelleryOptions: CameraOptions = {
-    quality: 60,
+    quality: 50,
     sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
     destinationType: this.camera.DestinationType.DATA_URL,
+    encodingType: this.camera.EncodingType.JPEG,
+    mediaType: this.camera.MediaType.PICTURE,
     allowEdit: true
   }
 
-  constructor(public api:RestApiService,private storage: Storage,public route:Router,private camera : Camera) {
+  constructor(public api:RestApiService,private storage: Storage,public route:Router,private camera : Camera,public loadingController: LoadingController) {
+    
+  }
+
+  ngOnInit():void {
+    this.profile = new ProfileEdit();
+    // this.profile_photo = [];
+  }
+
+  async ionViewWillEnter(){
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Please wait...',
+      duration: 1000
+    });
+    this.status_update = "";
     this.storage.get('token').then((data) => {
       this.token = data;
       this.api.getdata('profile/getProfile&token='+this.token).subscribe(
         res=>{
           this.datauser = res;
-          // console.log(this.datauser);
-          // this.profile.profile_photo = this.datauser.Profile_photo;
           this.profile.type = this.datauser.Type;
           this.profile.name = this.datauser.Name;
           this.profile.surname = this.datauser.Surname;
@@ -58,17 +74,12 @@ export class ProfileSettingPage implements OnInit {
 
           // this.userImg = 'assets/icon/favicon.png';
           this.userImg = this.datauser.path_image_resize;
-
+          loading.present();
         },err=>{
           console.log(err);
         }
       );
     });
-  }
-
-  ngOnInit():void {
-    this.profile = new ProfileEdit();
-    // this.profile_photo = [];
   }
 
   async profileEdit(){
@@ -98,7 +109,8 @@ export class ProfileSettingPage implements OnInit {
       this.api.postdata('profile/editProfile',formData).subscribe(res=>{
           console.log(res);
           if(res.result == "success"){
-            this.route.navigate(['/profile']);
+            this.status_update = "แก้ไขข้อมูลเรียบร้อย"
+            // this.route.navigate(['/profile']);
           }
         },err=>{
           console.log(err);
@@ -108,7 +120,7 @@ export class ProfileSettingPage implements OnInit {
   }
   async openGallery() {
     this.camera.getPicture(this.gelleryOptions).then((imgData) => {
-     console.log('image data =>  ', imgData);
+     // console.log('image data =>  ', imgData);
      this.base64Img = 'data:image/jpeg;base64,' + imgData;
      this.userImg = this.base64Img;
      }, (err) => {

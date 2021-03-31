@@ -42,22 +42,22 @@
 				<ion-col size="12">
 					<label>รุ่นรถยนต์</label>
 					<ion-select class="border-input" name="generation_id" [(ngModel)]="todo.generation_id">
-						<ion-select-option value="{{car_model}}">{{car_model_name}}</ion-select-option>
+						<!-- <ion-select-option value="{{car_model}}">{{car_model_name}}</ion-select-option> -->
 						<ion-select-option value="{{listgens.id}}" *ngFor="let listgens of listgen">{{listgens.text}}</ion-select-option>
 					</ion-select>
 				</ion-col>
 				<ion-col size="12">
 					<label>โฉมรถยนต์</label>
 					<ion-select class="border-input" name="face_id" [(ngModel)]="todo.face_id">
-						<ion-select-option value="{{car_subtype_id}}">{{car_subtype_name}}</ion-select-option>
-						<ion-select-option value="{{listmodels.id}}" *ngFor="let listmodels of listmodel">{{listmodels.text}}</ion-select-option>
+						<!-- <ion-select-option value="{{car_subtype_id}}">{{car_subtype_name}}</ion-select-option> -->
+						<ion-select-option value="{{listfaces.id}}" *ngFor="let listfaces of listface">{{listfaces.text}}</ion-select-option>
 					</ion-select>
 				</ion-col>
 				<ion-col size="12">
 					<label>รายละเอียดรุ่น</label>
 					<ion-select class="border-input" name="model_id" [(ngModel)]="todo.model_id">
-						<ion-select-option value="{{sub_model}}">{{car_submodel_name}}</ion-select-option>
-						<ion-select-option value="{{listfaces.id}}" *ngFor="let listfaces of listface">{{listfaces.text}}</ion-select-option>
+						<!-- <ion-select-option value="{{sub_model}}">{{car_submodel_name}}</ion-select-option> -->
+						<ion-select-option value="{{listmodels.id}}" *ngFor="let listmodels of listmodel">{{listmodels.text}}</ion-select-option>
 					</ion-select>
 				</ion-col>
 				<ion-col size="12">
@@ -105,14 +105,20 @@
 					<img src="{{images}}" alt="">
 				</ion-col> -->
 				<ion-col size="12">
-					<img class="user-profile-img" [src]="userImg" alt="" (click)="openGallery()">
+					<img class="user-profile-img" [src]="userImg" alt="">
+				</ion-col>
+				<ion-col size="12">
+					<!-- <input type="file" accept="image/*" multiple> -->
+					<ion-button color="secondary" expand="block" (click)="openGallery()">
+						<ion-icon name="cloud-upload-outline"></ion-icon> Upload Images
+					</ion-button>
 				</ion-col>
 				<!-- <ion-col size="12">
 					<label>รูปภาพรถ </label>
 					<ion-input type="file" accept="image/*" name="image" [(ngModel)]="todo.image"></ion-input>
 				</ion-col> -->
 				<ion-col size="12">
-					<ion-button color="theme" type="submit" expand="block">บันทึกข้อมูล</ion-button>
+					<ion-button color="theme" type="submit" expand="full">บันทึกข้อมูล</ion-button>
 				</ion-col>
 			</ion-row>
 			</form>

@@ -11,6 +11,7 @@ import { AlertController, LoadingController } from '@ionic/angular';
 export class SavePage implements OnInit {
   listcar:any;
   token:any;
+  datafail:any = [];
   constructor(public api: RestApiService,private storage:Storage,public alertController: AlertController,public loadingController: LoadingController) {
     
   }
@@ -21,14 +22,18 @@ export class SavePage implements OnInit {
     const loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
       message: 'Please wait...',
-      duration: 500
+      duration: 300
     });
     await loading.present();
     this.storage.get('token').then((data)=>{
       this.token = data;
       this.api.getdata('cars/getListWishlist&token='+this.token).subscribe(
         res=>{
-            this.listcar = res;
+            if(res.result == "fail"){
+              this.listcar = this.datafail;
+            }else{
+              this.listcar = res;
+            }
         },err=>{
           console.log(err);
         }

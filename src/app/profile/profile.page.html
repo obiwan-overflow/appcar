@@ -2,7 +2,7 @@
   <ion-toolbar color="theme">
     <ion-title>โปรไพล์</ion-title>
     <!-- <a routerLink="/profile-setting" slot="end" class="mr-1"><ion-icon name="settings-outline" color="light" size="large"></ion-icon></a> -->
-    <ion-icon name="settings-outline" size="large" slot="end" class="mr-1" routerLink="/profile-setting"></ion-icon>
+    <ion-icon name="settings-outline" size="large" slot="end" class="mr-1" routerLink="/profile/profile-setting"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
@@ -20,19 +20,19 @@
         <h3>รถของฉัน</h3>
       </ion-label>
     </ion-item>
-    <ion-item button routerLink="/special-service">
+    <ion-item button routerLink="/profile/special-service">
       <ion-icon slot="start" name="archive-outline" color="theme"></ion-icon>
       <ion-label>
         <h3>บริการพิเศษ</h3>
       </ion-label>
     </ion-item>
-    <ion-item button routerLink="/favorites">
+    <ion-item button routerLink="/profile/favorites">
       <ion-icon slot="start" name="heart-outline" color="theme"></ion-icon>
       <ion-label>
         <h3>รายการโปรด</h3>
       </ion-label>
     </ion-item>
-    <ion-item button routerLink="/save">
+    <ion-item button routerLink="/profile/save">
       <ion-icon slot="start" name="bookmark-outline" color="theme"></ion-icon>
       <ion-label>
         <h3>การค้นหาที่บันทึกไว้</h3>
@@ -41,7 +41,7 @@
   </ion-list>
 
   <ion-list>
-    <ion-item button routerLink="/help">
+    <ion-item button routerLink="/profile/help">
       <ion-icon slot="start" name="help-circle-outline" color="theme"></ion-icon>
       <ion-label>
         <h3>ช่วยเหลือ</h3>

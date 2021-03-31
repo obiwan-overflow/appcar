@@ -27,6 +27,7 @@ export class AnnouncePage implements OnInit {
     this.storage.get('token').then((data)=>{
       this.api.getdata('announce/getListCars&token='+data).subscribe(
         res=>{
+          // console.log(res);
           this.listcar = res.cars;
         },err=>{
           console.log(err);

@@ -31,12 +31,12 @@ const routes: Routes = [
     path: 'news',
     loadChildren: () => import('./news/news.module').then( m => m.NewsPageModule)
   },
-  {
-    path: 'news-detail',
-    loadChildren: () => import('./news-detail/news-detail.module').then( m => m.NewsDetailPageModule)
-  },
+  // {
+  //   path: 'news/news-detail',
+  //   loadChildren: () => import('./news-detail/news-detail.module').then( m => m.NewsDetailPageModule)
+  // },
   { //{ path: 'job-detail/:id', loadChildren: './dashboard/job-detail/job-detail.module#JobDetailPageModule' },
-    path: 'news-detail/:id',
+    path: 'news/news-detail/:id',
     loadChildren: () => import('./news-detail/news-detail.module').then( m => m.NewsDetailPageModule)
   },
   {
@@ -68,7 +68,7 @@ const routes: Routes = [
     loadChildren: () => import('./car-add/car-add.module').then( m => m.CarAddPageModule)
   },
   {
-    path: 'car-edit/:id',
+    path: 'announce/edit/:id',
     loadChildren: () => import('./car-edit/car-edit.module').then( m => m.CarEditPageModule)
   },
   {
@@ -80,7 +80,7 @@ const routes: Routes = [
     loadChildren: () => import('./car-detail/car-detail.module').then( m => m.CarDetailPageModule)
   },
   {
-    path: 'favorites',
+    path: 'profile/favorites',
     loadChildren: () => import('./favorites/favorites.module').then( m => m.FavoritesPageModule)
   },
   {
@@ -88,15 +88,15 @@ const routes: Routes = [
     loadChildren: () => import('./favorites/favorites.module').then( m => m.FavoritesPageModule)
   },
   {
-    path: 'help',
+    path: 'profile/help',
     loadChildren: () => import('./help/help.module').then( m => m.HelpPageModule)
   },
   {
-    path: 'profile-setting',
+    path: 'profile/profile-setting',
     loadChildren: () => import('./profile-setting/profile-setting.module').then( m => m.ProfileSettingPageModule)
   },
   {
-    path: 'save',
+    path: 'profile/save',
     loadChildren: () => import('./save/save.module').then( m => m.SavePageModule)
   },
   {
@@ -104,11 +104,11 @@ const routes: Routes = [
     loadChildren: () => import('./save/save.module').then( m => m.SavePageModule)
   },
   {
-    path: 'special-service',
+    path: 'profile/special-service',
     loadChildren: () => import('./special-service/special-service.module').then( m => m.SpecialServicePageModule)
   },
   {
-    path: 'buy-service',
+    path: 'special-service/buy-service',
     loadChildren: () => import('./buy-service/buy-service.module').then( m => m.BuyServicePageModule)
   },
   {

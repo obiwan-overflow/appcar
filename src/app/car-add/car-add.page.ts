@@ -33,11 +33,14 @@ export class CarAddPage implements OnInit {
   userImg: any = '';
   base64Img = '';
   gelleryOptions: CameraOptions = {
-    quality: 60,
+    quality: 50,
     sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
     destinationType: this.camera.DestinationType.DATA_URL,
+    encodingType: this.camera.EncodingType.JPEG,
+    mediaType: this.camera.MediaType.PICTURE,
     allowEdit: true
   }
+
   // public cardata:datacar;
   constructor(public api:RestApiService,private storage:Storage,public route:Router,private camera : Camera) {
 
@@ -97,8 +100,19 @@ export class CarAddPage implements OnInit {
           formData.append('detail',this.cardata.detail);
           formData.append('price',this.cardata.price);
           formData.append('images',this.userImg);
-          formData.append('image',this.userImg);
 
+          this.api.postdata('cars/addCar',formData).subscribe(
+            res=>{
+              if(res.result == "success"){
+                this.status_detail = "success";
+              }else{
+                this.status_detail = "fail";
+              }
+              // console.log(res);
+            },err=>{
+              console.log(err);
+            }
+          )
           // this.api.getdata('cars/addCar&token='+this.token+'&title='+this.title+'&type_id='+this.cardata.type_id+'&brand_id='+this.cardata.brand_id+'&generation_id='+this.cardata.generation_id+'&face_id='+this.cardata.face_id+'&model_id='+this.cardata.model_id+'&year_id='+this.cardata.year_id+'&cc_id='+this.cardata.cc_id+'&gear_id='+this.cardata.gear_id+'&mile='+this.cardata.mile+'&color='+this.cardata.color+'&price='+this.cardata.price+'&license='+this.cardata.license+'&detail='+this.cardata.detail+'&image='+this.cardata.image).subscribe(
           //   res=>{
           //     console.log(res);
@@ -139,6 +153,6 @@ class CardataAdd {
   price:any;
   license:any;
   detail:any;
-  image:any;
+  images:any;
   yb:any;
 }

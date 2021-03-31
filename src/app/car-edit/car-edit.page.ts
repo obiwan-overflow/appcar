@@ -30,6 +30,7 @@ export class CarEditPage implements OnInit {
   car_color:any;
   car_detail:any;
   car_images:any;
+  car_image:any;
   car_brand:any;
   car_type_id:any;
   car_cc:any;
@@ -56,9 +57,11 @@ export class CarEditPage implements OnInit {
   userImg: any = '';
   base64Img = '';
   gelleryOptions: CameraOptions = {
-    quality: 60,
+    quality: 50,
     sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
     destinationType: this.camera.DestinationType.DATA_URL,
+    encodingType: this.camera.EncodingType.JPEG,
+    mediaType: this.camera.MediaType.PICTURE,
     allowEdit: true
   }
   constructor(public api:RestApiService,public route:ActivatedRoute,private storage:Storage,private camera : Camera) {
@@ -91,6 +94,7 @@ export class CarEditPage implements OnInit {
         this.car_submodel_name = res.submodel;
         this.car_subtype_name = res.subtype;
         this.car_subtype_id = res.Car_subtype_id;
+        this.car_image = res.image;
 
         this.api.getdata('cars/getListType').subscribe(res=>{this.listtype = res;})
         this.api.getdata('cars/getListBand').subscribe(res=>{this.listbrand = res;})
@@ -152,7 +156,7 @@ export class CarEditPage implements OnInit {
           formData.append('detail',this.todo.detail);
           formData.append('price',this.todo.price);
           formData.append('images',this.userImg);
-          formData.append('image',this.userImg);
+          // formData.append('image',this.userImg);
 
           this.api.postdata('cars/editCar',formData).subscribe(res=>{
               console.log(res);
@@ -196,4 +200,5 @@ class CarEdit{
   license:any;
   detail:any;
   image:any;
+  images:any;
 }
