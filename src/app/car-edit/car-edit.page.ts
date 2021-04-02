@@ -53,7 +53,7 @@ export class CarEditPage implements OnInit {
   val_gen:any;
 
   todo:CarEdit;
-
+  imagesarray:any = [];
   userImg: any = '';
   base64Img = '';
   gelleryOptions: CameraOptions = {
@@ -118,7 +118,7 @@ export class CarEditPage implements OnInit {
         this.todo.price = this.car_price;
         this.todo.license = this.car_label;
         this.todo.detail = this.car_detail;
-        this.userImg = this.car_images;
+        this.imagesarray = this.car_images;
 
       }
     );
@@ -155,11 +155,16 @@ export class CarEditPage implements OnInit {
           formData.append('license',this.todo.license);
           formData.append('detail',this.todo.detail);
           formData.append('price',this.todo.price);
-          formData.append('images',this.userImg);
+          formData.append('images',this.imagesarray);
           // formData.append('image',this.userImg);
 
           this.api.postdata('cars/editCar',formData).subscribe(res=>{
               console.log(res);
+              if(res.result == "success"){
+                this.status_detail = "success";
+              }else{
+                this.status_detail = "fail";
+              }
             },err=>{
               console.log(err);
             }
@@ -180,9 +185,13 @@ export class CarEditPage implements OnInit {
      console.log('image data =>  ', imgData);
      this.base64Img = 'data:image/jpeg;base64,' + imgData;
      this.userImg = this.base64Img;
+     this.updateImages(this.userImg);
      }, (err) => {
      console.log(err);
      })
+  }
+  async updateImages(images){
+    this.imagesarray.push(images);
   }
 }
 class CarEdit{
