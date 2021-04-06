@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RestApiService } from '../rest-api.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CallNumber } from '@ionic-native/call-number/ngx';
 
 @Component({
   selector: 'app-car-detail',
@@ -28,7 +29,7 @@ export class CarDetailPage implements OnInit {
   type:any;
   username:any;
   images:any;
-  constructor(public api: RestApiService,public route: ActivatedRoute) { 
+  constructor(public api: RestApiService,public route: ActivatedRoute,private callNumber: CallNumber) { 
   	this.car_id = this.route.snapshot.paramMap.get('id');
   	this.api.getdata('cars/getCarDetail&id='+this.car_id).subscribe(res => {
       this.cardetail = res;
@@ -61,6 +62,9 @@ export class CarDetailPage implements OnInit {
   }
   ionViewDidEnter() {
     this.defaultHref = 'carall/1/0/0';
+  }
+  async callphone(phone){
+    this.callNumber.callNumber(phone,true);
   }
 
 }

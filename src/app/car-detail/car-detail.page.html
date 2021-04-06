@@ -22,69 +22,6 @@
 	</div>
 	<div class="card">
 		<ion-grid>
-			<!-- <ion-row>
-				<ion-col size="12">
-					<ion-slides>
-				        <ion-slide *ngFor="let images of images">
-				          <div class="slide">
-							<img src="{{images}}" alt="">
-				          </div>
-				        </ion-slide>
-			      	</ion-slides>
-				</ion-col>
-			</ion-row> -->
-			<!-- <ion-row>
-				<ion-col size="12">
-					<table class="table">
-						<tbody>
-							<tr>
-								<td>ยี่ห้อรถยนต์</td>
-								<td>{{brand}}</td>
-							</tr>
-							<tr>
-								<td>รุ่นรถยนต์</td>
-								<td>{{model}}</td>
-							</tr>
-							<tr>
-								<td>โฉมรถยนต์</td>
-								<td>{{name}}</td>
-							</tr>
-							<tr>
-								<td>รายละเอียดรุ่น</td>
-								<td>{{submodel}}</td>
-							</tr>
-							<tr>
-								<td>ปี</td>
-								<td>{{year}}</td>
-							</tr>
-							<tr>
-								<td>ขนาดเครื่องยนต์</td>
-								<td>{{power}}</td>
-							</tr>
-							<tr>
-								<td>ระบบเกียร์</td>
-								<td>{{gear}}</td>
-							</tr>
-							<tr>
-								<td>เลขไมล์</td>
-								<td>{{mileage}}</td>
-							</tr>
-							<tr>
-								<td>สี</td>
-								<td>{{color}}</td>
-							</tr>
-							<tr>
-								<td>ประเภทรถ</td>
-								<td>{{type}}</td>
-							</tr>
-							<tr>
-								<td>รายละเอียดเพิ่มเติม</td>
-								<td>{{detail}}</td>
-							</tr>
-						</tbody>
-					</table>
-				</ion-col>
-			</ion-row> -->
 			<ion-row>
 				<ion-col size="12">
 					<ion-text color="theme">
@@ -258,10 +195,11 @@
 			</ion-row>
 			<ion-row>
 				<ion-col size="4">
-					<ion-button color="warning" expand="block" href="tel:{{tel}}"><ion-icon name="call-outline"></ion-icon></ion-button>
+					<!-- <ion-button color="warning" expand="block" href="tel:{{tel}}"><ion-icon name="call-outline"></ion-icon></ion-button> -->
+					<ion-button color="warning" expand="block" (click)="callphone({{tel}})"><ion-icon name="call-outline"></ion-icon></ion-button>
 				</ion-col>
 				<ion-col size="4">
-					<ion-button color="line" expand="block" href="{{line}}"><img src="assets/images/line.png" width="25"></ion-button>
+					<ion-button color="line" expand="block" href="https://line.me/R/nv/addFriends/{{line}}"><img src="assets/images/line.png" width="25"></ion-button>
 				</ion-col>
 				<ion-col size="4">
 					<ion-button color="tertiary" expand="block" routerLink="/favorites/{{car_id}}"><ion-icon name="heart-outline"></ion-icon></ion-button>
