@@ -60,7 +60,7 @@ const routes: Routes = [
     loadChildren: () => import('./carall/carall.module').then( m => m.CarallPageModule)
   },
   {
-    path: 'searchcar',
+    path: 'carall/:id/:brand/:type/searchcar',
     loadChildren: () => import('./searchcar/searchcar.module').then( m => m.SearchcarPageModule)
   },
   {
