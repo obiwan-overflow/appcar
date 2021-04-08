@@ -3,6 +3,7 @@ import { RestApiService } from '../rest-api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { AlertController, LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-car-edit',
@@ -64,7 +65,7 @@ export class CarEditPage implements OnInit {
     mediaType: this.camera.MediaType.PICTURE,
     allowEdit: true
   }
-  constructor(public api:RestApiService,public route:ActivatedRoute,private storage:Storage,private camera : Camera) {
+  constructor(public api:RestApiService,public route:ActivatedRoute,private storage:Storage,private camera : Camera,public alertController:AlertController) {
     
   }
 
@@ -72,7 +73,7 @@ export class CarEditPage implements OnInit {
     this.car_id = this.route.snapshot.paramMap.get('id');
     this.api.getdata('cars/getCarDetail&id='+this.car_id).subscribe(
       res=>{
-        console.log(res);
+        // console.log(res);
         this.car_mile = res.mileage;
         this.car_price = res.price;
         this.car_label = res.label;
@@ -131,7 +132,6 @@ export class CarEditPage implements OnInit {
   async editForm(){
     this.storage.get('token').then((data)=>{
       this.token = data;
-      // console.log(this.todo);
       this.api.getdata('cars/getBand&id='+this.todo.brand_id).subscribe(res=>{
         this.val_brand = res;
         this.api.getdata('cars/getGeneration&id='+this.todo.generation_id).subscribe(res=>{
@@ -156,14 +156,13 @@ export class CarEditPage implements OnInit {
           formData.append('detail',this.todo.detail);
           formData.append('price',this.todo.price);
           formData.append('images',this.imagesarray);
-          // formData.append('image',this.userImg);
+
 
           this.api.postdata('cars/editCar',formData).subscribe(res=>{
               console.log(res);
               if(res.result == "success"){
-                this.status_detail = "success";
+                this.updateSuccess();
               }else{
-                this.status_detail = "fail";
               }
             },err=>{
               console.log(err);
@@ -180,6 +179,14 @@ export class CarEditPage implements OnInit {
       });
     });
   }
+  async updateSuccess(){
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      subHeader: 'success',
+      message: 'Edit Complete',
+    });
+    await alert.present();
+  }
   async openGallery() {
     this.camera.getPicture(this.gelleryOptions).then((imgData) => {
      console.log('image data =>  ', imgData);
@@ -192,6 +199,46 @@ export class CarEditPage implements OnInit {
   }
   async updateImages(images){
     this.imagesarray.push(images);
+  }
+  async delimages(event){
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Confirm!',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Okay',
+          handler: () => {
+            this.storage.get('token').then((data)=>{
+              this.token = data;
+              const formData = new FormData();
+              formData.append('token',this.token);
+              formData.append('id',this.car_id);
+              formData.append('image',event.target.src);
+              // var formImages = {
+              //   "token": this.token,
+              //   "id": this.car_id,
+              //   "image": event.target.src
+              // }
+              this.api.postdata('cars/delImageCar',formData).subscribe(res=>{
+                console.log(res);
+              },err=>{
+                console.log(err);
+              })
+            },err=>{
+              console.log(err);
+            });
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 }
 class CarEdit{

@@ -1,5 +1,8 @@
 <ion-header>
   <ion-toolbar color="theme">
+  	<ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
     <ion-title>ประกาศขายรถ</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -95,25 +98,18 @@
 					<label>รายละเอียดเพิ่มเติม</label>
 					<ion-textarea rows="6" cols="20" class="border-input" [(ngModel)]="cardata.detail" name="detail"></ion-textarea>
 				</ion-col>
-				<!-- <ion-col size="12">
-					<label>รูปภาพรถ </label>
-					<ion-input type="file" accept="image/*" [(ngModel)]="cardata.image" name="image"></ion-input>
-				</ion-col> -->
-				<!-- <ion-col size="12">
-					<img class="user-profile-img" [src]="userImg" alt="" (click)="openGallery()">
-				</ion-col> -->
-				<ion-col size="12" *ngFor="let images of userImg">
-					<img class="user-profile-img" [src]="images" alt="">
+				<ion-col size="12" *ngFor="let imagesarray of imagesarray">
+					<img class="user-profile-img" [src]="imagesarray" alt="">
 				</ion-col>
 				<ion-col size="12">
 					<ion-button color="secondary" expand="block" (click)="openGallery()">
 						<ion-icon name="cloud-upload-outline"></ion-icon> Upload Images
 					</ion-button>
 				</ion-col>
-				<ion-col size="12">
+				<!-- <ion-col size="12">
 					<label for="">Link Youtube</label>
 					<ion-input class="border-input" [(ngModel)]="cardata.yb" name="yb"></ion-input>	
-				</ion-col>
+				</ion-col> -->
 				<ion-col size="12">
 					<ion-button color="theme" type="submit" expand="block">บันทึกข้อมูล</ion-button>
 				</ion-col>

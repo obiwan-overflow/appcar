@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RestApiService } from '../rest-api.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Storage } from '@ionic/storage';
 
 
 @Component({
@@ -29,7 +30,11 @@ export class CarDetailPage implements OnInit {
   type:any;
   username:any;
   images:any;
-  constructor(public api: RestApiService,public route: ActivatedRoute) { 
+
+  public pageNumber:any;
+  public pageBrand:any; 
+  public pageType:any;  
+  constructor(public api: RestApiService,public route: ActivatedRoute,private storage: Storage) { 
   	this.car_id = this.route.snapshot.paramMap.get('id');
   	this.api.getdata('cars/getCarDetail&id='+this.car_id).subscribe(res => {
       this.cardetail = res;
@@ -61,7 +66,7 @@ export class CarDetailPage implements OnInit {
   ngOnInit() {
   }
   ionViewDidEnter() {
-    this.defaultHref = 'carall/1/0/0';
+    
   }
   // async callphone(phone){
   //   this.callNumber.callNumber(phone,true);

@@ -20,7 +20,7 @@ const routes: Routes = [
     loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
   },
   {
-    path: 'announce',
+    path: 'profile/announce',
     loadChildren: () => import('./announce/announce.module').then( m => m.AnnouncePageModule)
   },
   {
@@ -64,15 +64,39 @@ const routes: Routes = [
     loadChildren: () => import('./searchcar/searchcar.module').then( m => m.SearchcarPageModule)
   },
   {
+    path: 'carall/:id/:brand/:type/car-add',
+    loadChildren: () => import('./car-add/car-add.module').then( m => m.CarAddPageModule)
+  },
+  {
+    path: 'home/car-add',
+    loadChildren: () => import('./car-add/car-add.module').then( m => m.CarAddPageModule)
+  },
+  {
+    path: 'profile/announce/car-add',
+    loadChildren: () => import('./car-add/car-add.module').then( m => m.CarAddPageModule)
+  },
+  {
     path: 'car-add',
     loadChildren: () => import('./car-add/car-add.module').then( m => m.CarAddPageModule)
   },
   {
-    path: 'announce/edit/:id',
+    path: 'profile/announce/edit/:id',
     loadChildren: () => import('./car-edit/car-edit.module').then( m => m.CarEditPageModule)
   },
   {
     path: 'car-detail',
+    loadChildren: () => import('./car-detail/car-detail.module').then( m => m.CarDetailPageModule)
+  },
+  {
+    path: 'carall/:id/:brand/:type/car-detail/:id',
+    loadChildren: () => import('./car-detail/car-detail.module').then( m => m.CarDetailPageModule)
+  },
+  {
+    path: 'profile/favorites/car-detail/:id',
+    loadChildren: () => import('./car-detail/car-detail.module').then( m => m.CarDetailPageModule)
+  },
+  {
+    path: 'profile/save/car-detail/:id',
     loadChildren: () => import('./car-detail/car-detail.module').then( m => m.CarDetailPageModule)
   },
   {
@@ -108,7 +132,7 @@ const routes: Routes = [
     loadChildren: () => import('./special-service/special-service.module').then( m => m.SpecialServicePageModule)
   },
   {
-    path: 'special-service/buy-service',
+    path: 'profile/special-service/buy-service',
     loadChildren: () => import('./buy-service/buy-service.module').then( m => m.BuyServicePageModule)
   },
   {

@@ -26,16 +26,9 @@ export class CarallPage implements OnInit {
     });
     this.pageNumber = this.route.snapshot.paramMap.get('id');
     this.pageBrand = this.route.snapshot.paramMap.get('brand');
-    this.pageType = this.route.snapshot.paramMap.get('type');
-    // if (this.pageBrand == '0') {
-    //   this.pageBrand = "";
-    // }
-    // if (this.pageType == '0') {
-    //   this.pageType = "";
-    // }
+    this.pageType = this.route.snapshot.paramMap.get('type');    
     
-    
-    // console.log(this.pageBrand);
+
     // &Car_type_id=&Car_subtype_id=&Car_brand_id=&Car_model_id=&Car_submodel_id=&Car_body_id=
     this.api.getdata('cars/getListCarall&page='+this.pageNumber+'&Car_brand_id='+this.pageBrand+'&Car_type_id='+this.pageType).subscribe(
       res=>{
@@ -45,7 +38,8 @@ export class CarallPage implements OnInit {
         this.pagePrev = this.list.page_prev;
         this.pageNext = this.list.page_next;
       },err=>{
-        console.log(err);
+        this.listcars = "";
+        // console.log(err);
       }
     );
   }

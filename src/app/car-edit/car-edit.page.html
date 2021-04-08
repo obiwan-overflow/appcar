@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar color="theme">
   	<ion-buttons slot="start">
-      <ion-back-button defaultHref="/announce"></ion-back-button>
+      <ion-back-button defaultHref="/"></ion-back-button>
     </ion-buttons>
     <ion-title>แก้ไขข้อมูลรถ</ion-title>
   </ion-toolbar>
@@ -42,7 +42,7 @@
 				<ion-col size="12">
 					<label>รุ่นรถยนต์</label>
 					<ion-select class="border-input" name="generation_id" [(ngModel)]="todo.generation_id">
-						<!-- <ion-select-option value="{{car_model}}">{{car_model_name}}</ion-select-option> -->
+						<ion-select-option value="{{car_model}}">{{car_model_name}}</ion-select-option>
 						<ion-select-option value="{{listgens.id}}" *ngFor="let listgens of listgen">{{listgens.text}}</ion-select-option>
 					</ion-select>
 				</ion-col>
@@ -101,22 +101,14 @@
 					<label>รายละเอียดเพิ่มเติม</label>
 					<ion-textarea rows="6" cols="20" class="border-input" name="detail" [(ngModel)]="todo.detail"></ion-textarea>
 				</ion-col>
-				<!-- <ion-col size="12" *ngFor="let images of car_images">
-					<img src="{{images}}" alt="">
-				</ion-col> -->
 				<ion-col size="12" *ngFor="let imagesarray of imagesarray">
-					<img class="user-profile-img" [src]="imagesarray" alt="">
+					<img class="user-profile-img" [src]="imagesarray" alt="" (click)="delimages($event)">
 				</ion-col>
 				<ion-col size="12">
-					<!-- <input type="file" accept="image/*" multiple> -->
 					<ion-button color="secondary" expand="block" (click)="openGallery()">
 						<ion-icon name="cloud-upload-outline"></ion-icon> Upload Images
 					</ion-button>
 				</ion-col>
-				<!-- <ion-col size="12">
-					<label>รูปภาพรถ </label>
-					<ion-input type="file" accept="image/*" name="image" [(ngModel)]="todo.image"></ion-input>
-				</ion-col> -->
 				<ion-col size="12">
 					<ion-button color="theme" type="submit" expand="full">บันทึกข้อมูล</ion-button>
 				</ion-col>

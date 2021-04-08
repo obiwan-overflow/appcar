@@ -43,7 +43,7 @@ export class ProfileSettingPage implements OnInit {
     allowEdit: true
   }
 
-  constructor(public api:RestApiService,private storage: Storage,public route:Router,private camera : Camera,public loadingController: LoadingController) {
+  constructor(public api:RestApiService,private storage: Storage,public route:Router,private camera : Camera,public loadingController: LoadingController,public alertController:AlertController) {
     
   }
 
@@ -109,8 +109,9 @@ export class ProfileSettingPage implements OnInit {
       this.api.postdata('profile/editProfile',formData).subscribe(res=>{
           console.log(res);
           if(res.result == "success"){
-            this.status_update = "แก้ไขข้อมูลเรียบร้อย"
+            // this.status_update = "แก้ไขข้อมูลเรียบร้อย"
             // this.route.navigate(['/profile']);
+            this.updateComplete();
           }
         },err=>{
           console.log(err);
@@ -126,6 +127,15 @@ export class ProfileSettingPage implements OnInit {
      }, (err) => {
      console.log(err);
      })
+  }
+  async updateComplete(){
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      subHeader: 'success',
+      message: 'Edit Complete',
+    });
+    await alert.present();
+    await this.route.navigateByUrl('/profile');
   }
   // takePhoto() {
   //   const options: CameraOptions = {
