@@ -1,17 +1,22 @@
 <ion-header>
   <ion-toolbar color="theme">
+    <ion-buttons slot="end" routerLink="/profile/profile-setting">
+      <ion-menu-button auto-hide="false"><ion-icon name="settings-outline" size="large"></ion-icon></ion-menu-button>
+    </ion-buttons>
     <ion-title>โปรไพล์</ion-title>
     <!-- <a routerLink="/profile-setting" slot="end" class="mr-1"><ion-icon name="settings-outline" color="light" size="large"></ion-icon></a> -->
-    <ion-icon name="settings-outline" size="large" slot="end" class="mr-1" routerLink="/profile/profile-setting"></ion-icon>
+    <!-- <ion-icon name="settings-outline" size="large" slot="end" class="mr-1" routerLink="/profile/profile-setting"></ion-icon> -->
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-list>
-    <ion-item button>
-      <ion-icon slot="start" name="radio-button-on-sharp" color="warning"></ion-icon>
+    <ion-item button *ngIf="login == 'success'">
+      <!-- <ion-icon slot="start" name="radio-button-on-sharp" color="warning"></ion-icon> -->
+      <img src="{{image}}" alt="" slot="start" class="image-profile">
       <ion-label>
-        <h3>คุณ {{ name }} มี coin</h3>
+        <h1>คุณ {{fullname}}</h1>
+        <h2>มี {{coin}} coin</h2>
       </ion-label>
     </ion-item>
     <ion-item button routerLink="/profile/announce">
@@ -47,10 +52,16 @@
         <h3>ช่วยเหลือ</h3>
       </ion-label>
     </ion-item>
-    <ion-item button (click)="logout()">
-      <ion-icon slot="start" name="log-out-outline" color="theme"></ion-icon>
+    <ion-item button (click)="logout()" *ngIf="login == 'success'">
+      <ion-icon slot="start" name="log-in-outline" color=theme></ion-icon>
       <ion-label>
         <h3>ออกจากระบบ</h3>
+      </ion-label>
+    </ion-item>
+    <ion-item button (click)="logout()" *ngIf="login == 'failed'">
+      <ion-icon slot="start" name="log-out-outline" color="theme"></ion-icon>
+      <ion-label>
+        <h3>เข้าสู่ระบบ</h3>
       </ion-label>
     </ion-item>
   </ion-list>

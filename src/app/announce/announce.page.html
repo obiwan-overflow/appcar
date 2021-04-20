@@ -5,13 +5,17 @@
     </ion-buttons>
     <ion-title>รถของฉัน</ion-title>
     <!-- <a routerLink="/car-add" slot="end" class="mr-1"><ion-icon name="add-circle-outline" size="large" color="light"></ion-icon></a> -->
-    <ion-icon name="add-circle-outline" size="large" slot="end" class="mr-1" routerLink="car-add"></ion-icon>
+    <!-- <ion-icon name="add-circle-outline" size="large" slot="end" class="mr-1" routerLink="car-add"></ion-icon> -->
+    <ion-button slot="end" color="light" shape="round" size="small" routerLink="car-add">
+    	<ion-icon name="add-circle-outline" class="mr-1"></ion-icon> ลงประกาศใหม่
+    </ion-button>
+
   </ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true">
 	<!-- <ion-searchbar placeholder="ค้นหาประกาศของคุณในออนไลน์"></ion-searchbar> -->
 	<ion-searchbar placeholder="ค้นหา"></ion-searchbar>
-	<ion-grid>
+	<!-- <ion-grid>
 		<ion-row>
 			<ion-col size="6" *ngFor="let lists of listcar">
 				<div class="card mb-1">
@@ -27,5 +31,21 @@
 				</div>
 			</ion-col>
 		</ion-row>
-	</ion-grid>
+	</ion-grid> -->
+	<ion-card *ngFor="let lists of listcar">
+	  <ion-row>
+	  	<ion-col size="6">
+	  		<img src="{{lists.image}}" alt="" *ngIf="lists.image !== ''">
+	  		<img src="assets/images/no-images.jpg" alt="" *ngIf="lists.image == ''">
+	  	</ion-col>
+	  	<ion-col size="6">
+	  		<ion-text>
+	  			<h6>{{lists.name}}</h6>
+	  			<h4>{{lists.price}}</h4>
+	  		</ion-text>
+	  		<ion-button routerLink="/promote/{{lists.id}}" expand="full" color="secondary" size="small" type="submit">ดันโปรโมท</ion-button>
+			<ion-button routerLink="edit/{{lists.id}}" expand="full" color="tertiary" size="small">แก้ไขข้อมูลรถ</ion-button>
+	  	</ion-col>
+	  </ion-row>
+	</ion-card>
 </ion-content>
