@@ -14,7 +14,7 @@
 			<ion-text class="ion-text-center">
 				<h3 class="text-or">หรือ</h3>
 			</ion-text>
-			<form #form="ngForm" (ngSubmit)="registerCompanyData(form)">
+			<form (ngSubmit)="registerCompanyData()">
 				<ion-input [(ngModel)]="data.username" name="username" placeholder="ชื่อผู้ใช้ *" class="input"></ion-input>
 				<ion-input [(ngModel)]="data.email" name="email" placeholder="อีเมล *" class="input"></ion-input>
 				<ion-input [(ngModel)]="data.password" name="password" placeholder="รหัสผ่าน *" class="input"></ion-input>

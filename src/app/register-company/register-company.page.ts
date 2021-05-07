@@ -8,7 +8,38 @@ import { RestApiService } from '../rest-api.service';
 })
 export class RegisterCompanyPage implements OnInit {
   
-  data = {};
+  // data = {};
+  data:Register;
+  constructor(public api:RestApiService) {
+  	// this.data = {
+   //    username:"",
+   //    email:"",
+   //    password:"",
+   //    name:"",
+   //    surname:"",
+   //    id_card:"",
+   //    company:"",
+   //    address:"",
+   //    province:"",
+   //    zone:"",
+   //    phone:"",
+   //    phone1:"",
+   //    line:""
+   //  }
+  }
+
+  ngOnInit():void {
+    this.data = new Register();
+  }
+  async registerCompanyData(){
+    
+  }
+  // registerCompanyData(form:any){
+  // 	console.log(form.value);
+  // }
+
+}
+class Register {
   username:any;
   email:any;
   password:any;
@@ -22,29 +53,4 @@ export class RegisterCompanyPage implements OnInit {
   phone:any;
   phone1:any;
   line:any;
-
-  constructor(public api:RestApiService) {
-  	this.data = {
-      username:"",
-      email:"",
-      password:"",
-      name:"",
-      surname:"",
-      id_card:"",
-      company:"",
-      address:"",
-      province:"",
-      zone:"",
-      phone:"",
-      phone1:"",
-      line:""
-    }
-  }
-
-  ngOnInit() {
-  }
-  registerCompanyData(form:any){
-  	console.log(form.value);
-  }
-
 }

@@ -8,7 +8,8 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-	<form #Buyform="ngForm" (ngSubmit)="buycoin(Buyform)" >
+	<!-- <form #Buyform="ngForm" (ngSubmit)="buycoin(Buyform)" > -->
+	<form (ngSubmit)="buycoin()" >
 	<div class="card">
 		<ion-list>
 		  <ion-radio-group value="1" [(ngModel)]="coin.idcoin" name="idcoin">

@@ -20,7 +20,8 @@
 					</ion-text>
 				</ion-col>
 			</ion-row>
-			<form #carAddform="ngForm" (ngSubmit)="formcar(carAddform)">
+			<!-- <form #carAddform="ngForm" (ngSubmit)="formcar(carAddform)"> -->
+			<form (ngSubmit)="formcar()">
 			<ion-row>
 				<ion-col size="12">
 					<label>ประเภทรถยนต์</label>

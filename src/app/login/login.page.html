@@ -14,7 +14,8 @@
 		  </ion-card-content>
 		</ion-card>
 	</form> -->
-	<form #logInform="ngForm" (ngSubmit)="login(logInform)" >
+	<!-- <form #logInform="ngForm" (ngSubmit)="login(logInform)" > -->
+	<form (ngSubmit)="login()" >
 		<ion-card class="mt-5">
 		  <ion-card-content>
 		   	<ion-input [(ngModel)]="loginuser.username" name="username" class="input" placeholder="Username"></ion-input>

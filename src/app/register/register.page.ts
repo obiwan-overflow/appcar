@@ -8,20 +8,26 @@ import { RestApiService } from '../rest-api.service';
 })
 export class RegisterPage implements OnInit {
 	
-  data = {};
-  email:any;
-  password:any;			
+ 	data:RegisterMember;
   constructor(public api:RestApiService) {
-  	this.data = {
-  		email:'',
-  		password:''
-  	}
+  	// this.data = {
+  	// 	email:'',
+  	// 	password:''
+  	// }
   }
 
-  ngOnInit() {
+  ngOnInit():void {
+    this.data = new RegisterMember();
   }
-  register(form:any){
-  	console.log(form);
+  async register(){
+    console.log(this.data);
   }
+  // register(form:any){
+  // 	console.log(form);
+  // }
 
+}
+class RegisterMember {
+  email:any;
+  password:any;  
 }
