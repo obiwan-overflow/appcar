@@ -122,18 +122,18 @@ export class CarAddPage implements OnInit {
             formData.append('price',this.cardata.price);
             formData.append('images',this.imagesarray);
 
-            // this.api.postdata('cars/addCar',formData).subscribe(
-            //   res=>{
-            //     if(res.result == "success"){
-            //       this.status_detail = "success";
-            //       this.route.navigateByUrl('announce');
-            //     }else{
-            //       this.status_detail = "fail";
-            //     }
-            //   },err=>{
-            //     console.log(err);
-            //   }
-            // )
+            this.api.postdata('cars/addCar',formData).subscribe(
+              res=>{
+                if(res.result == "success"){
+                  this.status_detail = "success";
+                  this.route.navigateByUrl('announce');
+                }else{
+                  this.status_detail = "fail";
+                }
+              },err=>{
+                console.log(err);
+              }
+            )
           })
         })
       }

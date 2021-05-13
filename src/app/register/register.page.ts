@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RestApiService } from '../rest-api.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -9,11 +10,8 @@ import { RestApiService } from '../rest-api.service';
 export class RegisterPage implements OnInit {
 	
  	data:RegisterMember;
-  constructor(public api:RestApiService) {
-  	// this.data = {
-  	// 	email:'',
-  	// 	password:''
-  	// }
+  constructor(public api:RestApiService,public route:Router) {
+
   }
 
   ngOnInit():void {
@@ -21,13 +19,22 @@ export class RegisterPage implements OnInit {
   }
   async register(){
     console.log(this.data);
+    const formData = new FormData();
+    formData.append('username',this.data.username);
+    formData.append('password',this.data.password);
+    this.api.postdata('member/registerGeneral',formData).subscribe(res=>{
+      console.log(res);
+      this.route.navigateByUrl('login');
+    },err=>{
+      console.log(err);
+    })
   }
-  // register(form:any){
-  // 	console.log(form);
-  // }
+  async fbLogin(){
+    console.log("test");
+  }
 
 }
 class RegisterMember {
-  email:any;
+  username:any;
   password:any;  
 }
