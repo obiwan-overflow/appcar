@@ -159,6 +159,10 @@ const routes: Routes = [
     path: 'logout',
     loadChildren: () => import('./logout/logout.module').then( m => m.LogoutPageModule)
   },
+  {
+    path: 'home/filter',
+    loadChildren: () => import('./filter/filter.module').then( m => m.FilterPageModule)
+  },
 ];
 
 @NgModule({

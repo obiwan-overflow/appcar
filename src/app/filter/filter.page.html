@@ -1,0 +1,93 @@
+<ion-header>
+  <ion-toolbar color="theme">
+  	<ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>ค้นหารถมือสอง</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<form (ngSubmit)="filterForm()">
+	<ion-list>
+	  <ion-list-header>
+	    <ion-label>
+	      ค้นหารถมือสอง
+	    </ion-label>
+	  </ion-list-header>
+	  <ion-item>
+	    <ion-label>จังหวัด</ion-label>
+	    <ion-select value="all" [(ngModel)]="data.province" name="province">
+	      <ion-select-option value="all">จังหวัด</ion-select-option>
+	      <ion-select-option *ngFor="let province of carprovince" value="{{province.Id}}">{{province.Name}}</ion-select-option>
+	    </ion-select>
+	  </ion-item>
+	  <ion-item>
+	    <ion-label>ประเภทรถ</ion-label>
+	    <ion-select value="all" [(ngModel)]="data.type" name="type">
+	    	<ion-select-option value="all">ทุกประเภทรถ</ion-select-option>
+	      	<ion-select-option *ngFor="let type of cartype" value="{{type.id}}">{{type.text}}</ion-select-option>
+	    </ion-select>
+	  </ion-item>
+	  <ion-item>
+	    <ion-label>ยี่ห้อรถ</ion-label>
+	    <ion-select value="all" [(ngModel)]="data.brand" name="brand" (ionChange)="getModel()">
+	    	<ion-select-option value="all">ทุกยี่ห้อรถ</ion-select-option>
+	      <ion-select-option *ngFor="let brand of carbrand" value="{{brand.id}}">{{brand.text}}</ion-select-option>
+	    </ion-select>
+	  </ion-item>
+	  <ion-item>
+	    <ion-label>รุ่นรถ</ion-label>
+	    <ion-select value="all" [(ngModel)]="data.model" name="model" (ionChange)="getBody()">
+	      <ion-select-option value="all">ทุกรุ่นรถ</ion-select-option>
+	      <ion-select-option *ngFor="let model of carmodels" value="{{model.Id}}">{{model.Title}}</ion-select-option>
+	    </ion-select>
+	  </ion-item>
+	  <ion-item>
+	    <ion-label>โฉมรถ</ion-label>
+	    <ion-select value="all" [(ngModel)]="data.body" name="body">
+	      <ion-select-option value="all">ทุกโฉมรถ</ion-select-option>
+	      <ion-select-option *ngFor="let body of carBody" value="{{body.Id}}">{{body.Title}}</ion-select-option>
+	    </ion-select>
+	  </ion-item>
+	  <ion-item>
+	    <ion-label>รายละเอียดรุ่น</ion-label>
+	    <ion-select value="all" [(ngModel)]="data.submodel" name="submodel">
+	      <ion-select-option value="all">ทุกรายละเอียดรุ่น</ion-select-option>
+	    </ion-select>
+	  </ion-item>
+	  <ion-item>
+	    <ion-label>ปี</ion-label>
+	    <ion-select value="all" [(ngModel)]="data.year" name="year">
+	      	<ion-select-option value="all">ทุกปี</ion-select-option>
+	      	<ion-select-option value="2015-ปัจจุบัน">2015 ขึ้นไป</ion-select-option>
+	        <ion-select-option value="2012-2014">2012 - 2014</ion-select-option>
+	        <ion-select-option value="2009-2011">2009 - 2011</ion-select-option>
+	        <ion-select-option value="2006-2008">2006 - 2008</ion-select-option>
+	        <ion-select-option value="2003-2005">2003 - 2005</ion-select-option>
+	        <ion-select-option value="2000-2002">2000 - 2002</ion-select-option>
+	        <ion-select-option value="1997-1999">1997 - 1999</ion-select-option>
+	        <ion-select-option value="1994-1996">1994 - 1996</ion-select-option>
+	        <ion-select-option value="1991-1993">1991 - 1993</ion-select-option>
+	        <ion-select-option value="1940-1990">ต่ำกว่าปี 1990</ion-select-option>
+	    </ion-select>
+	  </ion-item>
+	  <ion-item>
+	    <ion-label>ช่วงราคา</ion-label>
+	    <ion-select value="all" [(ngModel)]="data.price" name="price">
+	      	<ion-select-option value="all">ช่วงราคา</ion-select-option>
+			<ion-select-option value="1-200000">น้อยกว่า 2 เเสนบาท</ion-select-option>
+			<ion-select-option value="200000-400000">2 เเสนบาท - 4 เเสนบาท</ion-select-option>
+			<ion-select-option value="400000-600000">4 เเสนบาท - 6 เเสนบาท</ion-select-option>
+			<ion-select-option value="600000-800000">6 เเสนบาท - 8 เเสนบาท</ion-select-option>
+			<ion-select-option value="800000-1000000">8 เเสนบาท - 1 ล้านบาท</ion-select-option>
+			<ion-select-option value="1000000-1500000">1 ล้านบาท - 1.5 ล้านบาท</ion-select-option>
+			<ion-select-option value="1500000-2000000">1.5 ล้านบาท - 2 ล้านบาท</ion-select-option>
+			<ion-select-option value="2000000-99000000">มากกว่า 2 ล้านบาท</ion-select-option>
+	    </ion-select>
+	  </ion-item>
+
+	</ion-list>
+	<ion-button expand="block" type="submit">ค้นหา</ion-button>
+</form>
+</ion-content>
