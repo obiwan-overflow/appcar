@@ -15,12 +15,19 @@
 		</ion-card>
 	</form> -->
 	<!-- <form #logInform="ngForm" (ngSubmit)="login(logInform)" > -->
+	<ion-grid>
+		<ion-row>
+			<ion-col size="12">
+				<ion-button expand="block" (click)="fbLogin()">Login with facebook</ion-button>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
 	<form (ngSubmit)="login()" >
-		<ion-card class="mt-5">
+		<ion-card>
 		  <ion-card-content>
 		   	<ion-input [(ngModel)]="loginuser.username" name="username" class="input" placeholder="Username"></ion-input>
 		    <ion-input [(ngModel)]="loginuser.password" name="password" class="input" placeholder="Password"></ion-input>
-		   	<div>{{ status_login }}</div>
+		   	<!-- <div>{{ status_login }}</div> -->
 		    <ion-button color="theme" type="submit" expand="block" class="btn-login">Login</ion-button>
 		  </ion-card-content>
 		</ion-card>

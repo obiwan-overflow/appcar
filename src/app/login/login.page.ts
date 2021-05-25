@@ -3,6 +3,8 @@ import { RestApiService } from '../rest-api.service';
 import { Storage } from '@ionic/storage';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 
 @Component({
   selector: 'app-login',
@@ -15,8 +17,10 @@ export class LoginPage implements OnInit {
   loginDetail:any;
   status_login:any;
   loginuser: Loginuser;
-  constructor(public api: RestApiService,private storage: Storage,public route: Router,public alertController:AlertController,public loadingController: LoadingController) { 
-    
+  isLoggedIn = false;
+  datalogin:any;
+  constructor(public api: RestApiService,private storage: Storage,public route: Router,public alertController:AlertController,public loadingController: LoadingController,private iab: InAppBrowser,private fb: Facebook) { 
+     
   }
 
   ngOnInit(): void {
@@ -44,6 +48,41 @@ export class LoginPage implements OnInit {
         console.log(err);
       }
     );
+  }
+  async fbLogin(){
+    // const url = "https://www.facebook.com/v2.11/dialog/oauth?client_id=743881755820988&state=9eb6ddc264efc9dc28384573e8f448a0&response_type=code&sdk=php-sdk-5.5.0&redirect_uri=https://www.kai2car.com/member/facebook-login&scope=email";
+    // const browser = this.iab.create(url,'_system','location=yes');
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Please wait...',
+      duration: 2000
+    });
+    this.fb.login(['public_profile', 'email'])
+    .then(res => {
+      if (res.status === 'connected') {
+        this.isLoggedIn = true;
+        this.datalogin = res.authResponse.userID;
+        this.api.getdata('login/loginFacebook&userId='+this.datalogin).subscribe(
+          res=>{
+            this.loginDetail = res;
+            if(this.loginDetail.result == "success"){
+              this.status_login = this.loginDetail.result;
+              this.storage.set('token', this.loginDetail.token).then((data)=>{
+                this.route.navigateByUrl('/home');
+              });
+              loading.present();
+            }
+          }
+        )
+      } else {
+        this.isLoggedIn = false;
+      }
+    })
+    .catch(e => console.log('Error logging into Facebook', e));
+  //   this.fb.login(['public_profile', 'email'])
+  // .then((res: FacebookLoginResponse) => console.log('Logged into Facebook!', res))
+  // .catch(e => console.log('Error logging into Facebook', e));
+
   }
   /*async login(username:string,password:string) {
 

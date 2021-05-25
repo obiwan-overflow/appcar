@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RestApiService } from '../rest-api.service';
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 
 @Component({
   selector: 'app-register-company',
@@ -10,7 +11,7 @@ export class RegisterCompanyPage implements OnInit {
   
   // data = {};
   data:Register;
-  constructor(public api:RestApiService) {
+  constructor(public api:RestApiService,private fb:Facebook) {
 
   }
 
@@ -38,7 +39,9 @@ export class RegisterCompanyPage implements OnInit {
       console.log(err);
     })
   }
+  async fbRegisterCompany(){
 
+  }
 }
 class Register {
   username:any;

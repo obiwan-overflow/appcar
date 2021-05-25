@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RestApiService } from '../rest-api.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 
 @Component({
@@ -11,7 +12,7 @@ import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 export class RegisterPage implements OnInit {
 	
  	data:RegisterMember;
-  constructor(public api:RestApiService,public route:Router,private fb: Facebook) {
+  constructor(public api:RestApiService,public route:Router,private iab: InAppBrowser,private fb:Facebook) {
 
   }
 
@@ -30,10 +31,8 @@ export class RegisterPage implements OnInit {
       console.log(err);
     })
   }
-  async fbLogin(){
-    this.fb.login(['public_profile', 'user_friends', 'email'])
-    .then((res: FacebookLoginResponse) => console.log('Logged into Facebook!', res))
-    .catch(e => console.log('Error logging into Facebook', e));
+  async fbRegister(){
+    
   }
 
 }

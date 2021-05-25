@@ -52,7 +52,7 @@ const routes: Routes = [
   //   loadChildren: () => import('./carall/carall.module').then( m => m.CarallPageModule)
   // },
   {
-    path: 'carall/:id/:brand/:type',
+    path: 'carall/:id/:type/:brand/:model/:body/:submodel/:year/:price/:province',
     loadChildren: () => import('./carall/carall.module').then( m => m.CarallPageModule)
   },
   {
@@ -60,11 +60,11 @@ const routes: Routes = [
     loadChildren: () => import('./carall/carall.module').then( m => m.CarallPageModule)
   },
   {
-    path: 'carall/:id/:brand/:type/searchcar',
+    path: 'carall/:id/:type/:brand/:model/:body/:submodel/:year/:price/:province/searchcar',
     loadChildren: () => import('./searchcar/searchcar.module').then( m => m.SearchcarPageModule)
   },
   {
-    path: 'carall/:id/:brand/:type/car-add',
+    path: 'carall/:id/:type/:brand/:model/:body/:submodel/:year/:price/:province/car-add',
     loadChildren: () => import('./car-add/car-add.module').then( m => m.CarAddPageModule)
   },
   {
@@ -88,7 +88,7 @@ const routes: Routes = [
     loadChildren: () => import('./car-detail/car-detail.module').then( m => m.CarDetailPageModule)
   },
   {
-    path: 'carall/:id/:brand/:type/car-detail/:id',
+    path: 'carall/:id/:type/:brand/:model/:body/:submodel/:year/:price/:province/car-detail/:id',
     loadChildren: () => import('./car-detail/car-detail.module').then( m => m.CarDetailPageModule)
   },
   {
@@ -160,7 +160,7 @@ const routes: Routes = [
     loadChildren: () => import('./logout/logout.module').then( m => m.LogoutPageModule)
   },
   {
-    path: 'home/filter',
+    path: 'filter',
     loadChildren: () => import('./filter/filter.module').then( m => m.FilterPageModule)
   },
 ];

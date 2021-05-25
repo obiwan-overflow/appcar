@@ -13,7 +13,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 
 import { IonicStorageModule } from '@ionic/storage';
-import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { Facebook } from '@ionic-native/facebook/ngx';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,7 +32,9 @@ import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     Camera,
+    InAppBrowser,
     Facebook
+    
   ],
   bootstrap: [AppComponent]
 })
