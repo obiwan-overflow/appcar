@@ -8,6 +8,9 @@
 	<ion-card>
 		<ion-card-header>
 			<h3>สมัครสมาชิกทั่วไป</h3>
+			<ion-text color="danger">
+				<span>{{statusRegisterMember}}</span>
+			</ion-text>
 		</ion-card-header>
 		<ion-card-content>
 			<ion-button expand="full" class="btn-fb" (click)="fbRegister()">Register with facebook</ion-button>

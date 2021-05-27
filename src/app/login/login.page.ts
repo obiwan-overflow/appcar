@@ -19,8 +19,9 @@ export class LoginPage implements OnInit {
   loginuser: Loginuser;
   isLoggedIn = false;
   datalogin:any;
+  users:any;
   constructor(public api: RestApiService,private storage: Storage,public route: Router,public alertController:AlertController,public loadingController: LoadingController,private iab: InAppBrowser,private fb: Facebook) { 
-     
+     var users = { id: '', name: '', email: '', picture: { data: { url: '' } } };
   }
 
   ngOnInit(): void {
@@ -50,39 +51,62 @@ export class LoginPage implements OnInit {
     );
   }
   async fbLogin(){
-    // const url = "https://www.facebook.com/v2.11/dialog/oauth?client_id=743881755820988&state=9eb6ddc264efc9dc28384573e8f448a0&response_type=code&sdk=php-sdk-5.5.0&redirect_uri=https://www.kai2car.com/member/facebook-login&scope=email";
-    // const browser = this.iab.create(url,'_system','location=yes');
+    this.fb.login(['public_profile','email']).then(
+      res=>{
+        if (res.status === 'connected') {
+          this.getUserDetail(res.authResponse.userID);
+        }else{
+          this.isLoggedIn = false;
+        }
+      }
+    ).catch(e => console.log('Error logging into Facebook', e));
+  }
+  async getUserDetail(userid:any){
     const loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
       message: 'Please wait...',
       duration: 2000
     });
-    this.fb.login(['public_profile', 'email'])
+    this.fb.api('/' + userid + '/?fields=id,email,name,picture', ['public_profile'])
     .then(res => {
-      if (res.status === 'connected') {
-        this.isLoggedIn = true;
-        this.datalogin = res.authResponse.userID;
-        this.api.getdata('login/loginFacebook&userId='+this.datalogin).subscribe(
-          res=>{
-            this.loginDetail = res;
-            if(this.loginDetail.result == "success"){
-              this.status_login = this.loginDetail.result;
-              this.storage.set('token', this.loginDetail.token).then((data)=>{
-                this.route.navigateByUrl('/home');
-              });
-              loading.present();
-            }
-          }
-        )
-      } else {
-        this.isLoggedIn = false;
-      }
+      this.users = res;
+      const formData = new FormData();
+      formData.append('username',this.users.id);
+      formData.append('password',this.users.id);
+      formData.append('email',this.users.email);
+      formData.append('name',this.users.first_name);
+      formData.append('surname',this.users.last_name);
+      formData.append('type','general');
+      formData.append('package','jaidee');
+      formData.append('via','facebook');
+      this.api.postdata('login/loginFacebook',formData).subscribe(res=>{
+        this.loginDetail = res;
+        if (this.loginDetail.result == "success") {
+          this.storage.set('token', this.loginDetail.token).then((data)=>{
+            this.route.navigateByUrl('/home');
+          });
+          loading.present();
+        }else{
+          this.status_login = this.loginDetail.result;
+        }
+      })
+      // this.api.getdata('login/loginFacebook&email='+this.users.email).subscribe(
+      //   res=>{
+      //     this.loginDetail = res;
+      //     if (this.loginDetail.result == "success") {
+      //       this.storage.set('token', this.loginDetail.token).then((data)=>{
+      //         this.route.navigateByUrl('/home');
+      //       });
+      //       loading.present();
+      //     }
+      //   },err=> {
+      //     console.log(err);
+      //   }
+      // )
     })
-    .catch(e => console.log('Error logging into Facebook', e));
-  //   this.fb.login(['public_profile', 'email'])
-  // .then((res: FacebookLoginResponse) => console.log('Logged into Facebook!', res))
-  // .catch(e => console.log('Error logging into Facebook', e));
-
+    .catch(e => {
+      console.log(e);
+    });
   }
   /*async login(username:string,password:string) {
 
