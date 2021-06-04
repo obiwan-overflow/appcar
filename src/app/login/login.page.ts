@@ -22,6 +22,16 @@ export class LoginPage implements OnInit {
   users:any;
   constructor(public api: RestApiService,private storage: Storage,public route: Router,public alertController:AlertController,public loadingController: LoadingController,private iab: InAppBrowser,private fb: Facebook) { 
      var users = { id: '', name: '', email: '', picture: { data: { url: '' } } };
+     fb.getLoginStatus()
+      .then(res => {
+        console.log(res.status);
+        if (res.status === 'connect') {
+          this.isLoggedIn = true;
+        } else {
+          this.isLoggedIn = false;
+        }
+      })
+      .catch(e => console.log(e));
   }
 
   ngOnInit(): void {
@@ -51,9 +61,10 @@ export class LoginPage implements OnInit {
     );
   }
   async fbLogin(){
-    this.fb.login(['public_profile','email']).then(
+    this.fb.login(['public_profile','user_friends', 'email']).then(
       res=>{
         if (res.status === 'connected') {
+          this.isLoggedIn = true;
           this.getUserDetail(res.authResponse.userID);
         }else{
           this.isLoggedIn = false;
