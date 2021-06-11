@@ -17,7 +17,7 @@ export class FavoritesPage implements OnInit {
   carDetail:any;
   addwishlist:any;
   datafail:any = [];
-  constructor(public api: RestApiService, public router: ActivatedRoute,private storage: Storage,public alertController:AlertController,public loadingController: LoadingController) {
+  constructor(public api: RestApiService, public router: ActivatedRoute,private storage: Storage,public alertController:AlertController,public loadingController: LoadingController,public route: Router) {
     
   }
   async ionViewWillEnter(){
@@ -46,30 +46,34 @@ export class FavoritesPage implements OnInit {
     }else{
       this.storage.get('token').then((data)=>{
         this.token = data;
-        this.api.getdata('cars/getCarDetail&id='+this.car_id).subscribe(
-          res=>{
-            this.carDetail = res;
-            this.title = this.carDetail.name;
-            this.api.getdata('cars/addWishlist&token='+this.token+'&id='+this.car_id+'&title='+this.title).subscribe(
-              res=>{
-                this.addwishlist = res;
-                if (this.addwishlist.result == "success") {
-                  this.api.getdata('cars/getListWishlist&token='+this.token).subscribe(
-                    res=>{
-                      return this.listcar = res;
-                    }
-                  )
-                }else{
-                  this.api.getdata('cars/getListWishlist&token='+this.token).subscribe(
-                    res=>{
-                      return this.listcar = res;
-                    }
-                  )
+        if(this.token == null){
+          this.alertLogin();
+        }else{
+          this.api.getdata('cars/getCarDetail&id='+this.car_id).subscribe(
+            res=>{
+              this.carDetail = res;
+              this.title = this.carDetail.name;
+              this.api.getdata('cars/addWishlist&token='+this.token+'&id='+this.car_id+'&title='+this.title).subscribe(
+                res=>{
+                  this.addwishlist = res;
+                  if (this.addwishlist.result == "success") {
+                    this.api.getdata('cars/getListWishlist&token='+this.token).subscribe(
+                      res=>{
+                        return this.listcar = res;
+                      }
+                    )
+                  }else{
+                    this.api.getdata('cars/getListWishlist&token='+this.token).subscribe(
+                      res=>{
+                        return this.listcar = res;
+                      }
+                    )
+                  }
                 }
-              }
-            )
-          }
-        )
+              )
+            }
+          )
+        }
       })
     }
   }
@@ -110,7 +114,29 @@ export class FavoritesPage implements OnInit {
 
     await alert.present();
   }
-
+  async alertLogin(){
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Login!',
+      message: 'กรุณาเข้าสู่ระบบ !!',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Okay',
+          handler: () => {
+            this.route.navigateByUrl('login');
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
 
 
 

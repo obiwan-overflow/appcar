@@ -20,6 +20,7 @@ export class CarAddPage implements OnInit {
   listcc:any;
   listmodel:any;
   listgear:any;
+  listcolor:any;
   caradd:any;
   status_detail:any;
   brand_id:any;
@@ -50,6 +51,7 @@ export class CarAddPage implements OnInit {
     this.api.getdata('cars/getListYear').subscribe(res=>{this.listyear = res;});
     this.api.getdata('cars/getListCC').subscribe(res=>{this.listcc = res;});
     this.api.getdata('cars/getListGear').subscribe(res=>{this.listgear = res;});
+    this.api.getdata('cars/getListColor').subscribe(res=>{this.listcolor = res;});
   }
   
   async getGen($event){
@@ -126,7 +128,7 @@ export class CarAddPage implements OnInit {
               res=>{
                 if(res.result == "success"){
                   this.status_detail = "success";
-                  this.route.navigateByUrl('announce');
+                  this.route.navigateByUrl('profile/announce');
                 }else{
                   this.status_detail = "fail";
                 }

@@ -92,6 +92,10 @@ const routes: Routes = [
     loadChildren: () => import('./car-detail/car-detail.module').then( m => m.CarDetailPageModule)
   },
   {
+    path: 'profile/announce/car-detail/:id',
+    loadChildren: () => import('./car-detail/car-detail.module').then( m => m.CarDetailPageModule)
+  },
+  {
     path: 'profile/favorites/car-detail/:id',
     loadChildren: () => import('./car-detail/car-detail.module').then( m => m.CarDetailPageModule)
   },

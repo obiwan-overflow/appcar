@@ -11,6 +11,42 @@ import { AlertController, LoadingController } from '@ionic/angular';
   styleUrls: ['./car-edit.page.scss'],
 })
 export class CarEditPage implements OnInit {
+  /// In declarations : 
+
+years: any[ ] = [
+    {
+      id: 1,
+      name: '2019'
+    },
+    {
+      id: 2,
+      name:'2018'
+    },
+    {
+      id: 3,
+      name:'2017'
+    },{
+      id:4,
+      name:'2016'
+    }
+  ];
+
+  compareWith : any ;
+  MyDefaultBrandIdValue: string;
+  MyDefaultTypeIdValue: string;
+  MyDefaultGearsIdValue: string;
+  MyDefaultColorIdValue: string;
+  MyDefaultCCIdValue: string;
+  MyDefaultYearIdValue: string;
+  MyDefaultFaceIdValue: string;
+  MyDefaultGenIdValue: string;
+  MyDefaultModelIdValue: string;
+///// In functions declaration zone
+
+  compareWithFn(o1, o2) {
+    return o1 === o2;
+  };
+
   listtype:any;
   listbrand:any;
   listgen:any;
@@ -19,16 +55,19 @@ export class CarEditPage implements OnInit {
   listcc:any;
   listmodel:any;
   listgear:any;
+  listcolor:any;
   caredit:any;
   status_detail:any;
   car_id:any;
-
+  brand_id:any;
+  model_id:any;
 
   cardata_detail:any;
   car_mile:any;
   car_price:any;
   car_label:any;
-  car_color:any;
+  car_color_id:any;
+  car_color_title:any;
   car_detail:any;
   car_images:any;
   car_image:any;
@@ -48,6 +87,10 @@ export class CarEditPage implements OnInit {
   car_subtype_name:any;
   car_subtype_id:any;
   token:any;
+  car_brand1:any;
+  car_brand2:any;
+  car_model1:any;
+  car_model2:any;
 
   title:any;
   val_brand:any;
@@ -57,6 +100,9 @@ export class CarEditPage implements OnInit {
   imagesarray:any = [];
   userImg: any = '';
   base64Img = '';
+
+listmodelSelect:any;
+
   gelleryOptions: CameraOptions = {
     quality: 50,
     sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
@@ -65,28 +111,35 @@ export class CarEditPage implements OnInit {
     mediaType: this.camera.MediaType.PICTURE,
     allowEdit: true
   }
-  constructor(public api:RestApiService,public route:ActivatedRoute,private storage:Storage,private camera : Camera,public alertController:AlertController) {
-    
+ 
+  
+
+  constructor(public api:RestApiService,public route:ActivatedRoute,private storage:Storage,private camera : Camera,public alertController:AlertController,public loadingController: LoadingController) {
+
   }
 
   async ionViewWillEnter(){
     this.car_id = this.route.snapshot.paramMap.get('id');
     this.api.getdata('cars/getCarDetail&id='+this.car_id).subscribe(
       res=>{
-        // console.log(res);
         this.car_mile = res.mileage;
         this.car_price = res.price;
         this.car_label = res.label;
-        this.car_color = res.color;
+        this.car_color_id = res.color.id;
+        this.car_color_title = res.color.text;
         this.car_detail = res.detail;
         this.car_images = res.images;
         this.car_brand = res.Car_band_id;
+        this.car_brand1 = res.Car_band_id;
+        this.car_brand2 = res.Car_band_id;
         this.car_type_id = res.Car_type_id;
         this.car_cc = res.power;
         this.car_year = res.year;
         this.car_gear_id = res.gear.id;
         this.car_gear_name = res.gear.text;
         this.car_model = res.Car_model_id;
+        this.car_model1 = res.Car_model_id;
+        this.car_model2 = res.Car_model_id;
         this.sub_model = res.Car_submodel_id;
         this.car_body = res.Car_body_id;
         this.car_type_name = res.type;
@@ -97,32 +150,108 @@ export class CarEditPage implements OnInit {
         this.car_subtype_id = res.Car_subtype_id;
         this.car_image = res.image;
 
-        this.api.getdata('cars/getListType').subscribe(res=>{this.listtype = res;})
-        this.api.getdata('cars/getListBand').subscribe(res=>{this.listbrand = res;})
-        this.api.getdata('cars/getListYear').subscribe(res=>{this.listyear = res;})
-        this.api.getdata('cars/getListCC').subscribe(res=>{this.listcc = res;})
-        this.api.getdata('cars/getListGear').subscribe(res=>{this.listgear = res;})
-        this.api.getdata('cars/getLlistGeneration&brand_id='+this.car_brand).subscribe(res=>{this.listgen = res;})
-        this.api.getdata('cars/getListFace&brand_id='+this.car_brand+'&model_id='+this.car_model).subscribe(res=>{this.listface = res;})
-        this.api.getdata('cars/getListModel&brand_id='+this.car_brand+'&model_id='+this.car_model).subscribe(res=>{this.listmodel = res;})
+        this.api.getdata('cars/getListType').subscribe(res=>{
+          this.listtype = res;
+          this.MyDefaultTypeIdValue = this.car_type_id;
+        })
+        this.api.getdata('cars/getListBand').subscribe(res=>{
+          this.listbrand = res;
+          this.MyDefaultBrandIdValue = this.car_brand;
+          
+        })
+        this.api.getdata('cars/getListYear').subscribe(res=>{
+          this.listyear = res;
+          this.MyDefaultYearIdValue = this.car_year;
+        })
+        this.api.getdata('cars/getListCC').subscribe(res=>{
+          this.listcc = res;
+          this.MyDefaultCCIdValue = this.car_cc;
+        })
+        this.api.getdata('cars/getListGear').subscribe(res=>{
+          this.listgear = res;
+          this.MyDefaultGearsIdValue = this.car_gear_id;
+        })
+        this.api.getdata('cars/getLlistGeneration&brand_id='+this.car_brand).subscribe(res=>{
+          this.listgen = res;
+          this.MyDefaultGenIdValue = this.car_model;
+        })
 
-        this.todo.type_id = this.car_type_id;
-        this.todo.brand_id = this.car_brand;
-        this.todo.generation_id = this.car_model;
-        this.todo.face_id = this.car_body;
-        this.todo.model_id = this.sub_model;
-        this.todo.year_id = this.car_year;
-        this.todo.cc_id = this.car_cc;
-        this.todo.gear_id = this.car_gear_id;
+        // let TIME_IN_MS = 2000;
+        // let hideFooterTimeout = setTimeout( () => {
+        this.api.getdata('cars/getListFace&brand_id='+this.car_brand2+'&model_id='+this.car_model2).subscribe(res_face=>{
+          // console.log(res_face);
+          this.listface = res_face;
+          this.MyDefaultFaceIdValue = this.car_body;
+          // console.log(2);
+         })
+        // }, TIME_IN_MS);
+        this.api.getdata('cars/getListModel&brand_id='+this.car_brand1+'&model_id='+this.car_model1).subscribe(res_model=>{
+          // let TIME_IN_MS = 2000;
+          // let hideFooterTimeout = setTimeout( () => {
+            // console.log(res_model);
+            this.listmodelSelect = res_model;
+            this.MyDefaultModelIdValue = this.sub_model;
+            // console.log(1);
+          // }, TIME_IN_MS);
+        })
+       
+        this.api.getdata('cars/getListColor').subscribe(res=>{
+          this.listcolor = res;
+          this.MyDefaultColorIdValue = this.car_color_id;
+        });
+
+        // this.todo.type_id = this.car_type_id;
+        // this.todo.year_id = this.car_year;
+        // this.todo.cc_id = this.car_cc;
+        // this.todo.gear_id = this.car_gear_id;
+        // this.todo.color = this.car_color_id;
+        // this.todo.brand_id = this.car_brand;
+        // this.todo.model_id = this.sub_model;
+        // this.todo.generation_id = this.car_model;
+        // this.todo.face_id = this.car_body;
         this.todo.mile = this.car_mile;
-        this.todo.color = this.car_color;
         this.todo.price = this.car_price;
         this.todo.license = this.car_label;
         this.todo.detail = this.car_detail;
         this.imagesarray = this.car_images;
 
+        
+        this.compareWith = this.compareWithFn;
       }
     );
+  }
+  async getGen($event){
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Please wait...',
+      duration: 500
+    });
+    this.brand_id = $event.target.value;
+    this.api.getdata('cars/getLlistGeneration&brand_id='+this.brand_id).subscribe(
+      res=>{
+        this.listgen = res;
+      }
+    )
+    await loading.present();
+  }
+  async getFace($event){
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Please wait...',
+      duration: 500
+    });
+    this.model_id = $event.target.value;
+    this.api.getdata('cars/getListFace&brand_id='+this.brand_id+'&model_id='+this.model_id).subscribe(
+      res=>{
+        this.listface = res;
+      }
+    )
+    this.api.getdata('cars/getListModel&brand_id='+this.brand_id+'&model_id='+this.model_id).subscribe(
+      res=>{
+        this.listmodel = res;
+      }
+    )
+    await loading.present();
   }
 
   ngOnInit():void {
@@ -130,6 +259,7 @@ export class CarEditPage implements OnInit {
   }
   
   async editForm(){
+    console.log(this.todo);
     this.storage.get('token').then((data)=>{
       this.token = data;
       this.api.getdata('cars/getBand&id='+this.todo.brand_id).subscribe(res=>{
@@ -168,16 +298,9 @@ export class CarEditPage implements OnInit {
               console.log(err);
             }
           )
-          // this.api.getdata('cars/editCar&token='+this.token+'&id='+this.car_id+'&title='+this.title+'&type_id='+this.todo.type_id+'&brand_id='+this.todo.brand_id+'&generation_id='+this.todo.generation_id+'&face_id='+this.todo.model_id+'&model_id='+this.todo.face_id+'&year_id='+this.todo.year_id+'&cc_id='+this.todo.cc_id+'&gear_id='+this.todo.gear_id+'&color='+this.todo.color+'&mile='+this.todo.mile+'&license='+this.todo.license+'&detail='+this.todo.detail+'&price='+this.todo.price+'&image='+this.todo.image).subscribe(
-          //   res=>{
-          //     console.log(res);
-          //   },err=>{
-          //     console.log(err);
-          //   }
-          // );
-        });
-      });
-    });
+        })
+      })
+    })
   }
   async updateSuccess(){
     const alert = await this.alertController.create({
@@ -200,10 +323,10 @@ export class CarEditPage implements OnInit {
   async updateImages(images){
     this.imagesarray.push(images);
   }
-  async delimages(event){
+  async delimages(images){
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
-      header: 'Confirm!',
+      header: 'Delete Image!',
       buttons: [
         {
           text: 'Cancel',
@@ -217,20 +340,22 @@ export class CarEditPage implements OnInit {
           handler: () => {
             this.storage.get('token').then((data)=>{
               this.token = data;
-              const formData = new FormData();
-              formData.append('token',this.token);
-              formData.append('id',this.car_id);
-              formData.append('image',event.target.src);
-              // var formImages = {
-              //   "token": this.token,
-              //   "id": this.car_id,
-              //   "image": event.target.src
-              // }
-              this.api.postdata('cars/delImageCar',formData).subscribe(res=>{
-                console.log(res);
-              },err=>{
-                console.log(err);
-              })
+              this.api.getdata('cars/delImageCar&token='+this.token+'&id='+this.car_id+'&image='+images).subscribe(
+                res=>{
+                  console.log(res);
+                },err=>{
+                  console.log(err);
+                }
+              )
+              // const formData = new FormData();
+              // formData.append('token',this.token);
+              // formData.append('id',this.car_id);
+              // formData.append('image',images);
+              // this.api.postdata('cars/delImageCar',formData).subscribe(res=>{
+              //   console.log(res);
+              // },err=>{
+              //   console.log(err);
+              // })
             },err=>{
               console.log(err);
             });

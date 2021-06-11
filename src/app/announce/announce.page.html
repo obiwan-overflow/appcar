@@ -43,8 +43,10 @@
 	  			<h6>{{lists.name}}</h6>
 	  			<h4>{{lists.price}}</h4>
 	  		</ion-text>
+	  		<ion-button routerLink="car-detail/{{lists.id}}" expand="full" color="success" size="small">ข้อมูลรถ</ion-button>
 	  		<ion-button routerLink="/promote/{{lists.id}}" expand="full" color="secondary" size="small" type="submit">ดันโปรโมท</ion-button>
 			<ion-button routerLink="edit/{{lists.id}}" expand="full" color="tertiary" size="small">แก้ไขข้อมูลรถ</ion-button>
+			<ion-button expand="full" color="danger" size="small" (click)="btnDelcar(lists.id)">ลบ</ion-button>	
 	  	</ion-col>
 	  </ion-row>
 	</ion-card>

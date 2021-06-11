@@ -10,7 +10,8 @@ import { AlertController, LoadingController } from '@ionic/angular';
 })
 export class AnnouncePage implements OnInit {
   public listcar:any;
-  constructor(public api: RestApiService,private storage: Storage,public loadingController: LoadingController) {
+  statusDelete:any;
+  constructor(public api: RestApiService,private storage: Storage,public loadingController: LoadingController,public alertController:AlertController) {
     // this.loaddataCar();
   }
 
@@ -36,6 +37,41 @@ export class AnnouncePage implements OnInit {
     })
   }
 
+  async btnDelcar(id){
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Delete Car!',
+      message: 'Do you want to delete',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Okay',
+          handler: () => {
+            this.deleteCar(id);
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+  async deleteCar(id){
+    this.storage.get('token').then((data)=>{
+      this.api.getdata('cars/delCar&token='+data+'&id='+id).subscribe(
+        res=>{
+          this.statusDelete = res;
+          if (this.statusDelete.result == "success") {
+            this.ionViewWillEnter();
+          }
+        }
+      )
+    })
+  }
 
   // async loaddataCar(){
   //   await this.storage.get('token').then((data)=>{

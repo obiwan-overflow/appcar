@@ -9,6 +9,12 @@
 
 <ion-content [fullscreen]="true">
 	<div class="card">
+
+
+		<!-- <ion-select [compareWith]="compareWith" value="{{MyDefaultYearIdValue}}">
+			<ion-select-option *ngFor="let listbrands of listbrand" value="{{listbrands.id}}">{{todo.brand_id}} {{listbrands.text}} {{listbrands.id}}</ion-select-option>
+		</ion-select> -->
+
 		<ion-grid>
 			<ion-row>
 				<ion-col size="8">
@@ -23,62 +29,53 @@
 					<ion-button color="secondary" expand="block" routerLink="/promote/{{car_id}}">โปรโมท</ion-button>
 				</ion-col>
 			</ion-row>
-			<!-- <form #form="ngForm" (ngSubmit)="editForm(form)" > -->
 			<form (ngSubmit)="editForm()" >
 			<ion-row>
 				<ion-col size="12">
 					<label>ประเภทรถยนต์</label>
-					<ion-select class="border-input" name="type_id" [(ngModel)]="todo.type_id">
-						<ion-select-option value="{{car_type_id}}">{{car_type_name}}</ion-select-option>
-						<ion-select-option value="{{listtypes.id}}" *ngFor="let listtypes of listtype">{{listtypes.text}}</ion-select-option>
+					<ion-select [(ngModel)]="todo.type_id" class="border-input" name="type_id" [compareWith]="compareWith" value="{{MyDefaultTypeIdValue}}">
+						<ion-select-option *ngFor="let listtypes of listtype" value="{{listtypes.id}}">{{listtypes.text}}</ion-select-option>
 					</ion-select>
 				</ion-col>
 				<ion-col size="12">
-					<label>ยี่ห้อรถยนต์</label>
-					<ion-select class="border-input" name="brand_id" [(ngModel)]="todo.brand_id">
-						<ion-select-option value="{{car_brand}}">{{car_brand_name}}</ion-select-option>
-						<ion-select-option value="{{listbrands.id}}" *ngFor="let listbrands of listbrand">{{listbrands.text}}</ion-select-option>
+					<label>ยี่ห้อรถยนต์ </label>
+					<ion-select [(ngModel)]="todo.brand_id" class="border-input" name="brand_id" [compareWith]="compareWith" value="{{MyDefaultBrandIdValue}}" (ionChange)="getGen($event)">
+						<ion-select-option *ngFor="let listbrands of listbrand" value="{{listbrands.id}}">{{listbrands.text}}</ion-select-option>
 					</ion-select>
 				</ion-col>
 				<ion-col size="12">
 					<label>รุ่นรถยนต์</label>
-					<ion-select class="border-input" name="generation_id" [(ngModel)]="todo.generation_id">
-						<ion-select-option value="{{car_model}}">{{car_model_name}}</ion-select-option>
-						<ion-select-option value="{{listgens.id}}" *ngFor="let listgens of listgen">{{listgens.text}}</ion-select-option>
+					<ion-select [(ngModel)]="todo.generation_id" class="border-input" name="generation_id" [compareWith]="compareWith" value="{{MyDefaultGenIdValue}}" (ionChange)="getFace($event)">
+						<ion-select-option *ngFor="let listgens of listgen" value="{{listgens.id}}">{{listgens.text}}</ion-select-option>
 					</ion-select>
 				</ion-col>
 				<ion-col size="12">
 					<label>โฉมรถยนต์</label>
-					<ion-select class="border-input" name="face_id" [(ngModel)]="todo.face_id">
-						<!-- <ion-select-option value="{{car_subtype_id}}">{{car_subtype_name}}</ion-select-option> -->
-						<ion-select-option value="{{listfaces.id}}" *ngFor="let listfaces of listface">{{listfaces.text}}</ion-select-option>
+					<ion-select [(ngModel)]="todo.model_id" class="border-input" name="model_id" [compareWith]="compareWith" value="{{MyDefaultFaceIdValue}}">
+						<ion-select-option *ngFor="let listmodels of listmodelSelect" value="{{listmodels.id}}">{{listmodels.text}}</ion-select-option>
 					</ion-select>
 				</ion-col>
 				<ion-col size="12">
 					<label>รายละเอียดรุ่น</label>
-					<ion-select class="border-input" name="model_id" [(ngModel)]="todo.model_id">
-						<!-- <ion-select-option value="{{sub_model}}">{{car_submodel_name}}</ion-select-option> -->
-						<ion-select-option value="{{listmodels.id}}" *ngFor="let listmodels of listmodel">{{listmodels.text}}</ion-select-option>
+					<ion-select [(ngModel)]="todo.face_id" class="border-input" name="face_id" [compareWith]="compareWith" value="{{MyDefaultModelIdValue}}">
+						<ion-select-option *ngFor="let listfaces of listface" value="{{listfaces.id}}">{{listfaces.text}}</ion-select-option>
 					</ion-select>
 				</ion-col>
 				<ion-col size="12">
 					<label>ปี</label>
-					<ion-select class="border-input" name="year_id" [(ngModel)]="todo.year_id">
-						<ion-select-option value="{{car_year}}">{{car_year}}</ion-select-option>
+					<ion-select class="border-input" name="year_id" [(ngModel)]="todo.year_id" [compareWith]="compareWith" value="{{MyDefaultYearIdValue}}">
 						<ion-select-option value="{{listyears}}" *ngFor="let listyears of listyear">{{listyears}}</ion-select-option>
 					</ion-select>
 				</ion-col>
 				<ion-col size="12">
 					<label>ขนาดเครื่องยนต์</label>
-					<ion-select class="border-input" name="cc_id" [(ngModel)]="todo.cc_id">
-						<ion-select-option value="{{car_cc}}">{{car_cc}}</ion-select-option>
+					<ion-select class="border-input" name="cc_id" [(ngModel)]="todo.cc_id" [compareWith]="compareWith" value="{{MyDefaultCCIdValue}}">
 						<ion-select-option value="{{listccs.text}}" *ngFor="let listccs of listcc">{{listccs.text}}</ion-select-option>
 					</ion-select>
 				</ion-col>
 				<ion-col size="12">
 					<label>ระบบเกียร์</label>
-					<ion-select class="border-input" name="gear_id" [(ngModel)]="todo.gear_id">
-						<ion-select-option value="{{car_gear_id}}">{{car_gear_name}}</ion-select-option>
+					<ion-select class="border-input" [(ngModel)]="todo.gear_id" name="gear_id" [compareWith]="compareWith" value="{{MyDefaultGearsIdValue}}">
 						<ion-select-option value="{{listgears.id}}" *ngFor="let listgears of listgear">{{listgears.text}}</ion-select-option>
 					</ion-select>
 				</ion-col>
@@ -88,7 +85,9 @@
 				</ion-col>
 				<ion-col size="12">
 					<label>สี </label>
-					<ion-input class="border-input" name="color" [(ngModel)]="todo.color"></ion-input>
+					<ion-select class="border-input" [(ngModel)]="todo.color" name="color" [compareWith]="compareWith" value="{{MyDefaultColorIdValue}}">
+						<ion-select-option *ngFor="let listcolor of listcolor" value="{{listcolor.id}}">{{listcolor.title}}</ion-select-option>
+					</ion-select>
 				</ion-col>
 				<ion-col size="12">
 					<label>ราคา </label>
@@ -103,7 +102,7 @@
 					<ion-textarea rows="6" cols="20" class="border-input" name="detail" [(ngModel)]="todo.detail"></ion-textarea>
 				</ion-col>
 				<ion-col size="12" *ngFor="let imagesarray of imagesarray">
-					<img class="user-profile-img" [src]="imagesarray" alt="" (click)="delimages($event)">
+					<img class="user-profile-img" [src]="imagesarray" alt="" (click)="delimages(imagesarray)">
 				</ion-col>
 				<ion-col size="12">
 					<ion-button color="secondary" expand="block" (click)="openGallery()">
