@@ -52,7 +52,7 @@
 				<ion-col size="12">
 					<label>โฉมรถยนต์</label>
 					<ion-select [(ngModel)]="todo.model_id" class="border-input" name="model_id" [compareWith]="compareWith" value="{{MyDefaultFaceIdValue}}">
-						<ion-select-option *ngFor="let listmodels of listmodelSelect" value="{{listmodels.id}}">{{listmodels.text}}</ion-select-option>
+						<ion-select-option *ngFor="let listmodels of listmodel" value="{{listmodels.id}}">{{listmodels.text}}</ion-select-option>
 					</ion-select>
 				</ion-col>
 				<ion-col size="12">

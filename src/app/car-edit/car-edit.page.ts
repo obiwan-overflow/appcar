@@ -121,34 +121,34 @@ listmodelSelect:any;
   async ionViewWillEnter(){
     this.car_id = this.route.snapshot.paramMap.get('id');
     this.api.getdata('cars/getCarDetail&id='+this.car_id).subscribe(
-      res=>{
-        this.car_mile = res.mileage;
-        this.car_price = res.price;
-        this.car_label = res.label;
-        this.car_color_id = res.color.id;
-        this.car_color_title = res.color.text;
-        this.car_detail = res.detail;
-        this.car_images = res.images;
-        this.car_brand = res.Car_band_id;
-        this.car_brand1 = res.Car_band_id;
-        this.car_brand2 = res.Car_band_id;
-        this.car_type_id = res.Car_type_id;
-        this.car_cc = res.power;
-        this.car_year = res.year;
-        this.car_gear_id = res.gear.id;
-        this.car_gear_name = res.gear.text;
-        this.car_model = res.Car_model_id;
-        this.car_model1 = res.Car_model_id;
-        this.car_model2 = res.Car_model_id;
-        this.sub_model = res.Car_submodel_id;
-        this.car_body = res.Car_body_id;
-        this.car_type_name = res.type;
-        this.car_brand_name = res.brand;
-        this.car_model_name = res.model;
-        this.car_submodel_name = res.submodel;
-        this.car_subtype_name = res.subtype;
-        this.car_subtype_id = res.Car_subtype_id;
-        this.car_image = res.image;
+      res_data=>{
+        this.car_mile = res_data.mileage;
+        this.car_price = res_data.price;
+        this.car_label = res_data.label;
+        this.car_color_id = res_data.color.id;
+        this.car_color_title = res_data.color.text;
+        this.car_detail = res_data.detail;
+        this.car_images = res_data.images;
+        this.car_brand = res_data.Car_band_id;
+        this.car_brand1 = res_data.Car_band_id;
+        this.car_brand2 = res_data.Car_band_id;
+        this.car_type_id = res_data.Car_type_id;
+        this.car_cc = res_data.power;
+        this.car_year = res_data.year;
+        this.car_gear_id = res_data.gear.id;
+        this.car_gear_name = res_data.gear.text;
+        this.car_model = res_data.Car_model_id;
+        this.car_model1 = res_data.Car_model_id;
+        this.car_model2 = res_data.Car_model_id;
+        this.sub_model = res_data.Car_submodel_id;
+        this.car_body = res_data.Car_body_id;
+        this.car_type_name = res_data.type;
+        this.car_brand_name = res_data.brand;
+        this.car_model_name = res_data.model;
+        this.car_submodel_name = res_data.submodel;
+        this.car_subtype_name = res_data.subtype;
+        this.car_subtype_id = res_data.Car_subtype_id;
+        this.car_image = res_data.image;
 
         this.api.getdata('cars/getListType').subscribe(res=>{
           this.listtype = res;
@@ -174,26 +174,28 @@ listmodelSelect:any;
         this.api.getdata('cars/getLlistGeneration&brand_id='+this.car_brand).subscribe(res=>{
           this.listgen = res;
           this.MyDefaultGenIdValue = this.car_model;
+
+          this.api.getdata('cars/getListFace&brand_id='+this.car_brand2+'&model_id='+this.car_model2).subscribe(res_face=>{
+            this.listface = res_face;
+            this.MyDefaultFaceIdValue = this.car_body;
+           })
+          this.api.getdata('cars/getListModel&brand_id='+this.car_brand1+'&model_id='+this.car_model1).subscribe(res_model=>{
+            this.listmodel = res_model;
+            this.MyDefaultModelIdValue = this.sub_model;
+          })
         })
 
         // let TIME_IN_MS = 2000;
         // let hideFooterTimeout = setTimeout( () => {
-        this.api.getdata('cars/getListFace&brand_id='+this.car_brand2+'&model_id='+this.car_model2).subscribe(res_face=>{
-          // console.log(res_face);
-          this.listface = res_face;
-          this.MyDefaultFaceIdValue = this.car_body;
-          // console.log(2);
-         })
+        // this.api.getdata('cars/getListFace&brand_id='+this.car_brand2+'&model_id='+this.car_model2).subscribe(res_face=>{
+        //   this.listface = res_face;
+        //   this.MyDefaultFaceIdValue = this.car_body;
+        //  })
         // }, TIME_IN_MS);
-        this.api.getdata('cars/getListModel&brand_id='+this.car_brand1+'&model_id='+this.car_model1).subscribe(res_model=>{
-          // let TIME_IN_MS = 2000;
-          // let hideFooterTimeout = setTimeout( () => {
-            // console.log(res_model);
-            this.listmodelSelect = res_model;
-            this.MyDefaultModelIdValue = this.sub_model;
-            // console.log(1);
-          // }, TIME_IN_MS);
-        })
+        // this.api.getdata('cars/getListModel&brand_id='+this.car_brand1+'&model_id='+this.car_model1).subscribe(res_model=>{
+        //     this.listmodel = res_model;
+        //     this.MyDefaultModelIdValue = this.sub_model;
+        // })
        
         this.api.getdata('cars/getListColor').subscribe(res=>{
           this.listcolor = res;
