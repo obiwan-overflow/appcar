@@ -25,10 +25,15 @@ hr {
 	font-size: .8rem;
 	margin: 0;
 }
+// .text-title {
+// 	font-size: .9rem;
+// 	margin: 0;
+// 	font-weight: bold;
+// }
 .text-title {
-	font-size: .9rem;
-	margin: 0;
-	font-weight: bold;
+	text-align: left !important;
+	padding-left: 20px !important;
+	padding-right: 20px !important;  
 }
 
 
