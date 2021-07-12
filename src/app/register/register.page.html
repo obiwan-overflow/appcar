@@ -13,7 +13,7 @@
 			</ion-text>
 		</ion-card-header>
 		<ion-card-content>
-			<ion-button expand="full" class="btn-fb" (click)="fbRegister()">Register with facebook</ion-button>
+			<ion-button expand="block" class="btn-fb" (click)="fbRegister()">Register with facebook</ion-button>
 			<!-- <ion-button expand="full" class="btn-fb">Register with facebook</ion-button> -->
 			<ion-text class="ion-text-center">
 				<h3 class="text-or">หรือ</h3>
@@ -21,7 +21,7 @@
 			<form (ngSubmit)="register()">
 				<ion-input [(ngModel)]="data.username" name="username" class="input" placeholder="Email"></ion-input>
 				<ion-input [(ngModel)]="data.password" name="password" class="input" placeholder="Password"></ion-input>
-				<ion-button color="theme" type="submit" expand="full">สมัครสมาชิก</ion-button>
+				<ion-button color="theme" type="submit" expand="block">สมัครสมาชิก</ion-button>
 			</form>
 		</ion-card-content>
 	</ion-card>

@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
+import { SignInWithApple, AppleSignInResponse, AppleSignInErrorResponse, ASAuthorizationAppleIDRequest } from '@ionic-native/sign-in-with-apple/ngx';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,17 @@ export class LoginPage implements OnInit {
   isLoggedIn = false;
   datalogin:any;
   users:any;
-  constructor(public api: RestApiService,private storage: Storage,public route: Router,public alertController:AlertController,public loadingController: LoadingController,private iab: InAppBrowser,private fb: Facebook) { 
+  loginDetailApple:any;
+  constructor(
+    public api: RestApiService,
+    private storage: Storage,
+    public route: Router,
+    public alertController:AlertController,
+    public loadingController: LoadingController,
+    private iab: InAppBrowser,
+    private fb: Facebook,
+    private signInWithApple: SignInWithApple
+  ) { 
      var users = { id: '', name: '', email: '', picture: { data: { url: '' } } };
      fb.getLoginStatus()
       .then(res => {
@@ -49,19 +60,33 @@ export class LoginPage implements OnInit {
       res=>{
         this.loginDetail = res;
         if(this.loginDetail.result == "success"){
-          this.status_login = this.loginDetail.result;
           this.storage.set('token', this.loginDetail.token).then((data)=>{
             this.route.navigateByUrl('/home');
           });
           loading.present();
+        }else {
+          this.loginfailed();
         }
       },err=>{
         console.log(err);
       }
     );
   }
+
+
+  async loginfailed(){
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Failed !',
+      duration: 2000
+    });
+    loading.present();
+  }
+
+
+
   async fbLogin(){
-    this.fb.login(['public_profile','user_friends', 'email']).then(
+    this.fb.login(['public_profile', 'email']).then(
       res=>{
         if (res.status === 'connected') {
           this.isLoggedIn = true;
@@ -72,6 +97,42 @@ export class LoginPage implements OnInit {
       }
     ).catch(e => console.log('Error logging into Facebook', e));
   }
+
+  async appleLogin(){
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Please wait...',
+      duration: 2000
+    });
+    this.signInWithApple.signin({
+      requestedScopes: [
+        ASAuthorizationAppleIDRequest.ASAuthorizationScopeFullName,
+        ASAuthorizationAppleIDRequest.ASAuthorizationScopeEmail
+      ]
+    })
+    .then((res: AppleSignInResponse) => {
+      // https://developer.apple.com/documentation/signinwithapplerestapi/verifying_a_user
+      // alert('Send token to apple for verification: ' + res.identityToken);
+      // console.log(res);
+      this.api.getdata('login/loginApple&email='+res.email+'&name='+res.fullName.familyName+'&surname='+res.fullName.givenName).subscribe(res=>{
+        this.loginDetailApple = res;
+        if (this.loginDetailApple.result == "success") {
+          this.storage.set('token', this.loginDetailApple.token).then((data)=>{
+            this.route.navigateByUrl('/home');
+          });
+          loading.present();
+        }else{
+          // this.status_login = this.loginDetail.result;
+        }
+      })
+    })
+    .catch((error: AppleSignInErrorResponse) => {
+      alert(error.code + ' ' + error.localizedDescription);
+      console.error(error);
+    });
+  }
+
+
   async getUserDetail(userid:any){
     const loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
@@ -98,78 +159,14 @@ export class LoginPage implements OnInit {
           });
           loading.present();
         }else{
-          this.status_login = this.loginDetail.result;
+          // this.status_login = this.loginDetail.result;
         }
       })
-      // this.api.getdata('login/loginFacebook&email='+this.users.email).subscribe(
-      //   res=>{
-      //     this.loginDetail = res;
-      //     if (this.loginDetail.result == "success") {
-      //       this.storage.set('token', this.loginDetail.token).then((data)=>{
-      //         this.route.navigateByUrl('/home');
-      //       });
-      //       loading.present();
-      //     }
-      //   },err=> {
-      //     console.log(err);
-      //   }
-      // )
     })
     .catch(e => {
       console.log(e);
     });
   }
-  /*async login(username:string,password:string) {
-
-    // const loading = await this.loadingController.create({
-    // // content: 'Loading'
-    // });
-    // await loading.present();
-    // await 
-    this.api.getdata('login&username='+username+'&password='+password).subscribe(res => {
-      // console.log(res);
-      this.loginDetail = res;
-      // console.log(this.loginDetail);
-      // loading.dismiss();
-      if(this.loginDetail.result=='success'){
-      	this.status_login = this.loginDetail.result
-      	
-        this.storage.set('token', this.loginDetail.token).then((data) => {
-        	this.storage.set('name', this.loginDetail.name).then((data) => {
-        		this.route.navigate(['/home']);
-	    	});
-	    });
-        
-
-        // this.storage.get('token')
-        // this.route.navigate(['/home']);
-
-
-        // this.storage.set('phone', this.loginDetail.phone);
-        // this.storage.set('address', this.loginDetail.address);
-        // this.storage.set('emp_key', this.loginDetail.emp_key);
-        // console.log(this.loginDetail.emp_key);
-        // this.storage.set('title', this.loginDetail.title);
-        // this.storage.set('firstname', this.loginDetail.firstname);
-        // this.storage.set('lastname', this.loginDetail.lastname);
-        // this.storage.set('nickname', this.loginDetail.nickname);
-        // return this.storage.set(TOKEN_KEY, this.loginDetail.emp_key).then(() => {
-        //   this.authenticationState.next(true);
-        // });
-      }else{
-        // this.alert();
-        // return this.storage.remove(TOKEN_KEY).then(() => {
-        //   this.authenticationState.next(false);
-        // });
-      }
-      
-    }, err => {
-      console.log(err);
-      // loading.dismiss();
-    });
-    
-  }*/
-
 }
 class Loginuser {
   username:any;

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RestApiService } from '../rest-api.service';
+import { Platform } from '@ionic/angular';
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -8,7 +10,9 @@ import { RestApiService } from '../rest-api.service';
 export class HomePage implements OnInit {
 	banner:any;
 	brand:any;
-  	constructor(public api: RestApiService) {
+	ios:boolean;
+	android:boolean;
+  	constructor(public api: RestApiService,public platform: Platform) {
 		this.api.getdata('information/getListBanner').subscribe(res=>{
 			this.banner = res;
 		},err=> {

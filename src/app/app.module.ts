@@ -15,7 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { Facebook } from '@ionic-native/facebook/ngx';
-
+import { SignInWithApple, AppleSignInResponse, AppleSignInErrorResponse, ASAuthorizationAppleIDRequest } from '@ionic-native/sign-in-with-apple/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -33,7 +33,8 @@ import { Facebook } from '@ionic-native/facebook/ngx';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     Camera,
     InAppBrowser,
-    Facebook
+    Facebook,
+    SignInWithApple
     
   ],
   bootstrap: [AppComponent]
