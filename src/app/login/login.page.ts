@@ -114,10 +114,19 @@ export class LoginPage implements OnInit {
       // https://developer.apple.com/documentation/signinwithapplerestapi/verifying_a_user
       // alert('Send token to apple for verification: ' + res.identityToken);
       // console.log(res);
-      this.api.getdata('login/loginApple&email='+res.email+'&name='+res.fullName.familyName+'&surname='+res.fullName.givenName).subscribe(res=>{
-        this.loginDetailApple = res;
-        if (this.loginDetailApple.result == "success") {
-          this.storage.set('token', this.loginDetailApple.token).then((data)=>{
+      const formData = new FormData();
+      formData.append('username',res.fullName.familyName);
+      formData.append('password',res.fullName.familyName);
+      formData.append('email',res.email);
+      formData.append('name',res.fullName.familyName);
+      formData.append('surname',res.fullName.givenName);
+      formData.append('type','general');
+      formData.append('package','');
+      formData.append('via','appleId');
+      this.api.postdata('login/loginApple',formData).subscribe(res=>{
+        this.loginDetail = res;
+        if (this.loginDetail.result == "success") {
+          this.storage.set('token', this.loginDetail.token).then((data)=>{
             this.route.navigateByUrl('/home');
           });
           loading.present();
@@ -125,6 +134,17 @@ export class LoginPage implements OnInit {
           // this.status_login = this.loginDetail.result;
         }
       })
+      // this.api.getdata('login/loginApple&email='+res.email+'&name='+res.fullName.familyName+'&surname='+res.fullName.givenName).subscribe(res=>{
+      //   this.loginDetailApple = res;
+      //   if (this.loginDetailApple.result == "success") {
+      //     this.storage.set('token', this.loginDetailApple.token).then((data)=>{
+      //       this.route.navigateByUrl('/home');
+      //     });
+      //     loading.present();
+      //   }else{
+      //     // this.status_login = this.loginDetail.result;
+      //   }
+      // })
     })
     .catch((error: AppleSignInErrorResponse) => {
       alert(error.code + ' ' + error.localizedDescription);
