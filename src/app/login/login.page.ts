@@ -112,28 +112,28 @@ export class LoginPage implements OnInit {
     })
     .then((res: AppleSignInResponse) => {
       // https://developer.apple.com/documentation/signinwithapplerestapi/verifying_a_user
-      // alert('Send token to apple for verification: ' + res.identityToken);
+      alert('Send token to apple for verification: ' + res);
       // console.log(res);
-      const formData = new FormData();
-      formData.append('username',res.fullName.familyName);
-      formData.append('password',res.fullName.familyName);
-      formData.append('email',res.email);
-      formData.append('name',res.fullName.familyName);
-      formData.append('surname',res.fullName.givenName);
-      formData.append('type','general');
-      formData.append('package','');
-      formData.append('via','appleId');
-      this.api.postdata('login/loginApple',formData).subscribe(res=>{
-        this.loginDetail = res;
-        if (this.loginDetail.result == "success") {
-          this.storage.set('token', this.loginDetail.token).then((data)=>{
-            this.route.navigateByUrl('/home');
-          });
-          loading.present();
-        }else{
-          // this.status_login = this.loginDetail.result;
-        }
-      })
+      // const formData = new FormData();
+      // formData.append('username',res.fullName.familyName);
+      // formData.append('password',res.fullName.familyName);
+      // formData.append('email',res.email);
+      // formData.append('name',res.fullName.familyName);
+      // formData.append('surname',res.fullName.givenName);
+      // formData.append('type','general');
+      // formData.append('package','');
+      // formData.append('via','appleId');
+      // this.api.postdata('login/loginApple',formData).subscribe(res=>{
+      //   this.loginDetail = res;
+      //   if (this.loginDetail.result == "success") {
+      //     this.storage.set('token', this.loginDetail.token).then((data)=>{
+      //       this.route.navigateByUrl('/home');
+      //     });
+      //     loading.present();
+      //   }else{
+
+      //   }
+      // })
       // this.api.getdata('login/loginApple&email='+res.email+'&name='+res.fullName.familyName+'&surname='+res.fullName.givenName).subscribe(res=>{
       //   this.loginDetailApple = res;
       //   if (this.loginDetailApple.result == "success") {
