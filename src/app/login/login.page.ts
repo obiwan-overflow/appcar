@@ -22,6 +22,14 @@ export class LoginPage implements OnInit {
   datalogin:any;
   users:any;
   loginDetailApple:any;
+  identityToken:any;
+
+  token:any;
+  username:any;
+  password:any;
+  email:any;
+  name:any;
+  surname:any;
   constructor(
     public api: RestApiService,
     private storage: Storage,
@@ -99,11 +107,6 @@ export class LoginPage implements OnInit {
   }
 
   async appleLogin(){
-    const loading = await this.loadingController.create({
-      cssClass: 'my-custom-class',
-      message: 'Please wait...',
-      duration: 2000
-    });
     this.signInWithApple.signin({
       requestedScopes: [
         ASAuthorizationAppleIDRequest.ASAuthorizationScopeFullName,
@@ -111,47 +114,112 @@ export class LoginPage implements OnInit {
       ]
     })
     .then((res: AppleSignInResponse) => {
+      this.storage.set('username',res.fullName.familyName);
+      this.storage.set('password',res.fullName.familyName);
+      this.storage.set('email',res.email);
+      this.storage.set('name',res.fullName.familyName);
+      this.storage.set('surname',res.fullName.givenName);
+      this.storage.set('token',res.identityToken).then((data)=>{
+        this.registerAppleId();
+      })
       // https://developer.apple.com/documentation/signinwithapplerestapi/verifying_a_user
-      alert('Send token to apple for verification: ' + res);
+      // alert('Send token to apple for verification: ' + res.identityToken);
       // console.log(res);
-      // const formData = new FormData();
-      // formData.append('username',res.fullName.familyName);
-      // formData.append('password',res.fullName.familyName);
-      // formData.append('email',res.email);
-      // formData.append('name',res.fullName.familyName);
-      // formData.append('surname',res.fullName.givenName);
-      // formData.append('type','general');
-      // formData.append('package','');
-      // formData.append('via','appleId');
-      // this.api.postdata('login/loginApple',formData).subscribe(res=>{
-      //   this.loginDetail = res;
+      // this.api.getdata('login/loginAppleToken&token='+res.identityToken).subscribe(dataToken=>{
+      //   this.loginDetail = dataToken;
       //   if (this.loginDetail.result == "success") {
       //     this.storage.set('token', this.loginDetail.token).then((data)=>{
       //       this.route.navigateByUrl('/home');
       //     });
-      //     loading.present();
       //   }else{
-
-      //   }
-      // })
-      // this.api.getdata('login/loginApple&email='+res.email+'&name='+res.fullName.familyName+'&surname='+res.fullName.givenName).subscribe(res=>{
-      //   this.loginDetailApple = res;
-      //   if (this.loginDetailApple.result == "success") {
-      //     this.storage.set('token', this.loginDetailApple.token).then((data)=>{
-      //       this.route.navigateByUrl('/home');
-      //     });
-      //     loading.present();
-      //   }else{
-      //     // this.status_login = this.loginDetail.result;
+      //     const formData = new FormData();
+      //     formData.append('token',res.identityToken);
+      //     formData.append('username',res.fullName.familyName);
+      //     formData.append('password',res.fullName.familyName);
+      //     formData.append('email',res.email);
+      //     formData.append('name',res.fullName.familyName);
+      //     formData.append('surname',res.fullName.givenName);
+      //     formData.append('type','general');
+      //     formData.append('package','');
+      //     formData.append('via','appleId');
+      //     this.api.postdata('login/loginApple',formData).subscribe(res=>{
+      //       this.loginDetail = res;
+      //       if (this.loginDetail.result == "success") {
+      //         this.storage.set('token', this.loginDetail.token).then((data)=>{
+      //           this.route.navigateByUrl('/home');
+      //         });
+      //         loading.present();
+      //       }else{
+      //         this.loginfailed();
+      //       }
+      //     }) 
       //   }
       // })
     })
     .catch((error: AppleSignInErrorResponse) => {
-      alert(error.code + ' ' + error.localizedDescription);
+      // alert(error.code + ' ' + error.localizedDescription);
       console.error(error);
     });
   }
 
+  async registerAppleId(){
+    this.storage.get('token').then((dataToken)=>{
+      this.token = dataToken;
+      this.storage.get('username').then((dataUser)=>{
+        this.username = dataUser;
+        this.storage.get('password').then((dataPass)=>{
+          this.password = dataPass;
+          this.storage.get('email').then((dataEmail)=>{
+            this.email = dataEmail;
+            this.storage.get('name').then((dataName)=>{
+              this.name = dataName;
+              this.storage.get('surname').then((dataSurname)=>{
+                this.surname = dataSurname;
+
+                const formDataApple = new FormData();
+                formDataApple.append('token',this.token);
+                formDataApple.append('username',this.username);
+                formDataApple.append('password',this.password);
+                formDataApple.append('email',this.email);
+                formDataApple.append('name',this.name);
+                formDataApple.append('surname',this.surname);
+                formDataApple.append('type','general');
+                formDataApple.append('via','appleId');
+                this.api.postdata('login/loginApple',formDataApple).subscribe(res=>{});
+                this.updateComplete();
+              })
+            })
+          })
+        })
+      })
+    })
+    // const loading = await this.loadingController.create({
+    //   cssClass: 'my-custom-class',
+    //   message: 'Please wait...',
+    //   duration: 2000
+    // });
+    // const formDataApple = new FormData();
+    // formDataApple.append('token',this.token);
+    // formDataApple.append('username',this.username);
+    // formDataApple.append('password',this.password);
+    // formDataApple.append('email',this.email);
+    // formDataApple.append('name',this.name);
+    // formDataApple.append('surname',this.surname);
+    // formDataApple.append('type','general');
+    // formDataApple.append('via','appleId');
+    // await this.api.postdata('login/loginApple',formDataApple).subscribe(res=>{
+    //   this.loginDetail = res;
+    //   if (this.loginDetail.result == "success") {
+    //     this.route.navigateByUrl('/home');
+    //     loading.present();
+    //   }else{
+    //     this.loginfailed();
+    //   }
+    // }) 
+  }
+  async updateComplete(){
+    await this.route.navigateByUrl('/home');
+  }
 
   async getUserDetail(userid:any){
     const loading = await this.loadingController.create({
