@@ -20,7 +20,7 @@ const routes: Routes = [
     loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
   },
   {
-    path: 'profile/announce',
+    path: 'profile/announce/:pageid',
     loadChildren: () => import('./announce/announce.module').then( m => m.AnnouncePageModule)
   },
   {
@@ -72,7 +72,7 @@ const routes: Routes = [
     loadChildren: () => import('./car-add/car-add.module').then( m => m.CarAddPageModule)
   },
   {
-    path: 'profile/announce/car-add',
+    path: 'profile/announce/:pageid/car-add',
     loadChildren: () => import('./car-add/car-add.module').then( m => m.CarAddPageModule)
   },
   {
@@ -80,7 +80,7 @@ const routes: Routes = [
     loadChildren: () => import('./car-add/car-add.module').then( m => m.CarAddPageModule)
   },
   {
-    path: 'profile/announce/edit/:id',
+    path: 'profile/announce/:pageid/edit/:id',
     loadChildren: () => import('./car-edit/car-edit.module').then( m => m.CarEditPageModule)
   },
   {
@@ -92,7 +92,7 @@ const routes: Routes = [
     loadChildren: () => import('./car-detail/car-detail.module').then( m => m.CarDetailPageModule)
   },
   {
-    path: 'profile/announce/car-detail/:id',
+    path: 'profile/announce/:pageid/car-detail/:id',
     loadChildren: () => import('./car-detail/car-detail.module').then( m => m.CarDetailPageModule)
   },
   {

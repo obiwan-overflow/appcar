@@ -35,6 +35,8 @@ export class CarAddPage implements OnInit {
   imagesarray: any = [];
   userImg: any = '';
   base64Img = '';
+
+  clicked:boolean;
   gelleryOptions: CameraOptions = {
     quality: 50,
     sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
@@ -75,12 +77,12 @@ export class CarAddPage implements OnInit {
       duration: 500
     });
     this.model_id = $event.target.value;
-    this.api.getdata('cars/getListFace&brand_id='+this.brand_id+'&model_id='+this.model_id).subscribe(
+    await this.api.getdata('cars/getListFace&brand_id='+this.brand_id+'&model_id='+this.model_id).subscribe(
       res=>{
         this.listface = res;
       }
     )
-    this.api.getdata('cars/getListModel&brand_id='+this.brand_id+'&model_id='+this.model_id).subscribe(
+    await this.api.getdata('cars/getListModel&brand_id='+this.brand_id+'&model_id='+this.model_id).subscribe(
       res=>{
         this.listmodel = res;
       }
@@ -101,7 +103,7 @@ export class CarAddPage implements OnInit {
           if (this.cardata.generation_id == null) {
             this.cardata.generation_id = "1";
           }
-          console.log(this.cardata);
+          // console.log(this.cardata);
           this.api.getdata('cars/getGeneration&id='+this.cardata.generation_id).subscribe(res=>{
             this.val_gen = res;
             this.title = this.cardata.year_id+" "+this.val_brand.text+" "+this.val_gen.text;
@@ -127,10 +129,10 @@ export class CarAddPage implements OnInit {
             this.api.postdata('cars/addCar',formData).subscribe(
               res=>{
                 if(res.result == "success"){
-                  this.status_detail = "success";
-                  this.route.navigateByUrl('profile/announce');
+                  // this.status_detail = "success";
+                  this.route.navigateByUrl('profile/announce/1');
                 }else{
-                  this.status_detail = "fail";
+                  // this.status_detail = "fail";
                 }
               },err=>{
                 console.log(err);
@@ -181,6 +183,9 @@ export class CarAddPage implements OnInit {
     });
 
     await alert.present();
+  }
+  async actionMethod(){
+    this.clicked = false;
   }
 
 }

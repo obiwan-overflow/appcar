@@ -20,7 +20,7 @@
 			<ion-col size="12">
 				<ion-button expand="block" (click)="fbLogin()">Sing in with facebook</ion-button>
 			</ion-col>
-			<ion-col size="12">
+			<ion-col size="12" *ngIf="ios">
 				<ion-button expand="block" (click)="appleLogin()" color="dark"> Sign in with Apple</ion-button>
 			</ion-col>
 		</ion-row>

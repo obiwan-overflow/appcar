@@ -120,8 +120,9 @@ listmodelSelect:any;
 
   async ionViewWillEnter(){
     this.car_id = this.route.snapshot.paramMap.get('id');
-    this.api.getdata('cars/getCarDetail&id='+this.car_id).subscribe(
+    await this.api.getdata('cars/getCarDetail&id='+this.car_id).subscribe(
       res_data=>{
+        // console.log(res_data);
         this.car_mile = res_data.mileage;
         this.car_price = res_data.price;
         this.car_label = res_data.label;
@@ -130,16 +131,16 @@ listmodelSelect:any;
         this.car_detail = res_data.detail;
         this.car_images = res_data.images;
         this.car_brand = res_data.Car_band_id;
-        this.car_brand1 = res_data.Car_band_id;
-        this.car_brand2 = res_data.Car_band_id;
+        // this.car_brand1 = res_data.Car_band_id;
+        // this.car_brand2 = res_data.Car_band_id;
         this.car_type_id = res_data.Car_type_id;
         this.car_cc = res_data.power;
         this.car_year = res_data.year;
         this.car_gear_id = res_data.gear.id;
         this.car_gear_name = res_data.gear.text;
         this.car_model = res_data.Car_model_id;
-        this.car_model1 = res_data.Car_model_id;
-        this.car_model2 = res_data.Car_model_id;
+        // this.car_model1 = res_data.Car_model_id;
+        // this.car_model2 = res_data.Car_model_id;
         this.sub_model = res_data.Car_submodel_id;
         this.car_body = res_data.Car_body_id;
         this.car_type_name = res_data.type;
@@ -174,17 +175,15 @@ listmodelSelect:any;
         this.api.getdata('cars/getLlistGeneration&brand_id='+this.car_brand).subscribe(res=>{
           this.listgen = res;
           this.MyDefaultGenIdValue = this.car_model;
-
-          this.api.getdata('cars/getListFace&brand_id='+this.car_brand2+'&model_id='+this.car_model2).subscribe(res_face=>{
-            this.listface = res_face;
-            this.MyDefaultFaceIdValue = this.car_body;
-           })
-          this.api.getdata('cars/getListModel&brand_id='+this.car_brand1+'&model_id='+this.car_model1).subscribe(res_model=>{
-            this.listmodel = res_model;
-            this.MyDefaultModelIdValue = this.sub_model;
-          })
         })
-
+        this.api.getdata('cars/getListModel&brand_id='+this.car_brand+'&model_id='+this.sub_model).subscribe(res=>{
+          this.listmodel = res;
+          this.MyDefaultModelIdValue = this.sub_model;
+        })
+        this.api.getdata('cars/getListFace&brand_id='+this.car_brand+'&model_id='+this.sub_model).subscribe(res=>{
+          this.listface = res;
+          this.MyDefaultFaceIdValue = this.car_body;
+         })
         // let TIME_IN_MS = 2000;
         // let hideFooterTimeout = setTimeout( () => {
         // this.api.getdata('cars/getListFace&brand_id='+this.car_brand2+'&model_id='+this.car_model2).subscribe(res_face=>{
@@ -226,10 +225,10 @@ listmodelSelect:any;
     const loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
       message: 'Please wait...',
-      duration: 500
+      duration: 2000
     });
     this.brand_id = $event.target.value;
-    this.api.getdata('cars/getLlistGeneration&brand_id='+this.brand_id).subscribe(
+    await this.api.getdata('cars/getLlistGeneration&brand_id='+this.brand_id).subscribe(
       res=>{
         this.listgen = res;
       }
@@ -240,19 +239,19 @@ listmodelSelect:any;
     const loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
       message: 'Please wait...',
-      duration: 500
+      duration: 2000
     });
     this.model_id = $event.target.value;
-    this.api.getdata('cars/getListFace&brand_id='+this.brand_id+'&model_id='+this.model_id).subscribe(
-      res=>{
-        this.listface = res;
+    await this.api.getdata('cars/getListModel&brand_id='+this.brand_id+'&model_id='+this.model_id).subscribe(
+      ResponseModel=>{
+        this.listmodel = ResponseModel;
       }
-    )
-    this.api.getdata('cars/getListModel&brand_id='+this.brand_id+'&model_id='+this.model_id).subscribe(
-      res=>{
-        this.listmodel = res;
+    );
+    await this.api.getdata('cars/getListFace&brand_id='+this.brand_id+'&model_id='+this.model_id).subscribe(
+      ResponseFace=>{
+        this.listface = ResponseFace;
       }
-    )
+    );
     await loading.present();
   }
 

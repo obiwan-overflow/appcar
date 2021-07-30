@@ -15,9 +15,9 @@
 					<ion-text color="theme">
 						<h3><strong>ข้อมูลรถยนต์</strong></h3>
 					</ion-text>
-					<ion-text color="success">
+					<!-- <ion-text color="success">
 						<h1>{{status_detail}}</h1>
-					</ion-text>
+					</ion-text> -->
 				</ion-col>
 			</ion-row>
 			<form (ngSubmit)="formcar()">
@@ -37,19 +37,19 @@
 				<ion-col size="12">
 					<label>รุ่นรถยนต์</label>
 					<ion-select value="0" class="border-input" [(ngModel)]="cardata.generation_id" name="generation_id" (ionChange)="getFace($event)">
-						<ion-select-option value="{{listgen.id}}" *ngFor="let listgen of listgen">{{listgen.text}}</ion-select-option>
+						<ion-select-option *ngFor="let listgens of listgen" value="{{listgens.id}}">{{listgens.text}}</ion-select-option>
 					</ion-select>
 				</ion-col>
 				<ion-col size="12">
 					<label>โฉมรถยนต์</label>
 					<ion-select value="0" class="border-input" [(ngModel)]="cardata.model_id" name="model_id">
-						<ion-select-option value="{{listmodel.id}}" *ngFor="let listmodel of listmodel">{{listmodel.text}}</ion-select-option>
+						<ion-select-option *ngFor="let listmodels of listmodel" value="{{listmodels.id}}">{{listmodels.text}}</ion-select-option>
 					</ion-select>
 				</ion-col>
 				<ion-col size="12">
 					<label>รายละเอียดรุ่น</label>
 					<ion-select value="0" class="border-input" [(ngModel)]="cardata.face_id" name="face_id">
-						<ion-select-option value="{{listface.id}}" *ngFor="let listface of listface">{{listface.text}}</ion-select-option>
+						<ion-select-option *ngFor="let listfaces of listface" value="{{listfaces.id}}">{{listfaces.text}}</ion-select-option>
 					</ion-select>
 				</ion-col>
 				<ion-col size="12">
@@ -105,7 +105,7 @@
 					<ion-input class="border-input" [(ngModel)]="cardata.yb" name="yb"></ion-input>	
 				</ion-col> -->
 				<ion-col size="12">
-					<ion-button color="theme" type="submit" expand="block">บันทึกข้อมูล</ion-button>
+					<ion-button color="theme" type="submit" expand="block" [disabled]="clicked" (click)="actionMethod(); clicked = true;">บันทึกข้อมูล</ion-button>
 				</ion-col>
 			</ion-row>
 			</form>

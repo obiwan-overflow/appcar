@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RestApiService } from '../rest-api.service';
 import { Storage } from '@ionic/storage';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController, Platform } from '@ionic/angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 import { SignInWithApple, AppleSignInResponse, AppleSignInErrorResponse, ASAuthorizationAppleIDRequest } from '@ionic-native/sign-in-with-apple/ngx';
@@ -30,6 +30,9 @@ export class LoginPage implements OnInit {
   email:any;
   name:any;
   surname:any;
+
+  ios:boolean;
+  android:boolean;
   constructor(
     public api: RestApiService,
     private storage: Storage,
@@ -38,7 +41,8 @@ export class LoginPage implements OnInit {
     public loadingController: LoadingController,
     private iab: InAppBrowser,
     private fb: Facebook,
-    private signInWithApple: SignInWithApple
+    private signInWithApple: SignInWithApple,
+    public platform: Platform
   ) { 
      var users = { id: '', name: '', email: '', picture: { data: { url: '' } } };
      fb.getLoginStatus()
@@ -51,6 +55,9 @@ export class LoginPage implements OnInit {
         }
       })
       .catch(e => console.log(e));
+
+      this.ios = platform.is('ios');
+      this.android = platform.is('android');
   }
 
   ngOnInit(): void {
@@ -184,6 +191,7 @@ export class LoginPage implements OnInit {
                 formDataApple.append('name',this.name);
                 formDataApple.append('surname',this.surname);
                 formDataApple.append('type','general');
+                formDataApple.append('package','jaidee');
                 formDataApple.append('via','appleId');
                 this.api.postdata('login/loginApple',formDataApple).subscribe(res=>{});
                 this.updateComplete();

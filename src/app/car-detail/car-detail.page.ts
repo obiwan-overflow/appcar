@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RestApiService } from '../rest-api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 
 @Component({
@@ -34,7 +35,7 @@ export class CarDetailPage implements OnInit {
   public pageNumber:any;
   public pageBrand:any; 
   public pageType:any;  
-  constructor(public api: RestApiService,public route: ActivatedRoute,private storage: Storage) { 
+  constructor(public api: RestApiService,public route: ActivatedRoute,private storage: Storage,private iab: InAppBrowser) { 
   	this.car_id = this.route.snapshot.paramMap.get('id');
   	this.api.getdata('cars/getCarDetail&id='+this.car_id).subscribe(res => {
       this.cardetail = res;
@@ -64,6 +65,10 @@ export class CarDetailPage implements OnInit {
   }
 
   ngOnInit() {
+  }
+  openlinetest(event){
+    var id = event;
+    const browser = this.iab.create('https://line.me/R/ti/p/~'+id,'_system','location=yes');
   }
   ionViewDidEnter() {
     
