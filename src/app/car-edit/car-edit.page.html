@@ -45,19 +45,28 @@
 				</ion-col>
 				<ion-col size="12">
 					<label>รุ่นรถยนต์</label>
-					<ion-select [(ngModel)]="todo.generation_id" class="border-input" name="generation_id" [compareWith]="compareWith" value="{{MyDefaultModelIdValue}}" (ionChange)="getFace($event)">
+					<!-- <ion-select [(ngModel)]="todo.generation_id" class="border-input" name="generation_id" [compareWith]="compareWith" value="{{MyDefaultModelIdValue}}" (ionChange)="getFace($event)">
+						<ion-select-option *ngFor="let listgens of listgen" value="{{listgens.id}}">{{listgens.text}}</ion-select-option>
+					</ion-select> -->
+					<ion-select [(ngModel)]="todo.model_id" class="border-input" name="model_id" [compareWith]="compareWith" value="{{MyDefaultModelIdValue}}" (ionChange)="getFace($event)">
 						<ion-select-option *ngFor="let listgens of listgen" value="{{listgens.id}}">{{listgens.text}}</ion-select-option>
 					</ion-select>
 				</ion-col>
 				<ion-col size="12">
 					<label>โฉมรถยนต์</label>
-					<ion-select [(ngModel)]="todo.model_id" class="border-input" name="model_id" [compareWith]="compareWith" value="{{MyDefaultGenIdValue}}">
+					<!-- <ion-select [(ngModel)]="todo.model_id" class="border-input" name="model_id" [compareWith]="compareWith" value="{{MyDefaultGenIdValue}}">
+						<ion-select-option *ngFor="let listmodels of listmodel" value="{{listmodels.id}}">{{listmodels.text}}</ion-select-option>
+					</ion-select> -->
+					<ion-select [(ngModel)]="todo.generation_id" class="border-input" name="generation_id" [compareWith]="compareWith" value="{{MyDefaultFaceIdValue}}">
 						<ion-select-option *ngFor="let listmodels of listmodel" value="{{listmodels.id}}">{{listmodels.text}}</ion-select-option>
 					</ion-select>
 				</ion-col>
 				<ion-col size="12">
 					<label>รายละเอียดรุ่น</label>
-					<ion-select [(ngModel)]="todo.face_id" class="border-input" name="face_id" [compareWith]="compareWith" value="{{MyDefaultFaceIdValue}}">
+					<!-- <ion-select [(ngModel)]="todo.face_id" class="border-input" name="face_id" [compareWith]="compareWith" value="{{MyDefaultFaceIdValue}}">
+						<ion-select-option *ngFor="let listfaces of listface" value="{{listfaces.id}}">{{listfaces.text}}</ion-select-option>
+					</ion-select> -->
+					<ion-select [(ngModel)]="todo.face_id" class="border-input" name="face_id" [compareWith]="compareWith" value="{{MyDefaultGenIdValue}}">
 						<ion-select-option *ngFor="let listfaces of listface" value="{{listfaces.id}}">{{listfaces.text}}</ion-select-option>
 					</ion-select>
 				</ion-col>

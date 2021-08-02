@@ -14,12 +14,20 @@
 	<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     	<ion-refresher-content></ion-refresher-content>
   	</ion-refresher>
-	<ion-searchbar placeholder="ค้นหา"></ion-searchbar>
+	<!-- <ion-searchbar placeholder="ค้นหา"></ion-searchbar> -->
+	<ion-grid>
+		<ion-row>
+			<ion-col size="12">
+				<ion-button expand="block" color="theme" routerLink="searchcarme">
+					<ion-icon name="search-outline"></ion-icon> ค้นหารถตามยี่ห้อรถ</ion-button>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
 	<ion-card *ngFor="let lists of listcar">
 	  <ion-row>
 	  	<ion-col size="6">
-	  		<img src="{{lists.image}}" alt="" *ngIf="lists.image !== ''">
-	  		<img src="assets/images/no-images.jpg" alt="" *ngIf="lists.image == ''">
+	  		<img src="{{lists.image}}" alt="" *ngIf="lists.image !== ''" routerLink="car-detail/{{lists.id}}">
+	  		<img src="assets/images/no-images.jpg" alt="" *ngIf="lists.image == ''" routerLink="car-detail/{{lists.id}}">
 	  	</ion-col>
 	  	<ion-col size="6">
 	  		<ion-text>
@@ -30,6 +38,13 @@
 	  		<ion-button routerLink="/promote/{{lists.id}}" expand="full" color="secondary" size="small" type="submit">ดันโปรโมท</ion-button>
 			<ion-button routerLink="edit/{{lists.id}}" expand="full" color="tertiary" size="small">แก้ไขข้อมูลรถ</ion-button>
 			<ion-button expand="full" color="danger" size="small" (click)="btnDelcar(lists.id)">ลบ</ion-button>	
+	  	</ion-col>
+	  </ion-row>
+	  <ion-row *ngIf=" listcar == ''">
+	  	<ion-col size="12">
+	  		<ion-text color="danger">
+				<h3><ion-icon name="alert-outline"></ion-icon> ไม่พบข้อมูล</h3>
+			</ion-text>
 	  	</ion-col>
 	  </ion-row>
 	</ion-card>

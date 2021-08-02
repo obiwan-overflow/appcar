@@ -16,6 +16,7 @@ export class AnnouncePage implements OnInit {
   pagePrev:any;
   pageNext:any;
   pageNumber:any;
+  brandId:any;
   constructor(
     public api: RestApiService,
     private storage: Storage,
@@ -24,6 +25,7 @@ export class AnnouncePage implements OnInit {
     public route:ActivatedRoute) {
     // this.loaddataCar();
     this.pageNumber = this.route.snapshot.paramMap.get('pageid');
+    this.brandId = this.route.snapshot.paramMap.get('brandid');
   }
 
   ngOnInit() {
@@ -37,7 +39,7 @@ export class AnnouncePage implements OnInit {
     });
     await loading.present();
     this.storage.get('token').then((data)=>{
-      this.api.getdata('announce/getListCars&token='+data+'&page='+this.pageNumber).subscribe(
+      this.api.getdata('announce/getListCars&token='+data+'&page='+this.pageNumber+'&brandid='+this.brandId).subscribe(
         res=>{
           // console.log(res);
           this.listcar     = res.cars;

@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar color="theme">
+  	<ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>ค้นหารถ</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+	<ion-grid>
+		<ion-row>
+			<ion-col size="12">
+				<ion-text color="theme">
+					<h3><strong>เลือกดูตามยี่ห้อ</strong></h3>
+				</ion-text>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+	<div class="card">
+		<ion-row>
+			<ion-col size="4" *ngFor="let list of listbrands">
+				<div class="logo-car">
+					<img src="{{list.image}}" routerLink="/profile/announce/1/{{list.id}}"><br>
+					<small>{{list.name}}</small>
+				</div>
+			</ion-col>
+		</ion-row>
+	</div>
+</ion-content>

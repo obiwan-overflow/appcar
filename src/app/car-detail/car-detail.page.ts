@@ -31,6 +31,7 @@ export class CarDetailPage implements OnInit {
   type:any;
   username:any;
   images:any;
+  bodyname:any;
 
   public pageNumber:any;
   public pageBrand:any; 
@@ -39,6 +40,7 @@ export class CarDetailPage implements OnInit {
   	this.car_id = this.route.snapshot.paramMap.get('id');
   	this.api.getdata('cars/getCarDetail&id='+this.car_id).subscribe(res => {
       this.cardetail = res;
+      console.log(res);
       this.price = this.cardetail.price;
       this.image = this.cardetail.image;
       this.detail = this.cardetail.detail;
@@ -48,6 +50,7 @@ export class CarDetailPage implements OnInit {
       this.model = this.cardetail.model;
       this.name = this.cardetail.name;
       this.submodel = this.cardetail.submodel;
+      this.bodyname = this.cardetail.body;
       this.year = this.cardetail.year;
       this.power = this.cardetail.power;
       this.gear = this.cardetail.gear.text;

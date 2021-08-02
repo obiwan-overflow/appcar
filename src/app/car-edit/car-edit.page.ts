@@ -114,8 +114,14 @@ listmodelSelect:any;
  
   
 
-  constructor(public api:RestApiService,public route:ActivatedRoute,private storage:Storage,private camera : Camera,public alertController:AlertController,public loadingController: LoadingController) {
-
+  constructor(
+    public api:RestApiService,
+    public route:ActivatedRoute,
+    private storage:Storage,
+    private camera : Camera,
+    public alertController:AlertController,
+    public loadingController: LoadingController,
+    public router:Router) {
   }
 
   async ionViewWillEnter(){
@@ -174,11 +180,11 @@ listmodelSelect:any;
         })
         this.api.getdata('cars/getLlistGeneration&brand_id='+this.car_brand).subscribe(res=>{
           this.listgen = res;
-          this.MyDefaultGenIdValue = this.car_model;
+          this.MyDefaultModelIdValue = this.car_model;
         })
         this.api.getdata('cars/getListModel&brand_id='+this.car_brand+'&model_id='+this.sub_model).subscribe(res=>{
           this.listmodel = res;
-          this.MyDefaultModelIdValue = this.sub_model;
+          this.MyDefaultGenIdValue = this.sub_model;
         })
         this.api.getdata('cars/getListFace&brand_id='+this.car_brand+'&model_id='+this.sub_model).subscribe(res=>{
           this.listface = res;
@@ -258,14 +264,26 @@ listmodelSelect:any;
   ngOnInit():void {
     this.todo = new CarEdit();
   }
-  
+  async openGallery() {
+    this.camera.getPicture(this.gelleryOptions).then((imgData) => {
+     console.log('image data =>  ', imgData);
+     this.base64Img = 'data:image/jpeg;base64,' + imgData;
+     this.userImg = this.base64Img;
+     this.updateImages(this.userImg);
+     }, (err) => {
+     console.log(err);
+     })
+  }
+  async updateImages(images){
+    this.imagesarray.push(images);
+  }
   async editForm(){
     console.log(this.todo);
     this.storage.get('token').then((data)=>{
       this.token = data;
       this.api.getdata('cars/getBand&id='+this.todo.brand_id).subscribe(res=>{
         this.val_brand = res;
-        this.api.getdata('cars/getGeneration&id='+this.todo.generation_id).subscribe(res=>{
+        this.api.getdata('cars/getGeneration&id='+this.todo.model_id).subscribe(res=>{
           this.val_gen = res;
           this.title = this.todo.year_id+" "+this.val_brand.text+" "+this.val_gen.text;
 
@@ -308,21 +326,17 @@ listmodelSelect:any;
       cssClass: 'my-custom-class',
       subHeader: 'success',
       message: 'Edit Complete',
+      buttons: [
+        {
+          text: 'Confirm',
+          handler: () => {
+            // Here for to go!
+            this.router.navigateByUrl('profile/announce/1/0');
+          }
+        }
+      ]
     });
     await alert.present();
-  }
-  async openGallery() {
-    this.camera.getPicture(this.gelleryOptions).then((imgData) => {
-     console.log('image data =>  ', imgData);
-     this.base64Img = 'data:image/jpeg;base64,' + imgData;
-     this.userImg = this.base64Img;
-     this.updateImages(this.userImg);
-     }, (err) => {
-     console.log(err);
-     })
-  }
-  async updateImages(images){
-    this.imagesarray.push(images);
   }
   async delimages(images){
     const alert = await this.alertController.create({
