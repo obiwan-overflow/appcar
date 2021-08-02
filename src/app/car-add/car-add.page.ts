@@ -46,7 +46,13 @@ export class CarAddPage implements OnInit {
     allowEdit: true
   }
 
-  constructor(public api:RestApiService,private storage:Storage,public route:Router,private camera : Camera,public alertController:AlertController,public loadingController: LoadingController) {
+  constructor(
+    public api:RestApiService,
+    private storage:Storage,
+    public route:Router,
+    private camera : Camera,
+    public alertController:AlertController,
+    public loadingController: LoadingController) {
 
     this.api.getdata('cars/getListType').subscribe(res=>{this.listtype = res;});
     this.api.getdata('cars/getListBand').subscribe(res=>{this.listbrand = res;});
@@ -100,11 +106,11 @@ export class CarAddPage implements OnInit {
         }
         this.api.getdata('cars/getBand&id='+this.cardata.brand_id).subscribe(res=>{
           this.val_brand = res;
-          if (this.cardata.generation_id == null) {
-            this.cardata.generation_id = "1";
-          }
+          // if (this.cardata.generation_id == null) {
+          //   this.cardata.generation_id = "1";
+          // }
           // console.log(this.cardata);
-          this.api.getdata('cars/getGeneration&id='+this.cardata.generation_id).subscribe(res=>{
+          this.api.getdata('cars/getGeneration&id='+this.cardata.model_id).subscribe(res=>{
             this.val_gen = res;
             this.title = this.cardata.year_id+" "+this.val_brand.text+" "+this.val_gen.text;
             
@@ -130,7 +136,8 @@ export class CarAddPage implements OnInit {
               res=>{
                 if(res.result == "success"){
                   // this.status_detail = "success";
-                  this.route.navigateByUrl('profile/announce/1');
+                  // this.InsertSuccess();
+                  // this.route.navigateByUrl('profile/announce/1');
                 }else{
                   // this.status_detail = "fail";
                 }
@@ -142,6 +149,23 @@ export class CarAddPage implements OnInit {
         })
       }
     })
+  }
+  async InsertSuccess(){
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      subHeader: 'success',
+      message: 'Complete',
+      buttons: [
+        {
+          text: 'Confirm',
+          handler: () => {
+            // Here for to go!
+            this.route.navigateByUrl('profile/announce/1/0');
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
   async openGallery() {
     this.camera.getPicture(this.gelleryOptions).then((imgData) => {
@@ -186,6 +210,7 @@ export class CarAddPage implements OnInit {
   }
   async actionMethod(){
     this.clicked = false;
+    this.InsertSuccess();
   }
 
 }
