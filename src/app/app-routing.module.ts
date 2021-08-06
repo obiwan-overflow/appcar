@@ -168,7 +168,7 @@ const routes: Routes = [
     loadChildren: () => import('./filter/filter.module').then( m => m.FilterPageModule)
   },
   {
-    path: 'profile/announce/1/:brandid/searchcarme',
+    path: 'profile/announce/:page/:brandid/searchcarme',
     loadChildren: () => import('./searchcarme/searchcarme.module').then( m => m.SearchcarmePageModule)
   },
 ];

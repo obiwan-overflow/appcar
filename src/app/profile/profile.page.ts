@@ -28,20 +28,26 @@ export class ProfilePage implements OnInit {
    //  });
     
   }
-  async ionViewWillEnter(){
+  async ionViewDidEnter(){
     await this.storage.get('token').then((data)=>{
-      if (data == null) {
+      this.token = data;
+      // if (data == null) {
+      //   this.login = "failed";
+      // }else{
+      //   this.login = "success";
+      //   this.token = data;
+      // }
+    })
+    await this.api.getdata('profile/getProfile&token='+this.token).subscribe(res=>{
+      if (res.result == "fail") {
         this.login = "failed";
       }else{
         this.login = "success";
-        this.token = data;
+        this.profile     = res;
+        this.fullname    = this.profile.Name+" "+this.profile.Surname;
+        this.coin        = this.profile.coin;
+        this.image       = this.profile.path_image_resize;
       }
-    })
-    this.api.getdata('profile/getProfile&token='+this.token).subscribe(res=>{
-      this.profile     = res;
-      this.fullname    = this.profile.Name+" "+this.profile.Surname;
-      this.coin        = this.profile.coin;
-      this.image       = this.profile.path_image_resize;
     },err=>{
       console.log(err);
     })
