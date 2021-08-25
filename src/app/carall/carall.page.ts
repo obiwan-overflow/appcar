@@ -58,20 +58,20 @@ export class CarallPage implements OnInit {
       }
     );
   }
-  async ionViewWillEnter(){
-    this.api.getdata('cars/getListCarall&page='+this.pageNumber+'&Car_brand_id='+this.pageBrand+'&Car_type_id='+this.pageType+'&Car_model_id='+this.pageModel+'&Car_body_id='+this.pageBody+'&Car_submodel_id='+this.pageSubmodel+'&year='+this.pageYear+'&price='+this.pagePrice+'&province='+this.pageProvince).subscribe(
-      res=>{
-        this.list = res;
-        this.listcars = this.list.cars;
-        this.page = this.list.page;
-        this.pagePrev = this.list.page_prev;
-        this.pageNext = this.list.page_next;
+  // async ionViewWillEnter(){
+  //   this.api.getdata('cars/getListCarall&page='+this.pageNumber+'&Car_brand_id='+this.pageBrand+'&Car_type_id='+this.pageType+'&Car_model_id='+this.pageModel+'&Car_body_id='+this.pageBody+'&Car_submodel_id='+this.pageSubmodel+'&year='+this.pageYear+'&price='+this.pagePrice+'&province='+this.pageProvince).subscribe(
+  //     res=>{
+  //       this.list = res;
+  //       this.listcars = this.list.cars;
+  //       this.page = this.list.page;
+  //       this.pagePrev = this.list.page_prev;
+  //       this.pageNext = this.list.page_next;
 
-      },err=>{
-        this.listcars = "";
-      }
-    );
-  }
+  //     },err=>{
+  //       this.listcars = "";
+  //     }
+  //   );
+  // }
   openlinetest(event){
     var id = event;
     // console.log(event);
